@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import topPanel from '@/components/TopPanel'
-import logo from '@/components/Logo'
-import mainMenu from '@/components/MainMenu'
-import secondLogos from '@/components/SecondLogos'
-import newspaperMenu from '@/components/NewspaperMenu'
-import search from '@/components/Search'
+import topPanel from '@/components/header/TopPanel'
+import logo from '@/components/header/Logo'
+import mainMenu from '@/components/header/MainMenu'
+import secondLogos from '@/components/header/SecondLogos'
+import newspaperMenu from '@/components/header/NewspaperMenu'
+import search from '@/components/header/Search'
 
 import mobiFooterMenu from '@/assets/params/header/mobiFooterMenu'
 

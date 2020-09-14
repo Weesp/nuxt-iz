@@ -1,92 +1,92 @@
-.tag-title{
-    .tag-title__box{
-        display: grid;
-        grid-template-columns: minmax(0,220px) 2fr;
-        position: relative;
-        align-items: center;
-        @media screen and (max-width: $phoneWidth) {
-            grid-template-columns: 1fr;
-        }
+.tag-title {
+  .tag-title__box {
+    display: grid;
+    grid-template-columns: minmax(0, 220px) 2fr;
+    position: relative;
+    align-items: center;
+    @media screen and (max-width: $phoneWidth) {
+      grid-template-columns: 1fr;
     }
-    .tag-title-image{
-        position: relative;
-        z-index: 2;
-        @media screen and (max-width: $phoneWidth) {
-            display: none;
-        }
+  }
+  .tag-title-image {
+    position: relative;
+    z-index: 2;
+    @media screen and (max-width: $phoneWidth) {
+      display: none;
     }
-    .tag-title__background{
-        position: absolute;
-        z-index: 1;
-        left: 0;
-        right: 0;
-        max-width: 970px;
-        height: 100%;
-        .background-mask{
-            background: #471d67;
-            overflow: hidden;
-            height: 100%;
-        }
-        .background-img{
-            min-width: 970px;
-            opacity: .33;
-            height: 100%;
-        }
+  }
+  .tag-title__background {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    max-width: 970px;
+    height: 100%;
+    .background-mask {
+      background: #471d67;
+      overflow: hidden;
+      height: 100%;
     }
-    .tag-title-content{
-        z-index: 2;
-        position: relative;
-        .tag-title-content__box{
-            padding: 20px;
-            color: #ffffff;
-            .tag-title-content__label{
-                font-size: 14px;
-            }
-            .tag-title-content__title{
-                font-size: 32px;
-                font-weight: bold;
-            }
-            .tag-title-content__text{
-                padding-top: 20px;
-                font-size: 16px;
-                line-height: 21px;
-            }
-        }
+    .background-img {
+      min-width: 970px;
+      opacity: 0.33;
+      height: 100%;
     }
+  }
+  .tag-title-content {
+    z-index: 2;
+    position: relative;
+    .tag-title-content__box {
+      padding: 20px;
+      color: #ffffff;
+      .tag-title-content__label {
+        font-size: 14px;
+      }
+      .tag-title-content__title {
+        font-size: 32px;
+        font-weight: bold;
+      }
+      .tag-title-content__text {
+        padding-top: 20px;
+        font-size: 16px;
+        line-height: 21px;
+      }
+    }
+  }
 }
-.tag-tabs{
-    .tag-tabs__box{
-        margin: 15px 0px;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        justify-items: center;
-        border-bottom: 1px solid #999999;
-        @media screen and (max-width: $phoneWidth) {
-            grid-template-columns: repeat(2, 1fr);
-            border-bottom: 0px;
-        }
-        @media screen and (max-width: $smPhoneWidth) {
-            grid-template-columns: repeat(1, 1fr);
-        }
-        .tag-tabs-item{
-            padding: 5px 0px;
-            display: flex;
-            justify-content: center;
-            cursor:pointer;
-            width: 100%;
-            border-bottom: 2px solid #ffffff;
-            @include transition-all;
-            .tag-tabs-item__text{
-                font-size: 16px;
-                font-weight: 600;
-                color: #797979
-            }
-            &.active{
-                border-bottom: 2px solid $mainSection;
-                .tag-tabs-item__text{
-                    color: #000000;
-                }
-            }
-        }
+.tag-tabs {
+  .tag-tabs__box {
+    margin: 15px 0px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    border-bottom: 1px solid #999999;
+    @media screen and (max-width: $phoneWidth) {
+      grid-template-columns: repeat(2, 1fr);
+      border-bottom: 0px;
     }
+    @media screen and (max-width: $smPhoneWidth) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .tag-tabs-item {
+      padding: 5px 0px;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      width: 100%;
+      border-bottom: 2px solid #ffffff;
+      @include transition-all;
+      .tag-tabs-item__text {
+        font-size: 16px;
+        font-weight: 600;
+        color: #797979;
+      }
+      &.active {
+        border-bottom: 2px solid $mainSection;
+        .tag-tabs-item__text {
+          color: #000000;
+        }
+      }
+    }
+  }
 }

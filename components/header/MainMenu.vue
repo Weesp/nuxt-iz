@@ -48,11 +48,11 @@
           <div class="mobile-newspaper">
             <div class="mobile-newspaper__items__box">
               <a class="mobile-newspaper__item" href="/">
-                <img class="mobile-newspaper__item-icon" src="../assets/img/icons/newspaper.svg">
+                <img class="mobile-newspaper__item-icon" src="/assets/img/icons/newspaper.svg">
                 <div class="mobile-newspaper__item-label mobile-item__label">Газета</div>
               </a>
               <a class="mobile-newspaper__item" href="/">
-                <img class="mobile-newspaper__item-icon" src="../assets/img/icons/newspaper-plus.svg">
+                <img class="mobile-newspaper__item-icon" src="/assets/img/icons/newspaper-plus.svg">
                 <div class="mobile-newspaper__item-label mobile-item__label">Приложения</div>
               </a>
               <a class="mobile-newspaper__item" href="/">

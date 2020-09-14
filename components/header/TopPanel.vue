@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import rates from '@/components/Rates'
+import rates from '@/components/header/Rates'
 
 export default {
   components: {

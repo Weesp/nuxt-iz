@@ -12,7 +12,7 @@
           <svg class="logo-img">
             <use width="152" height="32" xlink:href="/sprite/sprite-svg.svg#header--iz-logo-full" href="/sprite/sprite-svg.svg#header--iz-logo-full" />
           </svg>
-          <img class="logo-menu__arrow" src="../assets/img/icons/arrow-logo.svg">
+          <img class="logo-menu__arrow" src="/assets/img/icons/arrow-logo.svg">
         </div>
       </label>
       <div class="logo__menu">
