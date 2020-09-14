@@ -3,6 +3,7 @@
     <izHeader
       :top-lincs="topPanel"
       :main-menu="mainMenu"
+      :rates="rates"
     />
     <div class="content-wrapper">
       <div class="tags-content__box">
@@ -107,20 +108,22 @@ export default {
     izHeader
   },
   async asyncData ({ $axios }) {
-    let ip, topPanel, mainMenu
-    // , json
+    let ip, topPanel, mainMenu, ratesIp, rates
     try {
       ip = await $axios.$get('https://iz.ru/api/0/tag/rossiia')
-      // json = await $axios.$get('https://iz.ru/api/course/all.json')
     } catch (e) {
       ip = []
-      topPanel = []
-      mainMenu = []
+    }
+    try {
+      ratesIp = await $axios.$get('https://iz.ru/api/course/all.json')
+    } catch (error) {
+      rates = {}
     }
     // console.log(json)
     try {
       topPanel = ip.included.topPanel.objects
       mainMenu = ip.included.menu.objects
+      rates = ratesIp
     } catch (e) {
       topPanel = []
       mainMenu = []
@@ -128,7 +131,8 @@ export default {
     return {
       all: ip,
       topPanel,
-      mainMenu
+      mainMenu,
+      rates
     }
   },
   data () {

@@ -10,6 +10,14 @@
       </div>
       <svg class="rates-arrow">
         <use
+          v-if="rates.usd.current >= rates.usd.old"
+          width="6"
+          height="12"
+          xlink:href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_up_green"
+          href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_up_green"
+        />
+        <use
+          v-else
           width="6"
           height="12"
           xlink:href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_down_red"
@@ -17,7 +25,7 @@
         />
       </svg>
       <div class="rates-value">
-        00.00s
+        {{ Math.round(rates.usd.current * 100) / 100 }}
       </div>
     </div>
     <div class="rates__box">
@@ -30,14 +38,22 @@
       </div>
       <svg class="rates-arrow">
         <use
+          v-if="rates.eur.current >= rates.eur.old"
           width="6"
           height="12"
           xlink:href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_up_green"
           href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_up_green"
         />
+        <use
+          v-else
+          width="6"
+          height="12"
+          xlink:href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_down_red"
+          href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_down_red"
+        />
       </svg>
       <div class="rates-value">
-        00.00
+        {{ Math.round(rates.eur.current * 100) / 100 }}
       </div>
     </div>
   </div>
@@ -64,14 +80,20 @@ export default {
   //     courseJson: []
   //   }
   // }
-  data ({ params }) {
-    this.$axios.get('https://iz.ru/api/course/all.json').then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    })
-    return { title: 'title' }
+  props: {
+    rates: {
+      type: Object,
+      default: () => {}
+    }
   }
+  // data ({ params }) {
+  //   this.$axios.get('https://iz.ru/api/course/all.json').then((res) => {
+  //     console.log(res)
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
+  //   return { title: 'title' }
+  // }
   // created () {
   //   this.fetchSomething()
   // },
