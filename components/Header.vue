@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <top-panel
+    <topPanel
       :top-lincs="topLincs"
     />
     <input id="menuSwitcher" class="menu-switcher" type="checkbox">
@@ -9,16 +9,16 @@
       <logo
         :logo-menu-items="logoMenuItems"
       />
-      <main-menu
+      <mainMenu
         :menu-items="menuItems"
         :rubric-items="rubricItems"
         :mobi-footer-menu="mobiFooterMenu"
         :social-menu="socialMenu"
       />
-      <second-logos
+      <secondLogos
         :logos="secondLogoItems"
       />
-      <newspaper-menu
+      <newspaperMenu
         :menu-items="newspaperMenuItems"
       />
       <div class="fix-black-bg" />

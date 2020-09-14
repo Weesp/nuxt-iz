@@ -11,18 +11,18 @@
         </ul>
       </div>
       <div class="top-panel__column top-panel__rates">
-        <course-top />
+        <rates />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import courseTop from '@/components/Rates'
+import rates from '@/components/Rates'
 
 export default {
   components: {
-    courseTop
+    rates
   },
   props: {
     topLincs: {
@@ -38,13 +38,6 @@ export default {
       }
     }
   },
-  // async asyncData ({ $axios }) {
-  //   const json = await $axios.$get('https://iz.ru/api/course/all.json')
-  //   console.log(json)
-  //   return {
-  //     courseJson: json
-  //   }
-  // },
   data () {
     return {}
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <iz-header
+    <izHeader
       :top-lincs="topPanel"
       :main-menu="mainMenu"
     />
@@ -107,21 +107,43 @@ export default {
     izHeader
   },
   async asyncData ({ $axios }) {
-    const ip = await $axios.$get('https://iz.ru/api/0/tag/rossiia11')
-    // eslint-disable-next-line no-console
-    console.log(ip)
+    let ip, topPanel, mainMenu
+    // , json
+    try {
+      ip = await $axios.$get('https://iz.ru/api/0/tag/rossiia')
+      // json = await $axios.$get('https://iz.ru/api/course/all.json')
+    } catch (e) {
+      ip = []
+      topPanel = []
+      mainMenu = []
+    }
+    // console.log(json)
+    try {
+      topPanel = ip.included.topPanel.objects
+      mainMenu = ip.included.menu.objects
+    } catch (e) {
+      topPanel = []
+      mainMenu = []
+    }
     return {
       all: ip,
-      topPanel: [],
-      // ip.included.topPanel.objects,
-      mainMenu: []
-      // ip.included.menu.objects
+      topPanel,
+      mainMenu
     }
   },
   data () {
     return {
     }
   }
+  // mounted () {
+  //   this.fetchSomething()
+  // },
+  // methods: {
+  //   async fetchSomething () {
+  //     const json = await this.$axios.$get('https://iz.ru/api/course/all.json')
+  //     console.log(json)
+  //   }
+  // }
 }
 </script>
 

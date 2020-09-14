@@ -1,6 +1,5 @@
 <template>
   <div class="rates">
-    <pre>{{ ratesCourse }}</pre>
     <div class="rates__box">
       <div class="rates-icon">
         <div class="rates-icon__box">
@@ -18,7 +17,7 @@
         />
       </svg>
       <div class="rates-value">
-        00.00
+        00.00s
       </div>
     </div>
     <div class="rates__box">
@@ -46,14 +45,42 @@
 
 <script>
 export default {
-  props: {
-    ratesCourse: {
-      type: Array,
-      default () {
-        return []
-      }
-    }
+  // async asyncData ({ $axios }) {
+  //   let json
+  //   try {
+  //     json = await $axios.$get('https://iz.ru/api/course/all.json')
+  //   } catch (e) {
+  //     json = []
+  //   }
+  //   // console.log(json)
+  //   return {
+  //     courseJson: json
+  //   }
+  // },
+  // async data () {
+  //   const { courses } = await this.$axios.$get('https://iz.ru/api/course/all.json')
+  //   console.log(courses)
+  //   return {
+  //     courseJson: []
+  //   }
+  // }
+  data ({ params }) {
+    this.$axios.get('https://iz.ru/api/course/all.json').then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+    return { title: 'title' }
   }
+  // created () {
+  //   this.fetchSomething()
+  // },
+  // methods: {
+  //   async fetchSomething () {
+  //     const json = await this.$axios.$get('https://iz.ru/api/course/all.json')
+  //     console.log(json)
+  //   }
+  // }
 }
 </script>
 
