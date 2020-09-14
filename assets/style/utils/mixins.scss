@@ -1,0 +1,8 @@
+@mixin size($width,$height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin transition-all($s: 0.2s) {
+  transition: all $s ease-in-out;
+}

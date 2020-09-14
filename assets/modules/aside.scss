@@ -1,0 +1,32 @@
+.aside{
+    position: relative;
+    @media screen and (max-width: $smDesktopWidth){
+        display: none;
+    }
+    .aside__box{
+        margin: 15px 0px;
+        .aside__image{
+            
+        }
+        .aside-widget__box{
+            .aside-widget__box-fix{
+                // position: absolute;
+                width: 310px;
+            }
+            .aside-widget__widget-image{
+                padding-top: 15px;
+            }
+            .aside-widget__widget-second{
+                padding: 15px 0px;
+            }
+            .widget-1{
+                height: 350px;
+                background: $izColor;
+            }
+            .widget-2{
+                height: 500px;
+                background: $textItem;
+            }
+        }
+    }
+}

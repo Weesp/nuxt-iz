@@ -1,10 +1,13 @@
 <template>
-  <div class="conatainer">
-    <top-panel
+  <div class="wrapper">
+    <iz-header
       :top-lincs="topPanel"
+      :main-menu="mainMenu"
     />
-    <div class="tags-content__box">
-      <!-- <pre>{{ all }}</pre> -->
+    <div class="content-wrapper">
+      <div class="tags-content__box">
+        <pre>{{ all }}</pre>
+      </div>
     </div>
   </div>
   <!-- <div class="tag-title">
@@ -97,17 +100,22 @@
 </template>
 
 <script>
-import TopPanel from '@/components/TopPanel'
+import izHeader from '@/components/Header'
 
 export default {
   components: {
-    TopPanel
+    izHeader
   },
   async asyncData ({ $axios }) {
-    const ip = await $axios.$get('https://iz.ru/api/0/tag/rossiia')
+    const ip = await $axios.$get('https://iz.ru/api/0/tag/rossiia11')
+    // eslint-disable-next-line no-console
+    console.log(ip)
     return {
       all: ip,
-      topPanel: ip.included.topPanel.objects
+      topPanel: [],
+      // ip.included.topPanel.objects,
+      mainMenu: []
+      // ip.included.menu.objects
     }
   },
   data () {

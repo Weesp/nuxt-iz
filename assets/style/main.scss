@@ -1,0 +1,96 @@
+@import "utils/vars";
+@import "utils/mixins";
+
+html {
+  font-size: $mainFontSize;
+  color: $mainFontColor;
+  height: 100%;
+  font-size: 16px;
+}
+
+body {
+  background: #dddddd;
+  margin: 0;
+  padding: 0;
+  font-family: $mainFont;
+  font-weight: $mainFontWeight;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+section,
+.section {
+  max-width: 970px;
+  min-width: 0;
+  position: relative;
+  padding: 15px 0;
+}
+
+.wrapper {
+  width: 100%;
+  flex: 0 0 auto;
+  position: relative;
+  margin: 0 auto;
+  max-width: $desktopWidth;
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.container {
+  width: 100%;
+  flex: 0 0 auto;
+  position: relative;
+  margin: 0 auto;
+}
+.page-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 310px;
+  grid-column-gap: 30px;
+  padding: $DectopPd;
+  // min-height: 2000px;
+  @media screen and (max-width: $smDesktopWidth) {
+    grid-template-columns: 1fr;
+    padding: $smDesktopPd;
+  }
+  @media screen and (max-width: $tableWidth) {
+    padding: $tablePd;
+  }
+  @media screen and (max-width: $phoneWidth) {
+    padding: $phonePd;
+  }
+}
+
+// Modules
+// @import "modules/my-module.scss";

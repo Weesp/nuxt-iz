@@ -1,0 +1,55 @@
+// Font
+$mainFont                   : 'Fira Sans';
+$secondFont                 : 'Noto Serif';
+
+// Size
+$mainFontColor              : #101010;
+$mainFontSize               : 18px;
+$mainFontWeight             : normal;
+// $mainLineHeight             : 1.4;
+
+$desktopWidth               : 1366px;
+$desktopWidthFix            : 1365px;
+$smDesktopWidth             : 1034px;
+$tableWidth                 : 768px;
+$phoneWidth                 : 520px;
+$smPhoneWidth               : 360px;
+
+$DectopPd                   : 0 33px;
+$smDesktopPd                : 0 20px;
+$tablePd                    : 0 15px;
+$phonePd                    : 0 5px;
+
+// Main color
+$mainColor                  : #6a32a7;
+$mainHover                  : #65319c;
+$gradientStart              : #7634a0;
+$mainSection                : #8D39CD;
+$izColor                    : #452573;
+$textItem                   : #5C5C5C;
+$dateItem                   : #7A7A7A;
+$gradientEnd                : #371456;
+$secondColor                : #452963;
+$defaultBg                  : #272727;
+$newspaper                  : #b08e8f;
+$renTvColor                 : #f8972b;
+$fiveTvColor                : #cd1342;
+$urgentlyColor              : #e2001b;
+$borderMobile               : #ababa1;
+
+// miniMenu
+$miniMenu                   : #878679;
+$miniMenuTitle              : #ccc9bb;
+
+// url color
+$urlDefault                 : #989898;
+$urlHover                   : #ffffff;
+$urlBgHover                 : #222;
+
+//swiper
+$swiper-navigation-size     : 50px;
+$themeColor: #007aff !default;
+$colors: (
+  'white': #ffffff,
+  'black': #000000,
+) !default;

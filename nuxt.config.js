@@ -29,12 +29,16 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/style/utils/fonts',
+    '@/assets/style/main',
+    '@/assets/style/utils/reset'
   ],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    { src: '@/plugins/ScrollGlobal.js', mode: 'client' }
   ],
   /*
   ** Auto import components
