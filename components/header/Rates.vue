@@ -1,5 +1,5 @@
 <template>
-  <div class="rates">
+  <div v-if="rates.usd && rates.eur" class="rates">
     <div class="rates__box">
       <div class="rates-icon">
         <div class="rates-icon__box">
@@ -83,7 +83,16 @@ export default {
   props: {
     rates: {
       type: Object,
-      default: () => {}
+      default: () => ({
+        usd: {
+          current: '00.00',
+          old: '00.00'
+        },
+        eur: {
+          current: '00.00',
+          old: '00.00'
+        }
+      })
     }
   }
   // data ({ params }) {

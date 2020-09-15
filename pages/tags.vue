@@ -27,6 +27,10 @@ import izAside from '@/components/Aside'
 import izPlayer from '@/components/Player'
 import izFooter from '@/components/footer/Footer'
 
+import { mapActions } from 'vuex'
+
+console.log(mapActions)
+
 export default {
   components: {
     izHeader,
@@ -66,16 +70,21 @@ export default {
   data () {
     return {
     }
-  }
+  },
+  mounted () {
+    console.log(this.SET_IP)
+    // this.SET_IP()
+    // this.$store.dispatch('SET_IP')
+    console.log(this.$store.state.list)
+  },
   // mounted () {
   //   this.fetchSomething()
   // },
-  // methods: {
-  //   async fetchSomething () {
-  //     const json = await this.$axios.$get('https://iz.ru/api/course/all.json')
-  //     console.log(json)
-  //   }
-  // }
+  methods: {
+    ...mapActions([
+      'SET_IP'
+    ])
+  }
 }
 </script>
 

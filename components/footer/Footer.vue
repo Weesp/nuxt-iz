@@ -1,7 +1,12 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <input id="footerBottom" type="checkbox" class="menu-switcher">
+      <input
+        id="footerBottom"
+        type="checkbox"
+        class="menu-switcher"
+        @:change="footerVisible"
+      >
       <div class="footer-top">
         <div class="footer-top__box">
           <div class="footer-top__menu">
@@ -133,11 +138,23 @@
               <div class="menu__box">
                 <li class="menu-item">
                   <a href="/">О компании</a>
+                </li>
+                <li class="menu-item">
                   <a href="/">Редакция</a>
+                </li>
+                <li class="menu-item">
                   <a href="/" target="_blanc">Пресс-центр</a>
+                </li>
+                <li class="menu-item">
                   <a href="/">Реклама</a>
+                </li>
+                <li class="menu-item">
                   <a href="/">Новости о нас</a>
+                </li>
+                <li class="menu-item">
                   <a href="/">Пользовательское соглашение</a>
+                </li>
+                <li class="menu-item">
                   <a href="/">Охрана труда</a>
                 </li>
               </div>
@@ -178,7 +195,21 @@
 </template>
 
 <script>
-export default {}
+import { getHeight } from '@/plugins/CustomFunction'
+
+export default {
+  methods: {
+    footerVisible () {
+      const targetFooter = document.querySelector('.footer-top')
+      if (this.checked) {
+        const height = getHeight(document.querySelector('.footer-bottom'))
+        targetFooter.style.height = height + 37 + 'px'
+      } else {
+        targetFooter.style.height = 37 + 'px'
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss">

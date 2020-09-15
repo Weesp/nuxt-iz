@@ -41,10 +41,7 @@ export default {
     },
     rates: {
       type: Object,
-      default: () => {},
-      validator (value) {
-        return ('usd' in value) || ('eur' in value)
-      }
+      default: () => {}
     }
   },
   data () {

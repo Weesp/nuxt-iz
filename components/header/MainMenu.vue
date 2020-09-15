@@ -87,17 +87,19 @@
             </div>
             <div class="mobile-footer-social__box">
               <div v-for="item in socialMenu" :key="item.title" class="mobile-footer__social-item">
-                <svg
-                  class="social-item__icon"
-                  :style="'width:' + (item.width ? item.width: 30) + 'px; height:' + (item.height ? item.height : 30) + 'px'"
-                >
-                  <use
-                    :width="(item.width ? item.width : 30)"
-                    :height="(item.height ? item.height: 30)"
-                    :xlink:href="item.icon"
-                    :href="item.icon"
-                  />
-                </svg>
+                <a :href="item.url" class="social-item__url">
+                  <svg
+                    class="social-item__icon"
+                    :style="'width:' + (item.width ? item.width: 30) + 'px; height:' + (item.height ? item.height : 30) + 'px'"
+                  >
+                    <use
+                      :width="(item.width ? item.width : 30)"
+                      :height="(item.height ? item.height: 30)"
+                      :xlink:href="item.icon"
+                      :href="item.icon"
+                    />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
