@@ -1,10 +1,11 @@
 <template>
   <div class="wrapper">
-    <izHeader
+    {{ pageParams }}
+    <!-- <izHeader
       :top-lincs="topPanel"
       :main-menu="mainMenu"
       :rates="rates"
-    />
+    /> -->
     <div class="content-wrapper">
       <div class="container">
         <div class="page-wrapper">
@@ -21,68 +22,69 @@
 </template>
 
 <script>
-import izHeader from '@/components/header/Header'
+// import izHeader from '@/components/header/Header'
 import izTags from '@/components/tags/Tags'
 import izAside from '@/components/Aside'
 import izPlayer from '@/components/Player'
 import izFooter from '@/components/footer/Footer'
 
-import { mapActions } from 'vuex'
-
-console.log(mapActions)
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
-    izHeader,
+    // izHeader,
     izTags,
     izAside,
     izPlayer,
     izFooter
   },
-  async asyncData ({ $axios }) {
-    let ip, topPanel, mainMenu, ratesIp, rates
-    try {
-      ip = await $axios.$get('https://iz.ru/api/0/tag/rossiia')
-    } catch (e) {
-      ip = []
-    }
-    try {
-      ratesIp = await $axios.$get('https://iz.ru/api/course/all.json')
-    } catch (error) {
-      rates = {}
-    }
-    // console.log(json)
-    try {
-      topPanel = ip.included.topPanel.objects
-      mainMenu = ip.included.menu.objects
-      rates = ratesIp
-    } catch (e) {
-      topPanel = []
-      mainMenu = []
-    }
-    return {
-      all: ip,
-      topPanel,
-      mainMenu,
-      rates
-    }
-  },
+  // async asyncData ({ $axios }) {
+  //   let ip, topPanel, mainMenu, ratesIp, rates
+  //   try {
+  //     ip = await $axios.$get('https://iz.ru/api/0/tag/rossiia')
+  //   } catch (e) {
+  //     ip = []
+  //   }
+  //   try {
+  //     ratesIp = await $axios.$get('https://iz.ru/api/course/all.json')
+  //   } catch (error) {
+  //     rates = {}
+  //   }
+  //   // console.log(json)
+  //   try {
+  //     topPanel = ip.included.topPanel.objects
+  //     mainMenu = ip.included.menu.objects
+  //     rates = ratesIp
+  //   } catch (e) {
+  //     topPanel = []
+  //     mainMenu = []
+  //   }
+  //   return {
+  //     all: ip,
+  //     topPanel,
+  //     mainMenu,
+  //     rates
+  //   }
+  // },
   data () {
     return {
     }
   },
   mounted () {
-    console.log(this.SET_IP)
     // this.SET_IP()
-    // this.$store.dispatch('SET_IP')
-    console.log(this.$store.state.list)
+    this.$store.dispatch('getIP')
+  },
+  computed: {
+    ...mapGetters([
+      'pageParams'
+    ])
   },
   // mounted () {
   //   this.fetchSomething()
   // },
   methods: {
     ...mapActions([
-      'SET_IP'
+      'getIP'
     ])
   }
 }
