@@ -11,9 +11,7 @@
         </ul>
       </div>
       <div class="top-panel__column top-panel__rates">
-        <rates
-          :rates="rates"
-        />
+        <rates />
       </div>
     </div>
   </div>
@@ -38,10 +36,6 @@ export default {
       default () {
         return []
       }
-    },
-    rates: {
-      type: Object,
-      default: () => {}
     }
   },
   data () {

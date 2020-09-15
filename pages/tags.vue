@@ -1,11 +1,9 @@
 <template>
   <div class="wrapper">
-    <pre> {{ pageParams }} </pre>
-    <!-- <izHeader
+    <izHeader
       :top-lincs="topPanel"
       :main-menu="mainMenu"
-      :rates="rates"
-    /> -->
+    />
     <div class="content-wrapper">
       <div class="container">
         <div class="page-wrapper">
@@ -22,71 +20,37 @@
 </template>
 
 <script>
-// import izHeader from '@/components/header/Header'
+import izHeader from '@/components/header/Header'
 import izTags from '@/components/tags/Tags'
 import izAside from '@/components/Aside'
 import izPlayer from '@/components/Player'
 import izFooter from '@/components/footer/Footer'
 
-import { mapActions, mapGetters } from 'vuex'
-
 export default {
   components: {
-    // izHeader,
+    izHeader,
     izTags,
     izAside,
     izPlayer,
     izFooter
   },
-  // async asyncData ({ $axios }) {
-  //   let ip, topPanel, mainMenu, ratesIp, rates
-  //   try {
-  //     ip = await $axios.$get('https://iz.ru/api/0/tag/rossiia')
-  //   } catch (e) {
-  //     ip = []
-  //   }
-  //   try {
-  //     ratesIp = await $axios.$get('https://iz.ru/api/course/all.json')
-  //   } catch (error) {
-  //     rates = {}
-  //   }
-  //   // console.log(json)
-  //   try {
-  //     topPanel = ip.included.topPanel.objects
-  //     mainMenu = ip.included.menu.objects
-  //     rates = ratesIp
-  //   } catch (e) {
-  //     topPanel = []
-  //     mainMenu = []
-  //   }
-  //   return {
-  //     all: ip,
-  //     topPanel,
-  //     mainMenu,
-  //     rates
-  //   }
-  // },
+  async asyncData ({ store }) {
+    const tagsData = await store.dispatch('tags/getTagsApi', 'rossiia')
+    await store.dispatch('rates/getTagsApi')
+
+    return {
+      topPanel: tagsData.topPanel,
+      mainMenu: tagsData.mainMenu
+    }
+  },
   data () {
     return {
     }
-  },
-  mounted () {
-    // this.SET_IP()
-    this.$store.dispatch('getIP')
-  },
-  computed: {
-    ...mapGetters([
-      'pageParams'
-    ])
-  },
-  // mounted () {
-  //   this.fetchSomething()
-  // },
-  methods: {
-    ...mapActions([
-      'getIP'
-    ])
   }
+  // mounted () {
+  //   // this.SET_IP()
+  //   this.$store.dispatch('getIP')
+  // },
 }
 </script>
 

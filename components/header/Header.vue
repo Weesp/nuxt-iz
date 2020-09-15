@@ -2,7 +2,6 @@
   <div class="container">
     <topPanel
       :top-lincs="topLincs"
-      :rates="rates"
     />
     <input id="menuSwitcher" class="menu-switcher" type="checkbox">
     <div class="header-iz__back" />
@@ -86,10 +85,6 @@ export default {
     mainMenu: {
       type: Array,
       default: () => []
-    },
-    rates: {
-      type: Object,
-      default: () => {}
     }
   },
   data () {

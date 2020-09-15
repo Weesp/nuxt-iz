@@ -60,58 +60,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  // async asyncData ({ $axios }) {
-  //   let json
-  //   try {
-  //     json = await $axios.$get('https://iz.ru/api/course/all.json')
-  //   } catch (e) {
-  //     json = []
-  //   }
-  //   // console.log(json)
-  //   return {
-  //     courseJson: json
-  //   }
-  // },
-  // async data () {
-  //   const { courses } = await this.$axios.$get('https://iz.ru/api/course/all.json')
-  //   console.log(courses)
-  //   return {
-  //     courseJson: []
-  //   }
-  // }
-  props: {
-    rates: {
-      type: Object,
-      default: () => ({
-        usd: {
-          current: '00.00',
-          old: '00.00'
-        },
-        eur: {
-          current: '00.00',
-          old: '00.00'
-        }
-      })
-    }
+  computed: {
+    ...mapGetters({
+      rates: 'rates/getRates'
+    })
   }
-  // data ({ params }) {
-  //   this.$axios.get('https://iz.ru/api/course/all.json').then((res) => {
-  //     console.log(res)
-  //   }).catch((err) => {
-  //     console.log(err)
-  //   })
-  //   return { title: 'title' }
-  // }
-  // created () {
-  //   this.fetchSomething()
-  // },
-  // methods: {
-  //   async fetchSomething () {
-  //     const json = await this.$axios.$get('https://iz.ru/api/course/all.json')
-  //     console.log(json)
-  //   }
-  // }
 }
 </script>
 
