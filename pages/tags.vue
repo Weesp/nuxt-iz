@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    {{ pageParams }}
+    <pre> {{ pageParams }} </pre>
     <!-- <izHeader
       :top-lincs="topPanel"
       :main-menu="mainMenu"
