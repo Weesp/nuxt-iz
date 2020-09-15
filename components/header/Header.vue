@@ -25,6 +25,12 @@
       <div class="fix-black-bg" />
       <search />
     </div>
+    <marquee />
+    <div class="scroll-top-btn__box">
+      <div class="scroll-top-btn">
+        <img src="@/assets/img/icons/arrow-logo.svg" alt="scroll top" class="scroll-top-btn__icon">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,6 +41,7 @@ import mainMenu from '@/components/header/MainMenu'
 import secondLogos from '@/components/header/SecondLogos'
 import newspaperMenu from '@/components/header/NewspaperMenu'
 import search from '@/components/header/Search'
+import marquee from '@/components/header/Marquee'
 
 import mobiFooterMenu from '@/assets/params/header/mobiFooterMenu'
 
@@ -54,7 +61,8 @@ export default {
     mainMenu,
     secondLogos,
     newspaperMenu,
-    search
+    search,
+    marquee
   },
   directives: {
     scroll: {

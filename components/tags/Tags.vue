@@ -4,14 +4,14 @@
       <div class="tag-title__box">
         <img
           class="tag-title-image"
-          src="/assets/img/tags/header-title-img.webp"
+          src="@/assets/img/tags/header-title-img.webp"
           alt="Все новости с тегом &quot;Александр Лукашенко&quot;"
         >
         <div class="tag-title__background">
           <div class="background-mask">
             <img
               class="background-img"
-              src="/assets/img/tags/header-background.webp"
+              src="@/assets/img/tags/header-background.webp"
               alt="Все новости с тегом &quot;Александр Лукашенко&quot;"
             >
           </div>
@@ -38,17 +38,17 @@
             Все материалы
           </div>
         </a>
-        <a href="/" class="tag-tabs-item active">
+        <a href="/" class="tag-tabs-item">
           <div class="tag-tabs-item__text">
             Публикации
           </div>
         </a>
-        <a href="/" class="tag-tabs-item active">
+        <a href="/" class="tag-tabs-item">
           <div class="tag-tabs-item__text">
             Фотографии
           </div>
         </a>
-        <a href="/" class="tag-tabs-item active">
+        <a href="/" class="tag-tabs-item">
           <div class="tag-tabs-item__text">
             Видео
           </div>
@@ -85,7 +85,7 @@
       <div class="tag-populations tag-materials">
         <div class="population-header">
           <div class="population-header__box">
-            <img src="/assets/img/tags/icon-longread.svg" alt="Популярные материалы" class="population-header__icon">
+            <img src="@/assets/img/tags/icon-longread.svg" alt="Популярные материалы" class="population-header__icon">
             <div class="population-header__title">
               Популярные материалы
             </div>
@@ -96,7 +96,7 @@
           <a href="/" class="population-material">
             <div class="population-material__box">
               <div class="population-material__image__box">
-                <img src="/assets/img/tags/image-1.webp" alt="Лукашенко поставил задачу усилить идеологическую работу перед выборами" class="population-material__image">
+                <img src="@/assets/img/tags/image-1.webp" alt="Лукашенко поставил задачу усилить идеологическую работу перед выборами" class="population-material__image">
               </div>
               <div class="population-material__text__box">
                 <div class="tag-materials-item__data">
@@ -114,7 +114,7 @@
           <a href="/" class="population-material">
             <div class="population-material__box">
               <div class="population-material__image__box">
-                <img src="/assets/img/tags/image-1.webp" alt="Лукашенко поставил задачу усилить идеологическую работу перед выборами" class="population-material__image">
+                <img src="@/assets/img/tags/image-1.webp" alt="Лукашенко поставил задачу усилить идеологическую работу перед выборами" class="population-material__image">
               </div>
               <div class="population-material__text__box">
                 <div class="tag-materials-item__data">
@@ -260,7 +260,7 @@
           <a href="/" class="tag-video-item">
             <div class="tag-video-item__box">
               <div class="tag-video-item__image__box">
-                <img src="/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
+                <img src="@/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
                 <div class="tag-video-item__time__box">
                   <div class="tag-video-item__time-icon__box">
                     <svg class="tag-video-item__time-icon">
@@ -300,7 +300,7 @@
           <a href="/" class="tag-video-item">
             <div class="tag-video-item__box">
               <div class="tag-video-item__image__box">
-                <img src="/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
+                <img src="@/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
                 <div class="tag-video-item__time__box">
                   <div class="tag-video-item__time-icon__box">
                     <svg class="tag-video-item__time-icon">
@@ -340,7 +340,7 @@
           <a href="/" class="tag-video-item">
             <div class="tag-video-item__box">
               <div class="tag-video-item__image__box">
-                <img src="/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
+                <img src="@/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
                 <div class="tag-video-item__time__box">
                   <div class="tag-video-item__time-icon__box">
                     <svg class="tag-video-item__time-icon">
@@ -380,7 +380,7 @@
           <a href="/" class="tag-video-item">
             <div class="tag-video-item__box">
               <div class="tag-video-item__image__box">
-                <img src="/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
+                <img src="@/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
                 <div class="tag-video-item__time__box">
                   <div class="tag-video-item__time-icon__box">
                     <svg class="tag-video-item__time-icon">
