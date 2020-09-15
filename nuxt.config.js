@@ -38,7 +38,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    { src: '@/plugins/ScrollGlobal.js', mode: 'client' }
+    // { src: '@/plugins/ScrollGlobal.js', mode: 'client' }
   ],
   /*
   ** Auto import components
