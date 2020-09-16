@@ -1,18 +1,21 @@
 export const state = () => ({
-  list: {}
+  errors: []
 })
 
 export const getters = {
-  pageParams: (state) => {
-    return state.list
+  errors (state) {
+    return state.errors
   }
 }
 
 export const mutations = {
-  SET_IP (state, value) {
-    state.list = value
+  PUSH_ERROR (state, value) {
+    state.errors.push(value)
   }
 }
 
 export const actions = {
+  pushError ({ commit }, value) {
+    commit('PUSH_ERROR', value)
+  }
 }

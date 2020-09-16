@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import menuDefault from '@/assets/params/ConfigDefault/MainMenu'
+// import menuDefault from '@/assets/params/ConfigDefault/MainMenu'
 
 export const state = () => ({
   all: [],
   topPanel: [],
-  mainMenu: menuDefault,
+  mainMenu: [],
   ticker: []
 })
 
@@ -62,5 +62,29 @@ export const actions = {
       console.warn(error)
     }
     return result
+  },
+  // async fetchTags ({ commit }, tag) {
+  //   const response = await this.$axios.$get(`https://iz.ru/api/0/tag/${tag}`)
+  //   const { status, included } = response
+  //   if (status.code !== 200) {
+  //     // error({ statusCode: status.code, message: `http response status: ${status.code}` })
+  //     // throw new Error(`http response status: ${status.code}`)
+  //     return false
+  //   }
+  //   const { topPanel, menu, ticker } = included
+  //   topPanel?.objects ? commit('SET_TOP_PANEL', topPanel.objects) : console.warn('topPanel has no key "objects" by store/tags')
+  //   menu?.objects ? commit('SET_MAIN_MENU', menu.objects) : console.warn('menu has no key "objects" by store/tags')
+  //   ticker?.objects ? commit('SET_TICKER', ticker.objects) : console.warn('ticker has no key "object" by store/tags')
+  // }
+  fetchTags ({ commit }, tag) {
+    return this.$axios
+      .$get(`https://iz.ru/api/0/tag/${tag}`)
+      .then(({ status, included = {} }) => {
+        if (status.code !== 200) { throw new Error(`http response status: ${status.code}`) }
+        const { topPanel, menu, ticker } = included
+        if (topPanel?.objects) { commit('SET_TOP_PANEL', topPanel.objects) }
+        if (menu?.objects) { commit('SET_MAIN_MENU', menu.objects) }
+        if (ticker?.objects) { commit('SET_TICKER', ticker.objects) }
+      })
   }
 }

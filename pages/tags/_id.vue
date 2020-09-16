@@ -34,8 +34,9 @@ export default {
     izPlayer,
     izFooter
   },
-  async asyncData ({ params, store }) {
-    await store.dispatch('tags/getTagsApi', params.id)
+  async asyncData ({ params, store, error }) {
+    await store.dispatch('tags/fetchTags', params.id)
+    // if (status) { error({ statusCode: status }) }
     await store.dispatch('rates/getRates')
   },
   data () {
