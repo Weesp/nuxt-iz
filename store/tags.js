@@ -1,46 +1,66 @@
+/* eslint-disable no-console */
+import menuDefault from '@/assets/params/ConfigDefault/MainMenu'
+
 export const state = () => ({
   all: [],
   topPanel: [],
-  mainMenu: []
+  mainMenu: menuDefault,
+  ticker: []
 })
 
-export const getters = {
-  getTopPanel: (state) => {
-    return state.topPanel
-  },
-  getMainMenu: (state) => {
-    return state.mainMenu
-  }
-}
+// export const getters = {
+//   getTopPanel: (state) => {
+//     return state.topPanel
+//   },
+//   getMainMenu: (state) => {
+//     return state.mainMenu
+//   },
+//   getTicker: (state) => {
+//     return state.ticker
+//   }
+// }
 
 export const mutations = {
-  SET_IP (state, value) {
-    state.topPanel = value.topPanel ? value.topPanel : []
-    state.mainMenu = value.mainMenu ? value.mainMenu : []
+  SET_TOP_PANEL (state, value) {
+    state.topPanel = value
+  },
+  SET_MAIN_MENU (state, value) {
+    state.mainMenu = value
+  },
+  SET_TICKER (state, value) {
+    state.ticker = value
   }
 }
 
 export const actions = {
-  async getTagsApi ({ commit }, tag = 'bbc') {
-    let ip, topPanel, mainMenu
+  async getTagsApi ({ commit }, tag) {
+    if (!tag) { return false }
+    let ip, topPanel, mainMenu, ticker, result
     try {
       ip = await this.$axios.$get(`https://iz.ru/api/0/tag/${tag}`)
-    } catch (e) {
-      ip = []
+      result = ip.status.code === 200
+    } catch (error) {
+      result = false
+      console.warn(error)
     }
     try {
       topPanel = ip.included.topPanel.objects
+      commit('SET_TOP_PANEL', topPanel)
+    } catch (error) {
+      console.warn(error)
+    }
+    try {
       mainMenu = ip.included.menu.objects
-    } catch (e) {
-      topPanel = []
-      mainMenu = []
+      commit('SET_MAIN_MENU', mainMenu)
+    } catch (error) {
+      console.warn(error)
     }
-    const result = {
-      all: ip,
-      topPanel,
-      mainMenu
+    try {
+      ticker = ip.included.ticker.objects
+      commit('SET_TICKER', ticker)
+    } catch (error) {
+      console.warn(error)
     }
-    commit('SET_IP', result)
     return result
   }
 }

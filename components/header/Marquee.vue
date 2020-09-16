@@ -2,124 +2,46 @@
   <div class="marquee__box">
     <div class="marquee">
       <div class="marquee__inner">
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Общество</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Вся актуальная информация по коронавирусу ежедневно обновляется на сайтах https://стопкоронавирус.рф и доступвсем.рф</span>
-              </div>
+        <div
+          v-for="item in marqueeItem"
+          :key="item.id"
+          class="marquee-item__box"
+        >
+          <a v-if="item && item.path" :href="item.path" class="marquee-item">
+            <div
+              v-if="item.rubric && item.rubric.title"
+              class="marquee-item__category"
+            >
+              {{ item.rubric.title }}
             </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Туризм</div>
             <div class="marquee-item__label__box">
               <div class="marquee-item__label__news">
-                <span>Россия возобновит полеты в Египет, ОАЭ и на Мальдивы</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item urgently">
-            <div class="marquee-item__category">Общество</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Ефремов признал вину в смертельном ДТП</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Общество</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Путин назвал преступления нацистов непростительными</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Мир</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Американские журналисты назвали Киев российским городом</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Общество</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Правительство сняло ограничения на выезд за рубеж для ухода за родственниками</span>
+                <span v-if="item.title">
+                  {{ item.title }}
+                </span>
               </div>
             </div>
           </a>
         </div>
       </div>
       <div class="marquee__inner">
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Общество</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Вся актуальная информация по коронавирусу ежедневно обновляется на сайтах https://стопкоронавирус.рф и доступвсем.рф</span>
-              </div>
+        <div
+          v-for="item in marqueeItem"
+          :key="item.id"
+          class="marquee-item__box"
+        >
+          <a v-if="item && item.path" :href="item.path" class="marquee-item">
+            <div
+              v-if="item.rubric && item.rubric.title"
+              class="marquee-item__category"
+            >
+              {{ item.rubric.title }}
             </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Туризм</div>
             <div class="marquee-item__label__box">
               <div class="marquee-item__label__news">
-                <span>Россия возобновит полеты в Египет, ОАЭ и на Мальдивы</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item urgently">
-            <div class="marquee-item__category">Общество</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Ефремов признал вину в смертельном ДТП</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Общество</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Путин назвал преступления нацистов непростительными</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Мир</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Американские журналисты назвали Киев российским городом</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="marquee-item__box">
-          <a href="/" class="marquee-item">
-            <div class="marquee-item__category">Общество</div>
-            <div class="marquee-item__label__box">
-              <div class="marquee-item__label__news">
-                <span>Правительство сняло ограничения на выезд за рубеж для ухода за родственниками</span>
+                <span v-if="item.title">
+                  {{ item.title }}
+                </span>
               </div>
             </div>
           </a>
@@ -130,7 +52,15 @@
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState('tags', {
+      marqueeItem: 'ticker'
+    })
+  }
+}
 </script>
 
 <style>

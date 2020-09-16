@@ -1,0 +1,107 @@
+[
+  {
+    "title": "Новости",
+    "path": "/news"
+  }, {
+    "title": "Статьи",
+    "path": "/article"
+  }, {
+    "title": "Мнения",
+    "path": "/blog"
+  }, {
+    "title": "Фото",
+    "path": "/photo"
+  }, {
+    "title": "Видео",
+    "path": "/video"
+  }, {
+    "title": "Инфографика",
+    "path": "/chart"
+  }, {
+    "title": "Рубрики",
+    "children": [
+      {
+        "title": "Политика",
+        "path": "/rubric/politika",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--01-politika"
+      },
+      {
+        "title": "Общество",
+        "path": "/rubric/obshchestvo",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--04-obshestvo"
+      },
+      {
+        "title": "Стиль",
+        "path": "/rubric/stil",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--0x-lux"
+      },
+      {
+        "title": "Интернет",
+        "path": "/rubric/internet",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--08-gadgets"
+      },
+      {
+        "title": "Экономика",
+        "path": "/rubric/ekonomika",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--07-ekonimika"
+      },
+      {
+        "title": "Происшествия",
+        "path": "/rubric/proisshestviia",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--0x-fire"
+      },
+      {
+        "title": "Авто",
+        "path": "/rubric/auto",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--0x-car"
+      },
+      {
+        "title": "Туризм",
+        "path": "/rubric/turizm",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#0x-turizm"
+      },
+      {
+        "title": "Мир",
+        "path": "/rubric/mir",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--09-mir"
+      },
+      {
+        "title": "Армия",
+        "path": "/rubric/armiia",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--02-armia"
+      },
+      {
+        "title": "Наука",
+        "path": "/rubric/nauka",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--05-nauka"
+      },
+      {
+        "title": "Недвижимость",
+        "path": "/rubric/nedvizhimost-0",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--12-infographics",
+        "width": 33,
+        "height": 22
+      },
+      {
+        "title": "Страна",
+        "path": "/rubric/strana",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--06-strana"
+      },
+      {
+        "title": "Культура",
+        "path": "/rubric/kultura",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--10-kultura"
+      },
+      {
+        "title": "Спорт",
+        "path": "/rubric/sport",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--03-sport"
+      },
+      {
+        "title": "Спецпроекты",
+        "path": "/spetcproekty",
+        "icon": "/sprite/sprite-svg.svg?v=1.3#header--menu-icons--11-special_projects"
+      }
+    ]
+  }
+]

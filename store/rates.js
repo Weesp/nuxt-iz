@@ -11,24 +11,24 @@ export const state = () => ({
   }
 })
 
-export const getters = {
-  getRates: (state) => {
-    return state.rates
-  }
-}
+// export const getters = {
+//   getRates: (state) => {
+//     return state.rates
+//   }
+// }
 
 export const mutations = {
-  SET_IP (state, value) {
+  SET_RATES (state, value) {
     state.rates = value
   }
 }
 
 export const actions = {
-  async getTagsApi ({ commit }) {
+  async getRates ({ commit }) {
     let rates
     try {
       rates = await this.$axios.$get('https://iz.ru/api/course/all.json')
-      commit('SET_IP', rates)
+      commit('SET_RATES', rates)
     } catch (error) {
       rates = {}
     }

@@ -13,36 +13,43 @@
           Материалы
         </div>
         <ul class="menu-items">
-          <li v-for="item in menuItems" :key="item.title" class="menu-item">
-            <a :href="item.url" class="mobile-item__label">
-              {{ item.title }}
-            </a>
-          </li>
-          <li class="menu-item rubrics-items">
-            <div class="rubrics-items__box">
-              <svg class="rubrics-items__img">
-                <use width="13" height="13" xlink:href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_header_menu_down" href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_header_menu_down" />
-              </svg><span class="rubrics-items__text mobile-item__title">Рубрики</span>
-            </div>
-            <ul class="rubrics">
-              <li v-for="item in rubricItems" :key="item.title" class="rubric-item">
-                <a :href="item.url">
-                  <svg v-if="item.icon" class="rubric-item__icon">
-                    <use
-                      :width="(item.width ? item.width : 20)"
-                      :height="(item.height ? item.height: 20)"
-                      :xlink:href="item.icon"
-                      :href="item.icon"
-                    />
-                  </svg>
-                  <div v-else class="rubric-item__icon" />
-                  <div class="rubric-item__text mobile-item__label">
-                    {{ item.title }}
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </li>
+          <div
+            v-for="item in menuItems"
+            :key="item.title"
+            :class="'menu-item__box' + (item && item.children ? ' rubrics-items' : '')"
+          >
+            <li v-if="item && item.children" class="menu-item">
+              <div class="rubrics-items__box">
+                <svg class="rubrics-items__img">
+                  <use width="13" height="13" xlink:href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_header_menu_down" href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_header_menu_down" />
+                </svg>
+                <span v-if="item.title" class="rubrics-items__text mobile-item__title">{{ item.title }}</span>
+              </div>
+              <ul class="rubrics">
+                <li v-for="rubric in item.children" :key="rubric.title" class="rubric-item">
+                  <a v-if="rubric.path" :href="rubric.path">
+                    <svg v-if="rubric.icon" class="rubric-item__icon">
+                      <use
+                        :width="(rubric.width ? rubric.width : 20)"
+                        :height="(rubric.height ? rubric.height: 20)"
+                        :xlink:href="rubric.icon"
+                        :href="rubric.icon"
+                      />
+                    </svg>
+                    <div v-else class="rubric-item__icon" />
+                    <div v-if="rubric.title" class="rubric-item__text mobile-item__label">
+                      {{ rubric.title }}
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li v-else class="menu-item">
+              <a v-if="item && item.path && item.title" :href="item.path" class="mobile-item__label">
+                {{ item.title }}
+              </a>
+            </li>
+          </div>
         </ul>
         <div class="mobile-footer">
           <div class="mobile-newspaper">
@@ -141,20 +148,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
-    menuItems: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
-    rubricItems: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
     mobiFooterMenu: {
       type: Array,
       default () {
@@ -167,6 +164,27 @@ export default {
         return []
       }
     }
+  },
+  computed: {
+    ...mapState('tags', {
+      menuItems: 'mainMenu'
+    })
+    // menuItemUp () {
+    //   let res
+    //   const defaultMenu = menuDefault.filter(elem => Object.prototype.hasOwnProperty.call(elem, 'children'))
+    //   const items = this.menuItems.filter(elem => Object.prototype.hasOwnProperty.call(elem, 'children'))
+    //   // for (const index in items) {
+    //   //   const element = items[index]
+    //   //   if (Object.prototype.hasOwnProperty.call(element, 'children')) {
+    //   //     for (const key in element) {
+    //   //       const child = element[key]
+    //   //       console.log(child)
+    //   //       items[index][key]
+    //   //     }
+    //   //   }
+    //   // }
+    //   return res
+    // }
   }
 }
 </script>

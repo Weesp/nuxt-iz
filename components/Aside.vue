@@ -27,9 +27,6 @@ export default {}
 
 .aside {
   position: relative;
-  @media screen and (max-width: $smDesktopWidth) {
-    display: none;
-  }
   .aside__box {
     margin: 15px 0px;
     .aside__image {
@@ -54,6 +51,9 @@ export default {}
         background: $textItem;
       }
     }
+  }
+  @media screen and (max-width: $smDesktopWidth) {
+    display: none;
   }
 }
 </style>

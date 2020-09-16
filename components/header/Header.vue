@@ -10,8 +10,6 @@
         :logo-menu-items="logoMenuItems"
       />
       <mainMenu
-        :menu-items="menuItems"
-        :rubric-items="rubricItems"
         :mobi-footer-menu="mobiFooterMenu"
         :social-menu="socialMenu"
       />
@@ -34,6 +32,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import topPanel from '@/components/header/TopPanel'
 import logo from '@/components/header/Logo'
 import mainMenu from '@/components/header/MainMenu'
@@ -77,16 +77,6 @@ export default {
       }
     }
   },
-  props: {
-    topLincs: {
-      type: Array,
-      default: () => []
-    },
-    mainMenu: {
-      type: Array,
-      default: () => []
-    }
-  },
   data () {
     return {
       logoMenuItems: [
@@ -110,96 +100,6 @@ export default {
           title: 'Новости 5 канала',
           icon: logo5Tv,
           addClass: 'fivetv'
-        }
-      ],
-      menuItems: [
-        {
-          url: '/news',
-          title: 'Новости'
-        }, {
-          url: '/article',
-          title: 'Статьи'
-        }, {
-          url: '/blog',
-          title: 'Мнения'
-        }, {
-          url: '/photo',
-          title: 'Фото'
-        }, {
-          url: '/video',
-          title: 'Видео'
-        }, {
-          url: '/chart',
-          title: 'Инфографика'
-        }
-      ],
-      rubricItems: [
-        {
-          url: '/',
-          title: 'Политика',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--01-politika'
-        }, {
-          url: '/',
-          title: 'Общество',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--04-obshestvo'
-        }, {
-          url: '/',
-          title: 'Стиль',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--0x-lux'
-        }, {
-          url: '/',
-          title: 'Интернет',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--08-gadgets'
-        }, {
-          url: '/',
-          title: 'Экономика',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--07-ekonimika'
-        }, {
-          url: '/',
-          title: 'Происшествия',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--0x-fire'
-        }, {
-          url: '/',
-          title: 'Авто',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--0x-car'
-        }, {
-          url: '/',
-          title: 'Туризм',
-          icon: '/sprite/sprite-svg.svg?v=1.3#0x-turizm'
-        }, {
-          url: '/',
-          title: 'Мир',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--09-mir'
-        }, {
-          url: '/',
-          title: 'Армия',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--02-armia'
-        }, {
-          url: '/',
-          title: 'Наука',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--05-nauka'
-        }, {
-          url: '/',
-          title: 'Недвижимость',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--12-infographics',
-          width: 33,
-          height: 22
-        }, {
-          url: '/',
-          title: 'Страна',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--06-strana'
-        }, {
-          url: '/',
-          title: 'Культура',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--10-kultura'
-        }, {
-          url: '/',
-          title: 'Спорт',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--03-sport'
-        }, {
-          url: '/',
-          title: 'Спецпроекты',
-          icon: '/sprite/sprite-svg.svg?v=1.3#header--menu-icons--11-special_projects'
         }
       ],
       mobiFooterMenu,
@@ -291,6 +191,12 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState('tags', {
+      topLincs: 'topPanel',
+      mainMenu: 'mainMenu'
+    })
   },
   methods: {
     handleScroll (evt, el) {
@@ -384,6 +290,29 @@ export default {
     border-bottom: 4px solid $secondColor;
     z-index: 1000;
 
+    .rubric-item {
+      border-right: 1px solid #fff;
+      & > a,
+      span {
+        display: flex;
+        text-decoration: none;
+        padding: 10px 0px;
+        cursor: pointer;
+        color: #fff;
+        @include transition-all;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      .rubric-item__icon {
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+      }
+      @media screen and (max-width: $tableWidth) {
+        border-right: none;
+      }
+    }
     @media screen and (max-width: $tableWidth) {
       grid-template-columns: repeat(1, 1fr);
       display: grid;
@@ -414,29 +343,6 @@ export default {
         border-right: none;
       }
     }
-    .rubric-item {
-      border-right: 1px solid #fff;
-      @media screen and (max-width: $tableWidth) {
-        border-right: none;
-      }
-      & > a,
-      span {
-        display: flex;
-        text-decoration: none;
-        padding: 10px 0px;
-        cursor: pointer;
-        color: #fff;
-        @include transition-all;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-      .rubric-item__icon {
-        margin-right: 10px;
-        width: 20px;
-        height: 20px;
-      }
-    }
   }
   .rubrics-items {
     width: 100px;
@@ -445,14 +351,6 @@ export default {
       height: 50px;
       align-items: center;
       @include transition-all;
-      @media (min-width: $tableWidth) {
-        &:hover {
-          background: $urlBgHover;
-        }
-      }
-      @media screen and (max-width: $tableWidth) {
-        height: auto;
-      }
       .rubrics-items__img {
         margin-left: 7px;
         height: 13px;
@@ -479,6 +377,14 @@ export default {
           color: $miniMenuTitle;
           font-weight: 600;
         }
+      }
+      @media (min-width: $tableWidth) {
+        &:hover {
+          background: $urlBgHover;
+        }
+      }
+      @media screen and (max-width: $tableWidth) {
+        height: auto;
       }
     }
     @media (min-width: $tableWidth) {
@@ -530,15 +436,6 @@ export default {
     z-index: 50;
     @include transition-all;
 
-    @media screen and (max-width: $smDesktopWidth) {
-      display: block;
-      width: 42px;
-      cursor: pointer;
-    }
-    @media screen and (max-width: $tableWidth) {
-      display: block;
-    }
-
     %burger-item-shared {
       position: absolute;
       background: #fff;
@@ -552,9 +449,6 @@ export default {
       height: 2px;
       cursor: pointer;
       margin-left: 10px;
-      @media (min-width: $tableWidth) and (max-width: $desktopWidth) {
-        height: 4px;
-      }
       .burger__item {
         right: 0px;
         margin-top: -3px;
@@ -578,6 +472,9 @@ export default {
           @extend %burger-item-shared;
         }
       }
+       @media (min-width: $tableWidth) and (max-width: $desktopWidth) {
+        height: 4px;
+      }
     }
     .burger-on__box {
       position: relative;
@@ -586,9 +483,6 @@ export default {
       height: 2px;
       cursor: pointer;
       margin-left: 10px;
-      @media (min-width: $tableWidth) and (max-width: $desktopWidth) {
-        height: 4px;
-      }
       .burger-on__item {
         right: 0px;
         margin-top: -3px;
@@ -614,6 +508,17 @@ export default {
           bottom: 0px;
         }
       }
+      @media (min-width: $tableWidth) and (max-width: $desktopWidth) {
+        height: 4px;
+      }
+    }
+    @media screen and (max-width: $smDesktopWidth) {
+      display: block;
+      width: 42px;
+      cursor: pointer;
+    }
+    @media screen and (max-width: $tableWidth) {
+      display: block;
     }
   }
   .logos {
@@ -715,19 +620,10 @@ export default {
       .search-form {
         display: block;
       }
-
       .search-close {
         @media screen and (max-width: $tableWidth) {
           display: flex;
         }
-      }
-    }
-    @media screen and (max-width: $tableWidth) {
-      width: 100%;
-      justify-content: flex-end;
-      display: flex;
-      .search-form__box {
-        width: 100%;
       }
     }
     .search__box {
@@ -764,13 +660,6 @@ export default {
         right: 33px;
         top: 0px;
         z-index: 1100;
-        @media screen and (max-width: $smDesktopWidth) {
-          right: 20px;
-        }
-        @media screen and (max-width: $tableWidth) {
-          top: 50px;
-          right: 0px;
-        }
         .search-form__input__box {
           input {
             color: #000;
@@ -806,13 +695,25 @@ export default {
             }
           }
         }
+        @media screen and (max-width: $smDesktopWidth) {
+          right: 20px;
+        }
+        @media screen and (max-width: $tableWidth) {
+          top: 50px;
+          right: 0px;
+        }
+      }
+    }
+    @media screen and (max-width: $tableWidth) {
+      width: 100%;
+      justify-content: flex-end;
+      display: flex;
+      .search-form__box {
+        width: 100%;
       }
     }
   }
   .newspaper {
-    @media screen and (max-width: $tableWidth) {
-      display: none;
-    }
     .newspaper__box {
       display: flex;
       height: 50px;
@@ -876,6 +777,9 @@ export default {
       .newspaper__icon {
         @include size(50px, 35px);
       }
+    }
+    @media screen and (max-width: $tableWidth) {
+      display: none;
     }
   }
   @media screen and (max-width: $smDesktopWidth) {

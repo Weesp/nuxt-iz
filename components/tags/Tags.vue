@@ -458,8 +458,6 @@ export default {}
 @import "/assets/style/utils/vars";
 @import "/assets/style/utils/mixins";
 
-@import "/assets/modules/aside";
-@import "/assets/modules/player";
 @import "/assets/modules/tags/tags-header";
 
 .tags-content__box {

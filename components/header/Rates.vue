@@ -1,5 +1,5 @@
 <template>
-  <div v-if="rates.usd && rates.eur" class="rates">
+  <div v-if="rates && rates.usd && rates.eur" class="rates">
     <div class="rates__box">
       <div class="rates-icon">
         <div class="rates-icon__box">
@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   computed: {
-    ...mapGetters({
-      rates: 'rates/getRates'
+    ...mapState('rates', {
+      rates: 'rates'
     })
   }
 }

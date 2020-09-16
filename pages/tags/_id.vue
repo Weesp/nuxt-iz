@@ -1,9 +1,6 @@
 <template>
   <div class="wrapper">
-    <izHeader
-      :top-lincs="topPanel"
-      :main-menu="mainMenu"
-    />
+    <izHeader />
     <div class="content-wrapper">
       <div class="container">
         <div class="page-wrapper">
@@ -27,6 +24,9 @@ import izPlayer from '@/components/Player'
 import izFooter from '@/components/footer/Footer'
 
 export default {
+  validate ({ params, store }) {
+    return true
+  },
   components: {
     izHeader,
     izTags,
@@ -34,23 +34,14 @@ export default {
     izPlayer,
     izFooter
   },
-  async asyncData ({ store }) {
-    const tagsData = await store.dispatch('tags/getTagsApi', 'rossiia')
-    await store.dispatch('rates/getTagsApi')
-
-    return {
-      topPanel: tagsData.topPanel,
-      mainMenu: tagsData.mainMenu
-    }
+  async asyncData ({ params, store }) {
+    await store.dispatch('tags/getTagsApi', params.id)
+    await store.dispatch('rates/getRates')
   },
   data () {
     return {
     }
   }
-  // mounted () {
-  //   // this.SET_IP()
-  //   this.$store.dispatch('getIP')
-  // },
 }
 </script>
 
