@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <!-- {{ err }} -->
     <izHeader />
     <div class="content-wrapper">
       <div class="container">
@@ -34,10 +35,16 @@ export default {
     izPlayer,
     izFooter
   },
-  async asyncData ({ params, store, error }) {
-    await store.dispatch('tags/fetchTags', params.id)
+  asyncData ({ params, store, error }) {
+    // await store.dispatch('tags/fetchTags', params.id).catch(function (err) {
+    //   console.log(err)
+    //   return { err }
+    // })
+    return Promise.all([
+      store.dispatch('tags/fetchTags', params.id),
+      store.dispatch('rates/getRates')
+    ])
     // if (status) { error({ statusCode: status }) }
-    await store.dispatch('rates/getRates')
   },
   data () {
     return {

@@ -6,6 +6,7 @@
 </template>
 <script>
 export default {
+  // eslint-disable-next-line vue/name-property-casing
   name: 'error-500',
   props: {
     error: {

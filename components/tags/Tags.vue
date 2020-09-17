@@ -1,31 +1,32 @@
 <template>
   <div class="tags-content__box">
     <div class="tag-title">
-      <div class="tag-title__box">
+      <div v-if="mainTag && mainTag.id" class="tag-title__box">
         <img
+          v-if="mainTag.icon"
           class="tag-title-image"
           src="@/assets/img/tags/header-title-img.webp"
-          alt="Все новости с тегом &quot;Александр Лукашенко&quot;"
+          :alt="'Все новости с тегом ' + mainTag.title"
         >
         <div class="tag-title__background">
           <div class="background-mask">
             <img
               class="background-img"
               src="@/assets/img/tags/header-background.webp"
-              alt="Все новости с тегом &quot;Александр Лукашенко&quot;"
+              alt="Background iz tags"
             >
           </div>
         </div>
         <div class="tag-title-content">
-          <div class="tag-title-content__box">
+          <div v-if="mainTag.title" class="tag-title-content__box">
             <div class="tag-title-content__label">
               Все новости с тегом
             </div>
             <div class="tag-title-content__title">
-              Александр Лукашенко
+              {{ mainTag.title }}
             </div>
-            <div class="tag-title-content__text">
-              Алекса́ндр Григо́рьевич Лукаше́нко — белорусский политический и государственный деятель. Действующий президент Республики Беларусь с 20 июля 1994 года, президент Национального олимпийского комитета Республики Беларусь.
+            <div v-if="mainTag.description" class="tag-title-content__text">
+              {{ mainTag.description }}
             </div>
           </div>
         </div>
@@ -237,7 +238,24 @@
           </a>
         </div>
       </div>
-      <div id="videos" class="tag-videos tag-materials">
+      <!--
+        {
+          "id": 1060878,
+          "title": "Экспортные цены на российскую пшеницу выросли",
+          "path": "/1060878/video/eksportnye-tceny-na-rossiiskuiu-pshenitcu-vyrosli",
+          "date": {
+            "published": 1600166637,
+            "timeZone": "Europe/Moscow"
+          },
+          "duration": 27.022,
+          "previews": {
+            "900x506": {
+              "path": "//cdn.iz.ru/sites/default/files/styles/900x506/public/video_item-2020-09/%D0%AD%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BD%D1%8B%D0%B5%20%D1%86%D0%B5%D0%BD%D1%8B%20%D0%BD%D0%B0%20%D0%BF%D1%88%D0%B5%D0%BD%D0%B8%D1%86%D1%83%20%2B0.jpg?itok=TlSovVzZ"
+            }
+          }
+        }
+       -->
+      <div v-if="videos.length" id="videos" class="tag-videos tag-materials">
         <div class="tag-video-header">
           <div class="tag-video-header__box">
             <div class="tag-video-header__icon__box">
@@ -257,166 +275,57 @@
           </div>
         </div>
         <div class="tag-video__box">
-          <a href="/" class="tag-video-item">
-            <div class="tag-video-item__box">
-              <div class="tag-video-item__image__box">
-                <img src="@/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
-                <div class="tag-video-item__time__box">
-                  <div class="tag-video-item__time-icon__box">
-                    <svg class="tag-video-item__time-icon">
+          <div
+            v-for="item in videos"
+            :key="item.id"
+            class="tag-video-item__box"
+          >
+            <a v-if="item.path && item.title" :href="item.path" class="tag-video-item">
+              <div class="tag-video-item__box">
+                <div class="tag-video-item__image__box">
+                  <img
+                    v-if="item.previews && item.previews['900x506']"
+                    :src="item.previews['900x506'].path"
+                    :alt="item.title"
+                    class="tag-video-item__image"
+                  >
+                  <div class="tag-video-item__time__box">
+                    <div class="tag-video-item__time-icon__box">
+                      <svg class="tag-video-item__time-icon">
+                        <use
+                          width="20"
+                          height="20"
+                          xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                          href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                        />
+                      </svg>
+                    </div>
+                    <div v-if="item.duration" class="tag-video-item__time-value">
+                      {{ timeFormat(+item.duration) }}
+                    </div>
+                  </div>
+                  <div class="tag-video-item__play__box">
+                    <svg class="tag-video-item__play">
                       <use
-                        width="20"
-                        height="20"
-                        xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                        href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                        width="40"
+                        height="40"
+                        xlink:href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
+                        href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
                       />
                     </svg>
                   </div>
-                  <div class="tag-video-item__time-value">
-                    01:23
+                </div>
+                <div class="tag-video-item__text__box">
+                  <div class="tag-video-item__text-date">
+                    {{ localeDate(item.date.published) }}
+                  </div>
+                  <div class="tag-video-item__text-title">
+                    {{ item.title }}
                   </div>
                 </div>
-                <div class="tag-video-item__play__box">
-                  <svg class="tag-video-item__play">
-                    <use
-                      width="40"
-                      height="40"
-                      xlink:href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                      href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                    />
-                  </svg>
-                </div>
               </div>
-              <div class="tag-video-item__text__box">
-                <div class="tag-video-item__text-date">
-                  14 декабря 2018, 19:05
-                </div>
-                <div class="tag-video-item__text-title">
-                  Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="/" class="tag-video-item">
-            <div class="tag-video-item__box">
-              <div class="tag-video-item__image__box">
-                <img src="@/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
-                <div class="tag-video-item__time__box">
-                  <div class="tag-video-item__time-icon__box">
-                    <svg class="tag-video-item__time-icon">
-                      <use
-                        width="20"
-                        height="20"
-                        xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                        href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                      />
-                    </svg>
-                  </div>
-                  <div class="tag-video-item__time-value">
-                    01:23
-                  </div>
-                </div>
-                <div class="tag-video-item__play__box">
-                  <svg class="tag-video-item__play">
-                    <use
-                      width="40"
-                      height="40"
-                      xlink:href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                      href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div class="tag-video-item__text__box">
-                <div class="tag-video-item__text-date">
-                  14 декабря 2018, 19:05
-                </div>
-                <div class="tag-video-item__text-title">
-                  Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="/" class="tag-video-item">
-            <div class="tag-video-item__box">
-              <div class="tag-video-item__image__box">
-                <img src="@/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
-                <div class="tag-video-item__time__box">
-                  <div class="tag-video-item__time-icon__box">
-                    <svg class="tag-video-item__time-icon">
-                      <use
-                        width="20"
-                        height="20"
-                        xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                        href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                      />
-                    </svg>
-                  </div>
-                  <div class="tag-video-item__time-value">
-                    01:23
-                  </div>
-                </div>
-                <div class="tag-video-item__play__box">
-                  <svg class="tag-video-item__play">
-                    <use
-                      width="40"
-                      height="40"
-                      xlink:href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                      href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div class="tag-video-item__text__box">
-                <div class="tag-video-item__text-date">
-                  14 декабря 2018, 19:05
-                </div>
-                <div class="tag-video-item__text-title">
-                  Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="/" class="tag-video-item">
-            <div class="tag-video-item__box">
-              <div class="tag-video-item__image__box">
-                <img src="@/assets/img/tags/image.webp" alt="Лукашенко пообещал не допустить вступления Белоруссии в состав РФ" class="tag-video-item__image">
-                <div class="tag-video-item__time__box">
-                  <div class="tag-video-item__time-icon__box">
-                    <svg class="tag-video-item__time-icon">
-                      <use
-                        width="20"
-                        height="20"
-                        xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                        href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                      />
-                    </svg>
-                  </div>
-                  <div class="tag-video-item__time-value">
-                    01:23
-                  </div>
-                </div>
-                <div class="tag-video-item__play__box">
-                  <svg class="tag-video-item__play">
-                    <use
-                      width="40"
-                      height="40"
-                      xlink:href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                      href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div class="tag-video-item__text__box">
-                <div class="tag-video-item__text-date">
-                  14 декабря 2018, 19:05
-                </div>
-                <div class="tag-video-item__text-title">
-                  Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-                </div>
-              </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
       <div class="tag-materials">
@@ -450,8 +359,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { timeFormat } from '@/plugins/CustomFunction'
 
-export default {}
+export default {
+  computed: {
+    ...mapState('tags', {
+      mainTag: 'main',
+      videos: 'video'
+    })
+  },
+  methods: {
+    timeFormat,
+    localeDate (date) {
+      const dateObject = new Date(date * 1000)
+      return dateObject.toLocaleDateString() + ', ' + dateObject.getHours() + ':' + dateObject.getMinutes()
+    }
+  }
+}
 </script>
 
 <style lang="scss">

@@ -24,13 +24,11 @@ export const mutations = {
 }
 
 export const actions = {
-  async getRates ({ commit }) {
-    let rates
-    try {
-      rates = await this.$axios.$get('https://iz.ru/api/course/all.json')
-      commit('SET_RATES', rates)
-    } catch (error) {
-      rates = {}
-    }
+  getRates ({ commit }) {
+    return this.$axios
+      .$get('https://iz.ru/api/course/all.json')
+      .then((response) => {
+        commit('SET_RATES', response)
+      })
   }
 }
