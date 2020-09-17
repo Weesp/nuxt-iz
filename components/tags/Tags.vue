@@ -56,6 +56,21 @@
         </a>
       </div>
     </div>
+    <div>
+      <div v-for="(page, index) in paginatedData" :key="index">
+        <div v-for="(item, indx) in page" :key="indx">
+          {{ item.id }}
+          {{ item.title }}
+          <hr>
+        </div>
+      </div>
+      <button
+        :disabled="pageNumber * 3 >= pageCount -1"
+        @click="nextPage"
+      >
+        Next
+      </button>
+    </div>
     <div class="tabs-content">
       <div class="tag-materials">
         <div class="tag-materials__box">
@@ -238,23 +253,6 @@
           </a>
         </div>
       </div>
-      <!--
-        {
-          "id": 1060878,
-          "title": "Экспортные цены на российскую пшеницу выросли",
-          "path": "/1060878/video/eksportnye-tceny-na-rossiiskuiu-pshenitcu-vyrosli",
-          "date": {
-            "published": 1600166637,
-            "timeZone": "Europe/Moscow"
-          },
-          "duration": 27.022,
-          "previews": {
-            "900x506": {
-              "path": "//cdn.iz.ru/sites/default/files/styles/900x506/public/video_item-2020-09/%D0%AD%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BD%D1%8B%D0%B5%20%D1%86%D0%B5%D0%BD%D1%8B%20%D0%BD%D0%B0%20%D0%BF%D1%88%D0%B5%D0%BD%D0%B8%D1%86%D1%83%20%2B0.jpg?itok=TlSovVzZ"
-            }
-          }
-        }
-       -->
       <div v-if="videos.length" id="videos" class="tag-videos tag-materials">
         <div class="tag-video-header">
           <div class="tag-video-header__box">
@@ -363,17 +361,187 @@ import { mapState } from 'vuex'
 import { timeFormat } from '@/plugins/CustomFunction'
 
 export default {
+  data: () => ({
+    pageItems: [],
+    pageNumber: 0,
+    sizeMaterial: 2,
+    sizeVideos: 4,
+    sizePhotos: 4,
+    materials: [
+      {
+        id: '1',
+        title: '1Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '2',
+        title: '2Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '3',
+        title: '3Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '4',
+        title: '4Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '5',
+        title: '5Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '6',
+        title: '6Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '7',
+        title: '7Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '8',
+        title: '8Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '9',
+        title: '9Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '10',
+        title: '10Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '11',
+        title: '11Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      },
+      {
+        id: '12',
+        title: '12Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
+        date: '14 декабря 2018, 19:05',
+        text: 'Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...'
+      }
+    ],
+    video: [
+      {
+        title: 'video1',
+        id: '1'
+      }, {
+        title: 'video2',
+        id: '2'
+      }, {
+        title: 'video3',
+        id: '3'
+      }, {
+        title: 'video4',
+        id: '4'
+      }, {
+        title: 'video5',
+        id: '5'
+      }, {
+        title: 'vide6',
+        id: '6'
+      }, {
+        title: 'video7',
+        id: '7'
+      }
+    ],
+    photo: [
+      {
+        id: 1,
+        title: 'photo1'
+      }, {
+        id: 2,
+        title: 'photo2'
+      }, {
+        id: 3,
+        title: 'photo3'
+      }
+    ]
+  }),
   computed: {
     ...mapState('tags', {
       mainTag: 'main',
-      videos: 'video'
-    })
+      videos: 'video',
+      photos: 'photos'
+    }),
+    // tagsData () {
+    //   // console.log(tagsData)
+    //   const doubleVideo = [...this.videos, ...this.videos, ...this.videos]
+    //   const result = [
+    //     ...this.materials.map((el) => {
+    //       el.template = 'materials'
+    //       return el
+    //     }),
+    //     ...doubleVideo.map((el) => {
+    //       el.template = 'video'
+    //       return el
+    //     })
+    //   ]
+    //   result.sort(sortMaterials)
+    //   function sortMaterials (a, b) {
+    //     console.log(a, b)
+    //   }
+    //   // console.log(result)
+    //   return result
+    // },
+    pageCount () {
+      const l = this.materials.length
+      const s = this.size
+      return Math.ceil(l / s)
+    },
+    paginatedData () {
+      return this.pageItems
+    }
+  },
+  created () {
+    this.pageRender(0)
   },
   methods: {
     timeFormat,
     localeDate (date) {
       const dateObject = new Date(date * 1000)
       return dateObject.toLocaleDateString() + ', ' + dateObject.getHours() + ':' + dateObject.getMinutes()
+    },
+    nextPage () {
+      // фичуем тута store.dispatch('tags/fetchTags', params.id), // page...
+      this.pageRender(++this.pageNumber)
+    },
+    pageRender (pageNumber) {
+      const startMaterials = pageNumber * 3 * this.sizeMaterial
+      const endMaterials = startMaterials + this.sizeMaterial
+
+      const startVideos = pageNumber * this.sizeVideos
+      const endVideos = startVideos + this.sizeVideos
+
+      const startPhotos = pageNumber * this.sizePhotos
+      const endPhotos = startPhotos + this.sizePhotos
+      this.pageItems.push([
+        ...this.materials.slice(startMaterials, endMaterials),
+        ...this.video.slice(startVideos, endVideos),
+        ...this.materials.slice(startMaterials + 2, endMaterials + 2),
+        ...this.photo.slice(startPhotos, endPhotos),
+        ...this.materials.slice(startMaterials + 4, endMaterials + 4)
+      ])
     }
   }
 }
