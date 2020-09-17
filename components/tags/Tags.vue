@@ -56,46 +56,102 @@
         </a>
       </div>
     </div>
-    <div>
-      <div v-for="(page, index) in paginatedData" :key="index">
-        <div v-for="(item, indx) in page" :key="indx">
-          {{ item.id }}
-          {{ item.title }}
-          <hr>
-        </div>
-      </div>
-      <button
-        :disabled="pageNumber * 3 >= pageCount -1"
-        @click="nextPage"
-      >
-        Next
-      </button>
-    </div>
     <div class="tabs-content">
-      <div class="tag-materials">
-        <div class="tag-materials__box">
-          <a href="/" class="tag-materials-item">
-            <div class="tag-materials-item__date">
-              14 декабря 2018, 19:05
+      <div v-for="(page, index) in paginatedData" :key="index">
+        <div v-if="page.template === 'materials'" class="tag-materials">
+          <div class="tag-materials__box">
+            <div class="tag-materials-item__box">
+              <a
+                v-for="(item, indx) in page.items"
+                :key="indx"
+                href="/"
+                class="tag-materials-item"
+              >
+                <div class="tag-materials-item__date">
+                  {{ item.date.published ? localeDate(item.date.published) : item.date }}
+                </div>
+                <div class="tag-materials-item__title">
+                  {{ item.title }}
+                </div>
+                <div class="tag-materials-item__text">
+                  {{ item.text }}
+                </div>
+              </a>
             </div>
-            <div class="tag-materials-item__title">
-              Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
+          </div>
+        </div>
+        <div v-if="page.template === 'videos' && page.items.length" class="tag-videos tag-materials">
+          <div class="tag-video-header">
+            <div class="tag-video-header__box">
+              <div class="tag-video-header__icon__box">
+                <svg class="tag-video-header__icon">
+                  <use
+                    width="20"
+                    height="20"
+                    xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                    href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                  />
+                </svg>
+              </div>
+              <div class="tag-video-header__title">
+                Видео
+              </div>
+              <div class="tag-section__line" />
             </div>
-            <div class="tag-materials-item__text">
-              Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...
+          </div>
+          <div class="tag-video__box">
+            <div
+              v-for="item in page.items"
+              :key="item.id"
+              class="tag-video-item__box"
+            >
+              <a v-if="item.path && item.title" :href="item.path" class="tag-video-item">
+                <div class="tag-video-item__box">
+                  <div class="tag-video-item__image__box">
+                    <img
+                      v-if="item.previews && item.previews['900x506']"
+                      :src="item.previews['900x506'].path"
+                      :alt="item.title"
+                      class="tag-video-item__image"
+                    >
+                    <div class="tag-video-item__time__box">
+                      <div class="tag-video-item__time-icon__box">
+                        <svg class="tag-video-item__time-icon">
+                          <use
+                            width="20"
+                            height="20"
+                            xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                            href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                          />
+                        </svg>
+                      </div>
+                      <div v-if="item.duration" class="tag-video-item__time-value">
+                        {{ timeFormat(+item.duration) }}
+                      </div>
+                    </div>
+                    <div class="tag-video-item__play__box">
+                      <svg class="tag-video-item__play">
+                        <use
+                          width="40"
+                          height="40"
+                          xlink:href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
+                          href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="tag-video-item__text__box">
+                    <div class="tag-video-item__text-date">
+                      {{ localeDate(item.date.published) }}
+                    </div>
+                    <div class="tag-video-item__text-title">
+                      {{ item.title }}
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
-          </a>
-          <a href="/" class="tag-materials-item">
-            <div class="tag-materials-item__date">
-              14 декабря 2018, 19:05
-            </div>
-            <div class="tag-materials-item__title">
-              Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-            </div>
-            <div class="tag-materials-item__text">
-              Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...
-            </div>
-          </a>
+          </div>
         </div>
       </div>
       <div class="tag-populations tag-materials">
@@ -143,32 +199,6 @@
                   Президент Белоруссии Александр Лукашенко заявил, что перед парламентскими и президентскими выборами в стране необходимо усилить идеологическую работу. Об этом в понедельник, 19 августа, сообщает ТАСС со ссылкой на пресс-службу белорусского лидера.
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="tag-materials">
-        <div class="tag-materials__box">
-          <a href="/" class="tag-materials-item">
-            <div class="tag-materials-item__date">
-              14 декабря 2018, 19:05
-            </div>
-            <div class="tag-materials-item__title">
-              Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-            </div>
-            <div class="tag-materials-item__text">
-              Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...
-            </div>
-          </a>
-          <a href="/" class="tag-materials-item">
-            <div class="tag-materials-item__date">
-              14 декабря 2018, 19:05
-            </div>
-            <div class="tag-materials-item__title">
-              Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-            </div>
-            <div class="tag-materials-item__text">
-              Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...
             </div>
           </a>
         </div>
@@ -227,130 +257,14 @@
           </a>
         </div>
       </div>
-      <div class="tag-materials">
-        <div class="tag-materials__box">
-          <a href="/" class="tag-materials-item">
-            <div class="tag-materials-item__date">
-              14 декабря 2018, 19:05
-            </div>
-            <div class="tag-materials-item__title">
-              Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-            </div>
-            <div class="tag-materials-item__text">
-              Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...
-            </div>
-          </a>
-          <a href="/" class="tag-materials-item">
-            <div class="tag-materials-item__date">
-              14 декабря 2018, 19:05
-            </div>
-            <div class="tag-materials-item__title">
-              Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-            </div>
-            <div class="tag-materials-item__text">
-              Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...
-            </div>
-          </a>
-        </div>
-      </div>
-      <div v-if="videos.length" id="videos" class="tag-videos tag-materials">
-        <div class="tag-video-header">
-          <div class="tag-video-header__box">
-            <div class="tag-video-header__icon__box">
-              <svg class="tag-video-header__icon">
-                <use
-                  width="20"
-                  height="20"
-                  xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                  href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                />
-              </svg>
-            </div>
-            <div class="tag-video-header__title">
-              Видео
-            </div>
-            <div class="tag-section__line" />
-          </div>
-        </div>
-        <div class="tag-video__box">
-          <div
-            v-for="item in videos"
-            :key="item.id"
-            class="tag-video-item__box"
-          >
-            <a v-if="item.path && item.title" :href="item.path" class="tag-video-item">
-              <div class="tag-video-item__box">
-                <div class="tag-video-item__image__box">
-                  <img
-                    v-if="item.previews && item.previews['900x506']"
-                    :src="item.previews['900x506'].path"
-                    :alt="item.title"
-                    class="tag-video-item__image"
-                  >
-                  <div class="tag-video-item__time__box">
-                    <div class="tag-video-item__time-icon__box">
-                      <svg class="tag-video-item__time-icon">
-                        <use
-                          width="20"
-                          height="20"
-                          xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                          href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
-                        />
-                      </svg>
-                    </div>
-                    <div v-if="item.duration" class="tag-video-item__time-value">
-                      {{ timeFormat(+item.duration) }}
-                    </div>
-                  </div>
-                  <div class="tag-video-item__play__box">
-                    <svg class="tag-video-item__play">
-                      <use
-                        width="40"
-                        height="40"
-                        xlink:href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                        href="/sprite/sprite-svg.svg?v=1.3#videos--top--icon_play_no_bg"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div class="tag-video-item__text__box">
-                  <div class="tag-video-item__text-date">
-                    {{ localeDate(item.date.published) }}
-                  </div>
-                  <div class="tag-video-item__text-title">
-                    {{ item.title }}
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="tag-materials">
-        <div class="tag-materials__box">
-          <a href="/" class="tag-materials-item">
-            <div class="tag-materials-item__date">
-              14 декабря 2018, 19:05
-            </div>
-            <div class="tag-materials-item__title">
-              Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-            </div>
-            <div class="tag-materials-item__text">
-              Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...
-            </div>
-          </a>
-          <a href="/" class="tag-materials-item">
-            <div class="tag-materials-item__date">
-              14 декабря 2018, 19:05
-            </div>
-            <div class="tag-materials-item__title">
-              Лукашенко пообещал не допустить вступления Белоруссии в состав РФ
-            </div>
-            <div class="tag-materials-item__text">
-              Государственный суверенитет является святым, заявил на встрече с российскими журналистами в Минске в пятницу, 14 декабря, президент Белоруссии Александр Лукашенко, добавив, что он...
-            </div>
-          </a>
-        </div>
+      <div class="btn-show-more__box">
+        <button
+          v-if="pageNumber * 3 < pageCount -3"
+          class="btn-show-more"
+          @click="nextPage"
+        >
+          Показать ещё
+        </button>
       </div>
     </div>
   </div>
@@ -481,9 +395,13 @@ export default {
   computed: {
     ...mapState('tags', {
       mainTag: 'main',
-      videos: 'video',
+      videos: 'videos',
       photos: 'photos'
     }),
+    // ...mapGetters('tags', {
+    //   videos: 'getVideos',
+    //   photos: 'getPhotos'
+    // }),
     // tagsData () {
     //   // console.log(tagsData)
     //   const doubleVideo = [...this.videos, ...this.videos, ...this.videos]
@@ -506,7 +424,7 @@ export default {
     // },
     pageCount () {
       const l = this.materials.length
-      const s = this.size
+      const s = this.sizeMaterial
       return Math.ceil(l / s)
     },
     paginatedData () {
@@ -535,13 +453,33 @@ export default {
 
       const startPhotos = pageNumber * this.sizePhotos
       const endPhotos = startPhotos + this.sizePhotos
-      this.pageItems.push([
-        ...this.materials.slice(startMaterials, endMaterials),
-        ...this.video.slice(startVideos, endVideos),
-        ...this.materials.slice(startMaterials + 2, endMaterials + 2),
-        ...this.photo.slice(startPhotos, endPhotos),
-        ...this.materials.slice(startMaterials + 4, endMaterials + 4)
-      ])
+      this.pageItems.push({
+        template: 'materials',
+        items: this.materials.slice(startMaterials, endMaterials)
+      })
+      this.pageItems.push({
+        template: 'videos',
+        items: this.videos.slice(startVideos, endVideos)
+      })
+      this.pageItems.push({
+        template: 'materials',
+        items: this.materials.slice(startMaterials + 2, endMaterials + 2)
+      })
+      this.pageItems.push({
+        template: 'phoros',
+        items: this.photos.slice(startPhotos, endPhotos)
+      })
+      this.pageItems.push({
+        template: 'materials',
+        items: this.materials.slice(startMaterials + 4, endMaterials + 4)
+      })
+      // this.pageItems.push([
+      //   ...this.materials.slice(startMaterials, endMaterials),
+      //   ...this.video.slice(startVideos, endVideos),
+      //   ...this.materials.slice(startMaterials + 2, endMaterials + 2),
+      //   ...this.photo.slice(startPhotos, endPhotos),
+      //   ...this.materials.slice(startMaterials + 4, endMaterials + 4)
+      // ])
     }
   }
 }

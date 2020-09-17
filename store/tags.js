@@ -14,21 +14,33 @@ export const state = () => ({
   topPanel: [],
   mainMenu: [],
   ticker: [],
-  video: [],
+  videos: [],
   photos: []
 })
 
-// export const getters = {
-//   getTopPanel: (state) => {
-//     return state.topPanel
-//   },
-//   getMainMenu: (state) => {
-//     return state.mainMenu
-//   },
-//   getTicker: (state) => {
-//     return state.ticker
-//   }
-// }
+export const getters = {
+  // getTopPanel: (state) => {
+  //   return state.topPanel
+  // },
+  // getMainMenu: (state) => {
+  //   return state.mainMenu
+  // },
+  // getTicker: (state) => {
+  //   return state.ticker
+  // }
+  // getVideos: (state) => {
+  //   return state.videos.map((el) => {
+  //     el.template = 'video'
+  //     return el
+  //   })
+  // },
+  // getPhotos: (state) => {
+  //   return state.photos.map((el) => {
+  //     el.template = 'photos'
+  //     return el
+  //   })
+  // }
+}
 
 export const mutations = {
   SET_TOP_PANEL (state, value) {
@@ -43,11 +55,17 @@ export const mutations = {
   SET_MAIN (state, value) {
     state.main = value
   },
-  SET_VIDEO (state, value) {
-    state.video = value
+  SET_VIDEOS (state, value) {
+    state.videos = value
   },
   SET_PHOTOS (state, value) {
     state.photos = value
+  },
+  ADD_VIDEOS (state, value) {
+    state.videos = state.videos.concat(value)
+  },
+  ADD_PHOTOS (state, value) {
+    state.photos = state.photos.concat(value)
   }
 }
 
@@ -63,7 +81,7 @@ export const actions = {
         if (topPanel?.objects) { commit('SET_TOP_PANEL', topPanel.objects) }
         if (menu?.objects) { commit('SET_MAIN_MENU', menu.objects) }
         if (ticker?.objects) { commit('SET_TICKER', ticker.objects) }
-        if (videos?.objects) { commit('SET_VIDEO', videos.objects) }
+        if (videos?.objects) { commit('SET_VIDEOS', videos.objects) }
         if (photos?.objects) { commit('SET_PHOTOS', photos.objects) }
       })
   }
