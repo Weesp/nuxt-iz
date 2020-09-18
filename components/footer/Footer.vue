@@ -3,9 +3,10 @@
     <div class="container">
       <input
         id="footerBottom"
+        v-model="footerChecker"
         type="checkbox"
         class="menu-switcher"
-        @:change="footerVisible"
+        @change="showFooterMenu"
       >
       <div class="footer-top">
         <div class="footer-top__box">
@@ -196,17 +197,51 @@
 
 <script>
 import { getHeight } from '@/plugins/CustomFunction'
+import positionScroll from '@/mixins/scroll'
 
 export default {
+  mixins: [positionScroll],
+  data: () => ({
+    targetFooter: '',
+    footerChecker: true
+  }),
+  mounted () {
+    this.targetFooter = document.querySelector('.footer-top')
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
-    footerVisible () {
-      const targetFooter = document.querySelector('.footer-top')
-      if (this.checked) {
+    showFooterMenu () {
+      if (this.footerChecker) {
         const height = getHeight(document.querySelector('.footer-bottom'))
-        targetFooter.style.height = height + 37 + 'px'
+        this.targetFooter.style.height = height + 37 + 'px'
       } else {
-        targetFooter.style.height = 37 + 'px'
+        this.targetFooter.style.height = 37 + 'px'
       }
+      this.targetFooter.classList.add('active')
+    },
+    hideFooterMenu () {
+      this.footerChecker = false
+      this.targetFooter.style.height = 0 + 'px'
+      this.targetFooter.classList.remove('active')
+    },
+    handleScroll (evt) {
+      const scrollTop = this.positionScroll.y
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
+      if (this.lastScrollTop > scrollTop) {
+        // UP
+        if (this.targetFooter) {
+          this.showFooterMenu()
+        }
+      } else if (scrollTop >= docHeight) {
+        // DOWN
+        this.showFooterMenu()
+      } else {
+        this.hideFooterMenu()
+      }
+      this.lastScrollTop = scrollTop
     }
   }
 }

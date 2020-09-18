@@ -54,11 +54,46 @@
 <script>
 import { mapState } from 'vuex'
 
+import positionScroll from '@/mixins/scroll'
+import { removeFixedElementOnTop, fixedElementOnTop, offset } from '@/plugins/CustomFunction'
+
 export default {
+  mixins: [positionScroll],
+  data: () => ({
+    defaultTop: 0,
+    lastScrollTop: 0,
+    targetScroll: '',
+    pdFix: 0
+  }),
   computed: {
     ...mapState('tags', {
       marqueeItem: 'ticker'
     })
+  },
+  mounted () {
+    this.targetScroll = document.querySelector('.marquee')
+    this.pdFix = document.querySelector('.header-iz').offsetHeight
+    this.defaultTop = offset(this.targetScroll).top - this.pdFix
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll (evt) {
+      const target = this.targetScroll
+      const scrollTop = this.positionScroll.y
+      if (this.lastScrollTop > scrollTop) {
+        // UP
+        if (scrollTop <= this.defaultTop) {
+          removeFixedElementOnTop(target, this.pdFix)
+        }
+      } else if (scrollTop >= this.defaultTop) {
+        // DOWN
+        fixedElementOnTop(target, this.pdFix)
+      }
+      this.lastScrollTop = scrollTop
+    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="live-player__box">
     <input id="livePlayerSwitcher" type="checkbox" class="menu-switcher">
-    <div class="live-player">
+    <div ref="livePlayer" class="live-player">
       <label for="livePlayerSwitcher" class="live-player__btn">
         <div class="live-player__btn-text">Прямой эфир</div>
       </label>
@@ -16,7 +16,37 @@
 </template>
 
 <script>
-export default {}
+import positionScroll from '@/mixins/scroll'
+
+export default {
+  mixins: [positionScroll],
+  data: () => ({
+    showBtnHeight: 350
+  }),
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll (evt) {
+      const target = this.$refs.livePlayer
+      const showBtnControl = window.innerHeight / 3 > this.showBtnHeight ? this.showBtnHeight : window.innerHeight / 3
+      const scrollTop = this.positionScroll.y
+      if (this.lastScrollTop > scrollTop) {
+        // UP
+        if (scrollTop <= showBtnControl) {
+          target.classList.remove('active')
+        }
+      } else if (scrollTop >= showBtnControl) {
+        // DOWN
+        target.classList.add('active')
+      }
+      this.lastScrollTop = scrollTop
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -24,6 +54,7 @@ export default {}
 @import "/assets/style/utils/mixins";
 
 .live-player__box {
+  background: #ffffff;
   .live-player {
     position: fixed;
     right: 0px;
@@ -74,7 +105,7 @@ export default {}
     }
   }
   @media screen and (max-width: $tableWidth) {
-    margin-bottom: 20px;
+    padding: 20px 15px 10px;
     .live-player {
       opacity: 1;
       visibility: visible;

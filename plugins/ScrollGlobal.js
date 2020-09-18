@@ -195,18 +195,6 @@ window.onscroll = () => {
   }
   lastScrollTop = scrollTop
 }
-// }
-if (document.getElementById('footerBottom')) {
-  footerBottom.onchange = function () {
-    const targetFooter = document.querySelector('.footer-top')
-    if (footerBottom.checked) {
-      const height = customFunc.getHeight(document.querySelector('.footer-bottom'))
-      targetFooter.style.height = height + 37 + 'px'
-    } else {
-      targetFooter.style.height = 37 + 'px'
-    }
-  }
-}
 if (document.getElementById('footerBottom')) {
   footerBottom.onchange = () => {
     const targetFooter = document.querySelector('.footer-top')

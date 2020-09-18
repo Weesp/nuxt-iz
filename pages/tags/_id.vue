@@ -6,7 +6,6 @@
       <div class="container">
         <div class="page-wrapper">
           <section class="section">
-            <izPlayer />
             <izTags />
           </section>
           <izAside />
@@ -21,7 +20,6 @@
 import izHeader from '@/components/header/Header'
 import izTags from '@/components/tags/Tags'
 import izAside from '@/components/Aside'
-import izPlayer from '@/components/Player'
 import izFooter from '@/components/footer/Footer'
 
 export default {
@@ -32,7 +30,6 @@ export default {
     izHeader,
     izTags,
     izAside,
-    izPlayer,
     izFooter
   },
   asyncData ({ params, store, error }) {

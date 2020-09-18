@@ -4,7 +4,7 @@
       :top-lincs="topLincs"
     />
     <input id="menuSwitcher" class="menu-switcher" type="checkbox">
-    <div class="header-iz__back" />
+    <div ref="backFixBox" class="header-iz__back" />
     <div class="header-iz">
       <logo
         :logo-menu-items="logoMenuItems"
@@ -19,12 +19,12 @@
       <newspaperMenu
         :menu-items="newspaperMenuItems"
       />
-      <div class="fix-black-bg" />
       <search />
     </div>
     <marquee />
+    <izPlayer />
     <div class="scroll-top-btn__box">
-      <div class="scroll-top-btn">
+      <div ref="btnTop" class="scroll-top-btn" @click="scrollTop">
         <img src="@/assets/img/icons/arrow-logo.svg" alt="scroll top" class="scroll-top-btn__icon">
       </div>
     </div>
@@ -41,8 +41,12 @@ import secondLogos from '@/components/header/SecondLogos'
 import newspaperMenu from '@/components/header/NewspaperMenu'
 import search from '@/components/header/Search'
 import marquee from '@/components/header/Marquee'
+import izPlayer from '@/components/Player'
 
 import mobiFooterMenu from '@/assets/params/header/mobiFooterMenu'
+
+import positionScroll from '@/mixins/scroll'
+import { removeFixedElementOnTop, fixedElementOnTop, offset } from '@/plugins/CustomFunction'
 
 import logoIz from '@/assets/img/icons/logo_iz.svg'
 import logoNewspaper from '@/assets/img/icons/newspaper.svg'
@@ -61,15 +65,14 @@ export default {
     secondLogos,
     newspaperMenu,
     search,
-    marquee
+    marquee,
+    izPlayer
   },
   directives: {
     scroll: {
       inserted (el, binding) {
         const f = function (evt) {
-          // console.log(evt, binding)
           if (binding.value(evt, el)) {
-            // console.log(evt, el)
             window.removeEventListener('scroll', f)
           }
         }
@@ -77,8 +80,13 @@ export default {
       }
     }
   },
+  mixins: [positionScroll],
   data () {
     return {
+      defaultTop: 0,
+      lastScrollTop: 0,
+      targetScroll: '',
+      showBtnHeight: 350,
       logoMenuItems: [
         {
           url: '/',
@@ -198,16 +206,57 @@ export default {
       mainMenu: 'mainMenu'
     })
   },
+  mounted () {
+    this.targetScroll = document.querySelector('.header-iz')
+    this.defaultTop = offset(this.targetScroll).top
+    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
-    handleScroll (evt, el) {
-      // console.log(el)
-      if (window.scrollY > 50) {
-        // el.setAttribute(
-        //   'style',
-        //   'opacity: 1; transform: translate3d(0, -10px, 0)'
-        // )
+    handleResize () {
+      this.targetScroll = document.querySelector('.header-iz')
+      this.defaultTop = offset(this.targetScroll).top
+      console.log(this.defaultTop)
+    },
+    handleScroll (evt) {
+      const btnTop = this.$refs.btnTop
+      const targetHeader = this.targetScroll
+      const scrollTop = this.positionScroll.y
+      const showBtnControl = window.innerHeight / 3 > this.showBtnHeight ? this.showBtnHeight : window.innerHeight / 3
+      const backFixBox = this.$refs.backFixBox
+      const headerHeight = backFixBox.offsetHeight
+      if (this.lastScrollTop > scrollTop) {
+        // UP
+        if (scrollTop <= this.defaultTop) {
+          removeFixedElementOnTop(targetHeader)
+          backFixBox.style.height = ''
+          backFixBox.style.position = 'absolute'
+        }
+        if (scrollTop <= showBtnControl) {
+          btnTop.classList.remove('active')
+        }
+      } else {
+        // DOWN
+        if (scrollTop >= this.defaultTop) {
+          fixedElementOnTop(targetHeader)
+          backFixBox.style.height = headerHeight + 'px'
+          backFixBox.style.position = 'relative'
+        }
+        if (scrollTop >= showBtnControl) {
+          btnTop.classList.add('active')
+        }
       }
-      return window.scrollY > 100
+      this.lastScrollTop = scrollTop
+    },
+    scrollTop () {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     }
   }
 }
@@ -218,6 +267,8 @@ export default {
 @import "/assets/style/utils/mixins";
 /* header-iz */
 .header-iz__back {
+  position: absolute;
+  height: 75px;
   @media screen and (max-width: $tableWidth) {
     height: 50px;
   }
@@ -790,7 +841,6 @@ export default {
   }
   @media screen and (max-width: $tableWidth) {
     display: block;
-    position: fixed;
     width: 100%;
     padding: $tablePd;
     .logo-container {
@@ -1159,6 +1209,7 @@ export default {
     background: #787878;
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     @include transition-all;
 
@@ -1180,7 +1231,7 @@ export default {
     }
     .scroll-top-btn__icon {
       width: 18px;
-      margin: 0px auto;
+      margin-top: -3px;
       transform: rotate(180deg);
     }
   }
