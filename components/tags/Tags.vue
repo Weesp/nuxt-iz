@@ -99,7 +99,9 @@
               <div class="tag-section__line" />
             </div>
           </div>
-          <div class="tag-video__box">
+          <div
+            class="tag-video__box"
+          >
             <div
               v-for="item in page.items"
               :key="item.id"
@@ -402,26 +404,6 @@ export default {
     //   videos: 'getVideos',
     //   photos: 'getPhotos'
     // }),
-    // tagsData () {
-    //   // console.log(tagsData)
-    //   const doubleVideo = [...this.videos, ...this.videos, ...this.videos]
-    //   const result = [
-    //     ...this.materials.map((el) => {
-    //       el.template = 'materials'
-    //       return el
-    //     }),
-    //     ...doubleVideo.map((el) => {
-    //       el.template = 'video'
-    //       return el
-    //     })
-    //   ]
-    //   result.sort(sortMaterials)
-    //   function sortMaterials (a, b) {
-    //     console.log(a, b)
-    //   }
-    //   // console.log(result)
-    //   return result
-    // },
     pageCount () {
       const l = this.materials.length
       const s = this.sizeMaterial
@@ -655,7 +637,7 @@ export default {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-gap: 10px;
-      @media screen and (max-width: $phoneWidth) {
+      @media screen and (max-width: $tableWidth) {
         grid-template-columns: repeat(2, 1fr);
       }
       @media screen and (max-width: $smPhoneWidth) {
@@ -679,6 +661,8 @@ export default {
           }
         }
         .tag-video-item__box {
+          display: flex;
+          flex-direction: column;
           .tag-video-item__image__box {
             display: flex;
             position: relative;
@@ -716,11 +700,11 @@ export default {
             }
             .tag-video-item__image {
               width: 100%;
+              min-height: 100px;
             }
           }
           .tag-video-item__text__box {
-            padding: 10px;
-
+            padding: 10px 0px;
             .tag-video-item__text-date {
               font-size: 11px;
               color: $dateItem;

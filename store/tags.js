@@ -74,7 +74,6 @@ export const actions = {
     return this.$axios
       .$get(`${API_PATHS.host}/${API_PATHS.tag}/${tag}`)
       .then(({ status, object, included = {} }) => {
-        // if (status.code !== 200) { throw new Error(CONSTANTS.errorMessage[status.code]) }
         if (status.code !== 200) { throw new Error(`http response status: ${status.code}`) }
         const { topPanel, menu, ticker, videos, photos } = included
         if (object) { commit('SET_MAIN', object) }
