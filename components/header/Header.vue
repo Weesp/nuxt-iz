@@ -220,7 +220,7 @@ export default {
     handleResize () {
       this.targetScroll = document.querySelector('.header-iz')
       this.defaultTop = offset(this.targetScroll).top
-      console.log(this.defaultTop)
+      // console.log(this.defaultTop)
     },
     handleScroll (evt) {
       const btnTop = this.$refs.btnTop
@@ -991,8 +991,6 @@ export default {
             }
             .social-item__url {
               display: block;
-              .social-item__icon {
-              }
             }
           }
         }

@@ -1,0 +1,29 @@
+{
+    "include": {
+        "materials": {
+            "limit": 8,
+            "offset": 8
+        },
+        "config": false
+    }
+}
+{
+    "include": {
+        "materials": {
+            "limit": 8,
+            "ofset": 16
+        },
+        "videos": {
+            "limit": 4,
+            "ofset": 8
+        },
+        "photos": {
+            "limit": 4,
+            "ofset": 8
+        },
+        "topPanel": true,
+        "menu": true,
+        "ticker": true,
+        "config": false
+    }
+}

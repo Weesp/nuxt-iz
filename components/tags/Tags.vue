@@ -1,13 +1,16 @@
 <template>
   <div class="tags-content__box">
+    <!-- <pre>{{ mainTag }}</pre> -->
     <div class="tag-title">
       <div v-if="mainTag && mainTag.id" class="tag-title__box">
-        <img
-          v-if="mainTag.icon"
-          class="tag-title-image"
-          src="@/assets/img/tags/header-title-img.webp"
-          :alt="'Все новости с тегом ' + mainTag.title"
-        >
+        <div class="tag-title-image__box">
+          <img
+            v-if="mainTag.previews && mainTag.previews['900x506']"
+            class="tag-title-image"
+            :src="mainTag.previews['900x506'].path"
+            :alt="'Все новости с тегом ' + mainTag.title"
+          >
+        </div>
         <div class="tag-title__background">
           <div class="background-mask">
             <img
@@ -25,9 +28,7 @@
             <div class="tag-title-content__title">
               {{ mainTag.title }}
             </div>
-            <div v-if="mainTag.description" class="tag-title-content__text">
-              {{ mainTag.description }}
-            </div>
+            <div v-if="mainTag.description" class="tag-title-content__text" v-html="mainTag.description" />
           </div>
         </div>
       </div>
@@ -64,9 +65,10 @@
               <a
                 v-for="(item, indx) in page.items"
                 :key="indx"
-                href="/"
+                :href="(item.path ? item.path : '/')"
                 class="tag-materials-item"
               >
+                <!-- <pre>{{ item }}</pre> -->
                 <div class="tag-materials-item__date">
                   {{ item.date.published ? localeDate(item.date.published) : item.date }}
                 </div>
@@ -105,7 +107,7 @@
             <div
               v-for="item in page.items"
               :key="item.id"
-              class="tag-video-item__box"
+              class="tag-video-item__container"
             >
               <a v-if="item.path && item.title" :href="item.path" class="tag-video-item">
                 <div class="tag-video-item__box">
@@ -147,6 +149,56 @@
                       {{ localeDate(item.date.published) }}
                     </div>
                     <div class="tag-video-item__text-title">
+                      {{ item.title }}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div v-if="page.template === 'photos' && page.items.length" class="tag-photos tag-materials">
+          <div class="tag-photo-header">
+            <div class="tag-photo-header__box">
+              <div class="tag-photo-header__icon__box">
+                <svg class="tag-photo-header__icon">
+                  <use
+                    width="20"
+                    height="20"
+                    xlink:href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                    href="/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+                  />
+                </svg>
+              </div>
+              <div class="tag-photo-header__title">
+                Фото
+              </div>
+              <div class="tag-section__line" />
+            </div>
+          </div>
+          <div
+            class="tag-photo__box"
+          >
+            <div
+              v-for="item in page.items"
+              :key="item.id"
+              class="tag-photo-item__container"
+            >
+              <a v-if="item.path && item.title" :href="item.path" class="tag-photo-item">
+                <div class="tag-photo-item__box">
+                  <div class="tag-photo-item__image__box">
+                    <img
+                      v-if="item.previews && item.previews['900x506']"
+                      :src="item.previews['900x506'].path"
+                      :alt="item.title"
+                      class="tag-photo-item__image"
+                    >
+                  </div>
+                  <div class="tag-photo-item__text__box">
+                    <div class="tag-photo-item__text-date">
+                      {{ localeDate(item.date.published) }}
+                    </div>
+                    <div class="tag-photo-item__text-title">
                       {{ item.title }}
                     </div>
                   </div>
@@ -274,7 +326,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { timeFormat } from '@/plugins/CustomFunction'
+import { timeFormat, localeDate } from '@/plugins/CustomFunction'
 
 export default {
   data: () => ({
@@ -283,7 +335,7 @@ export default {
     sizeMaterial: 2,
     sizeVideos: 4,
     sizePhotos: 4,
-    materials: [
+    material: [
       {
         id: '1',
         title: '1Лукашенко пообещал не допустить вступления Белоруссии в состав РФ',
@@ -398,7 +450,8 @@ export default {
     ...mapState('tags', {
       mainTag: 'main',
       videos: 'videos',
-      photos: 'photos'
+      photos: 'photos',
+      materials: 'materials'
     }),
     // ...mapGetters('tags', {
     //   videos: 'getVideos',
@@ -418,13 +471,34 @@ export default {
   },
   methods: {
     timeFormat,
-    localeDate (date) {
-      const dateObject = new Date(date * 1000)
-      return dateObject.toLocaleDateString() + ', ' + dateObject.getHours() + ':' + dateObject.getMinutes()
-    },
-    nextPage () {
+    localeDate,
+    async nextPage ({ params }) {
       // фичуем тута store.dispatch('tags/fetchTags', params.id), // page...
-      this.pageRender(++this.pageNumber)
+      const page = ++this.pageNumber
+      console.log(page)
+      const param = JSON.stringify({
+        include: {
+          materials: {
+            limit: 8,
+            offset: page * 8
+          },
+          videos: {
+            limit: 4,
+            offset: page * 4
+          },
+          photos: {
+            limit: 4,
+            offset: page * 4
+          },
+          config: false
+        }
+      })
+      console.log(param)
+      const res = await this.$store.dispatch('tags/addTags', this.$route.params.id + '?json=' + param)
+      res.then(() => {
+        console.log(1111)
+        this.pageRender(page)
+      })
     },
     pageRender (pageNumber) {
       const startMaterials = pageNumber * 3 * this.sizeMaterial
@@ -448,7 +522,7 @@ export default {
         items: this.materials.slice(startMaterials + 2, endMaterials + 2)
       })
       this.pageItems.push({
-        template: 'phoros',
+        template: 'photos',
         items: this.photos.slice(startPhotos, endPhotos)
       })
       this.pageItems.push({
@@ -635,10 +709,10 @@ export default {
     .tag-video__box {
       padding: 5px 0px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, calc(100%/4 - 10px*3/4));
       grid-gap: 10px;
       @media screen and (max-width: $tableWidth) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, calc(100%/2 - 10px/2));
       }
       @media screen and (max-width: $smPhoneWidth) {
         grid-template-columns: repeat(1, 1fr);
@@ -704,7 +778,7 @@ export default {
             }
           }
           .tag-video-item__text__box {
-            padding: 10px 0px;
+            padding: 10px;
             .tag-video-item__text-date {
               font-size: 11px;
               color: $dateItem;
@@ -713,6 +787,117 @@ export default {
               font-size: 14px;
               font-weight: 600;
               color: #000;
+            }
+          }
+        }
+      }
+    }
+  }
+  .tag-photos {
+    .tag-photo-header {
+      .tag-photo-header__box {
+        display: flex;
+        .tag-photo-header__icon__box {
+          background: #4d2466;
+          @include size(20px);
+          .tag-photo-header__icon {
+            @include size(20px);
+          }
+        }
+
+        .tag-photo-header__title {
+          padding-left: 5px;
+          font-size: 14px;
+          color: $mainSection;
+          white-space: nowrap;
+          font-weight: 600;
+        }
+      }
+    }
+    .tag-photo__box {
+      padding: 5px 0px;
+      display: grid;
+      grid-template-columns: repeat(4, calc(100%/4 - 10px*3/4));
+      grid-gap: 10px;
+      @media screen and (max-width: $tableWidth) {
+        grid-template-columns: repeat(2, calc(100%/2 - 10px/2));
+      }
+      @media screen and (max-width: $smPhoneWidth) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .tag-photo-item {
+        background: #f6f6f6;
+        &:hover {
+          .tag-photo-item__box {
+            .tag-photo-item__text__box {
+              .tag-photo-item__text-title {
+                color: $mainHover;
+              }
+            }
+            .tag-photo-item__image__box {
+              .tag-photo-item__play__box {
+                background: rgba(76, 36, 101, 0.9);
+              }
+            }
+          }
+        }
+        .tag-photo-item__box {
+          display: flex;
+          flex-direction: column;
+          .tag-photo-item__image__box {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            .tag-photo-item__time__box {
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              display: flex;
+              background: #4d2466;
+              height: 20px;
+              align-items: center;
+              .tag-photo-item__time-value {
+                padding: 0px 5px;
+                font-size: 12px;
+                color: #ffffff;
+              }
+              .tag-photo-item__time-icon__box {
+                display: flex;
+                .tag-photo-item__time-icon {
+                  @include size(20px);
+                }
+              }
+            }
+            .tag-photo-item__play__box {
+              position: absolute;
+              top: calc(50% - 18px);
+              left: calc(50% - 18px);
+              background: rgba(76, 36, 101, 0.5);
+              @include size(40px, 40px);
+              @include transition-all;
+              .tag-photo-item__play {
+                @include size(40px, 40px);
+              }
+            }
+            .tag-photo-item__image {
+              width: 100%;
+              min-height: 100px;
+            }
+          }
+          .tag-photo-item__text__box {
+            padding: 10px;
+            .tag-photo-item__text-date {
+              font-size: 11px;
+              color: $dateItem;
+            }
+            .tag-photo-item__text-title {
+              overflow: hidden;
+              word-wrap: break-word;
+              font-size: 14px;
+              font-weight: 600;
+              color: #000;
+              text-overflow: ellipsis;
             }
           }
         }

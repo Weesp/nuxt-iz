@@ -134,6 +134,9 @@ export default {
       }
     }
   }
+  @media screen and (max-width: $phoneWidth) {
+    padding: 20px 5px 10px;
+  }
 }
 #livePlayerSwitcher:checked ~ .live-player {
   bottom: 50px;

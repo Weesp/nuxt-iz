@@ -15,7 +15,8 @@ export const state = () => ({
   mainMenu: [],
   ticker: [],
   videos: [],
-  photos: []
+  photos: [],
+  materials: []
 })
 
 export const getters = {
@@ -61,11 +62,17 @@ export const mutations = {
   SET_PHOTOS (state, value) {
     state.photos = value
   },
+  SET_MATERIALS (state, value) {
+    state.materials = value
+  },
   ADD_VIDEOS (state, value) {
     state.videos = state.videos.concat(value)
   },
   ADD_PHOTOS (state, value) {
     state.photos = state.photos.concat(value)
+  },
+  ADD_MATERIALS (state, value) {
+    state.materials = state.materials.concat(value)
   }
 }
 
@@ -75,13 +82,25 @@ export const actions = {
       .$get(`${API_PATHS.host}/${API_PATHS.tag}/${tag}`)
       .then(({ status, object, included = {} }) => {
         if (status.code !== 200) { throw new Error(`http response status: ${status.code}`) }
-        const { topPanel, menu, ticker, videos, photos } = included
+        const { topPanel, menu, ticker, videos, photos, materials } = included
         if (object) { commit('SET_MAIN', object) }
         if (topPanel?.objects) { commit('SET_TOP_PANEL', topPanel.objects) }
         if (menu?.objects) { commit('SET_MAIN_MENU', menu.objects) }
         if (ticker?.objects) { commit('SET_TICKER', ticker.objects) }
         if (videos?.objects) { commit('SET_VIDEOS', videos.objects) }
         if (photos?.objects) { commit('SET_PHOTOS', photos.objects) }
+        if (materials?.objects) { commit('SET_MATERIALS', materials.objects) }
+      })
+  },
+  addTags ({ commit }, tag) {
+    return this.$axios
+      .$get(`${API_PATHS.host}/${API_PATHS.tag}/${tag}`)
+      .then(({ status, included = {} }) => {
+        if (status.code !== 200) { throw new Error(`http response status: ${status.code}`) }
+        const { videos, photos, materials } = included
+        if (videos?.objects) { commit('ADD_VIDEOS', videos.objects) }
+        if (photos?.objects) { commit('ADD_PHOTOS', photos.objects) }
+        if (materials?.objects) { commit('ADD_MATERIALS', materials.objects) }
       })
   }
   // async getTagsApi ({ commit }, tag) {
