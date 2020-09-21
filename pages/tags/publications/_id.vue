@@ -6,7 +6,7 @@
       <div class="container">
         <div class="page-wrapper">
           <section class="section">
-            <izTags />
+            <izPublications />
           </section>
           <izAside />
         </div>
@@ -18,7 +18,7 @@
 
 <script>
 import izHeader from '@/components/header/Header'
-import izTags from '@/components/tags/Tags'
+import izPublications from '@/components/tags/Publications'
 import izAside from '@/components/Aside'
 import izFooter from '@/components/footer/Footer'
 
@@ -28,15 +28,16 @@ export default {
   // },
   components: {
     izHeader,
-    izTags,
+    izPublications,
     izAside,
     izFooter
   },
-  asyncData ({ params, store, error, query }) {
+  asyncData ({ route, params, store, error, query }) {
     // await store.dispatch('tags/fetchTags', params.id).catch(function (err) {
     //   console.log(err)
     //   return { err }
     // })
+    // console.log(route)
     let page = 0
     if (query && query.page && Number.isInteger(+query.page)) {
       page = query.page
@@ -44,16 +45,8 @@ export default {
     const param = JSON.stringify({
       include: {
         materials: {
-          limit: 8,
-          offset: page * 8
-        },
-        videos: {
-          limit: 4,
-          offset: page * 4
-        },
-        photos: {
-          limit: 4,
-          offset: page * 4
+          limit: 20,
+          offset: page * 20
         },
         topPanel: true,
         menu: true,

@@ -1,0 +1,22 @@
+[
+    {
+        "id": 0,
+        "title": "Все материалы",
+        "path": "/tags/"
+    },
+    {
+        "id": 1,
+        "title": "Публикации",
+        "path": "/tags/publications/"
+    },
+    {
+        "id": 2,
+        "title": "Фотографии",
+        "path": "/tags/photos/"
+    },
+    {
+        "id": 3,
+        "title": "Видео",
+        "path": "/tags/videos/"
+    }
+]

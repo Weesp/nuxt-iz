@@ -1,12 +1,11 @@
 <template>
   <div class="wrapper">
-    <!-- {{ err }} -->
     <izHeader />
     <div class="content-wrapper">
       <div class="container">
         <div class="page-wrapper">
           <section class="section">
-            <izTags />
+            <izPhotos />
           </section>
           <izAside />
         </div>
@@ -18,7 +17,7 @@
 
 <script>
 import izHeader from '@/components/header/Header'
-import izTags from '@/components/tags/Tags'
+import izPhotos from '@/components/tags/Photos'
 import izAside from '@/components/Aside'
 import izFooter from '@/components/footer/Footer'
 
@@ -28,32 +27,25 @@ export default {
   // },
   components: {
     izHeader,
-    izTags,
+    izPhotos,
     izAside,
     izFooter
   },
-  asyncData ({ params, store, error, query }) {
+  asyncData ({ route, params, store, error, query }) {
     // await store.dispatch('tags/fetchTags', params.id).catch(function (err) {
     //   console.log(err)
     //   return { err }
     // })
+    // console.log(route)
     let page = 0
     if (query && query.page && Number.isInteger(+query.page)) {
       page = query.page
     }
     const param = JSON.stringify({
       include: {
-        materials: {
-          limit: 8,
-          offset: page * 8
-        },
-        videos: {
-          limit: 4,
-          offset: page * 4
-        },
         photos: {
-          limit: 4,
-          offset: page * 4
+          limit: 24,
+          offset: page * 24
         },
         topPanel: true,
         menu: true,
