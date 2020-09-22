@@ -290,13 +290,14 @@ export default {
   }
   .mobile-item__label {
     color: #fff;
+    letter-spacing: 0.06em;
     font-size: 16px;
     @media screen and (max-width: $tableWidth) {
       text-transform: uppercase;
     }
   }
   .mobile-item__title {
-    color: $miniMenuTitle;
+    color: #ababa1;
     font-size: 16px;
     @media screen and (max-width: $tableWidth) {
       text-transform: uppercase;
@@ -327,7 +328,7 @@ export default {
   }
   .menu-mini__label {
     display: none;
-    padding: 10px 5px;
+    padding: 10px;
   }
   .rubrics {
     display: none;
@@ -360,6 +361,11 @@ export default {
         width: 20px;
         height: 20px;
       }
+      // a[href='/rubric/stil'] {
+      //   .rubric-item__icon{
+      //     background: url('/sprite/sprite-svg.svg?v=1.3#header--menu-icons--0x-lux');
+      //   }
+      // }
       @media screen and (max-width: $tableWidth) {
         border-right: none;
       }
@@ -367,7 +373,7 @@ export default {
     @media screen and (max-width: $tableWidth) {
       grid-template-columns: repeat(1, 1fr);
       display: grid;
-      margin: 0px 15px;
+      margin: 0px 10px;
       padding: 5px 0px;
       font-size: 14px;
       position: relative;
@@ -423,7 +429,7 @@ export default {
           width: 100%;
           border-top: 1px solid $borderMobile;
           padding: 8px 0 0 0;
-          margin: 7px 15px 0px 15px;
+          margin: 10px 10px 0px 10px;
           font-size: 16px;
           color: $miniMenuTitle;
           font-weight: 600;
@@ -466,7 +472,7 @@ export default {
       @include transition-all;
 
       @media screen and (max-width: $tableWidth) {
-        height: 33px;
+        height: 30px;
       }
       &:hover {
         background: $urlBgHover;
@@ -860,8 +866,8 @@ export default {
           .logo-container__mobile {
             display: flex;
             .logo-img {
-              height: 33px;
-              width: 152px;
+              height: 25px;
+              width: 109px;
             }
             .logo-menu__arrow {
               margin-left: 10px;
@@ -1063,6 +1069,7 @@ export default {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         text-transform: uppercase;
+        padding: 4px 10px;
       }
       .menu-items__box {
         background: $miniMenu;

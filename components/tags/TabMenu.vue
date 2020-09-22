@@ -3,6 +3,16 @@
     <div class="tag-tabs__box">
       <div v-for="item in menuItems" :key="item.id" class="tag-tabs-item__box">
         <a :href="item.path + $route.params.id" :class="'tag-tabs-item' + (item.id === active ? ' active' : '')">
+          <div v-if="item.icon" class="tag-tabs-item__img__box">
+            <svg v-if="item.icon.svg" class="tag-tabs__icon">
+              <use
+                width="20"
+                height="20"
+                :xlink:href="item.icon.svg"
+                :href="item.icon.svg"
+              />
+            </svg>
+          </div>
           <div class="tag-tabs-item__text">
             {{ item.title }}
           </div>
@@ -14,6 +24,7 @@
 
 <script>
 import paramsMenu from '@/assets/params/tags/tab-menu'
+
 export default {
   props: {
     active: {
@@ -53,6 +64,7 @@ export default {
           font-style: normal;
           font-weight: normal;
           color: #999999;
+          height: 20px;
         }
         &.active {
           border-bottom: 2px solid $mainSection;
@@ -64,6 +76,13 @@ export default {
         &:hover {
           .tag-tabs-item__text{
             color: #000000;
+          }
+        }
+        .tag-tabs-item__img__box{
+          display: block;
+          @include size(20px);
+          .tag-tabs__icon{
+            @include size(20px)
           }
         }
       }

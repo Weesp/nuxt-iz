@@ -17,6 +17,9 @@
     {
         "id": 3,
         "title": "Видео",
-        "path": "/tags/videos/"
+        "path": "/tags/videos/",
+        "icon": {
+            "svg": "/sprite/sprite-svg.svg?v=1.3#index--SVG_icons_type_materials--icon_video"
+        }
     }
 ]

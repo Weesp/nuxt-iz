@@ -1,6 +1,6 @@
 <template>
   <div class="tag-videos tag-materials">
-    <div class="tag-video-header">
+    <div v-if="title" class="tag-video-header">
       <div class="tag-video-header__box">
         <div class="tag-video-header__icon__box">
           <svg class="tag-video-header__icon">
@@ -27,7 +27,7 @@
                 v-if="item.previews && item.previews['900x506']"
                 :src="item.previews['900x506'].path"
                 :alt="item.title"
-                class="tag-video-item__image"
+                class="tag-video-item__image lazyload"
               >
               <div class="tag-video-item__time__box">
                 <div class="tag-video-item__time-icon__box">
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import 'lazysizes'
 import { timeFormat, localeDate } from '@/plugins/CustomFunction'
 
 export default {

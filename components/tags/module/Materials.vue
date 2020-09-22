@@ -46,7 +46,7 @@ export default {
       color: $mainHover;
     }
   }
-  .tag-materials-item__date { 
+  .tag-materials-item__date {
     font-size: 11px;
     color: $dateItem;
   }

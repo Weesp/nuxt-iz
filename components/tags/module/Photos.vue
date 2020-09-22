@@ -33,7 +33,7 @@
                 v-if="item.previews && item.previews['900x506']"
                 :src="item.previews['900x506'].path"
                 :alt="item.title"
-                class="tag-photo-item__image"
+                class="tag-photo-item__image lazyload"
               >
             </div>
             <div class="tag-photo-item__text__box">
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import 'lazysizes'
 import { localeDate } from '@/plugins/CustomFunction'
 
 export default {

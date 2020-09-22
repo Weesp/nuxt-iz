@@ -144,8 +144,8 @@
                     .logo-container__mobile{
                         display: flex;
                         .logo-img{
-                            height: 33px;
-                            width: 152px;
+                            height: 25px;
+                            width: 109px;
                         }
                         .logo-menu__arrow{
                             margin-left:10px;
@@ -366,7 +366,7 @@
     }
     .menu-mini__label{
         display: none;
-        padding: 10px 5px;
+        padding: 10px;
     }
     .rubrics{
         display: none;
@@ -492,6 +492,7 @@
         display: flex;
         align-items: center;
         min-height: 50px;
+        padding: 5px 10px;
     }
     .menu-item{
         & > a{

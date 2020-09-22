@@ -25,7 +25,7 @@ import izAside from '@/components/Aside'
 import izFooter from '@/components/footer/Footer'
 
 const paramPage = {
-  limit: 24
+  limit: 20
 }
 export default {
   // validate ({ params, store, route }) {

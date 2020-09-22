@@ -10,7 +10,7 @@
       <label class="logo-menu-open" for="menuLogoSwitcher">
         <div class="logo-container__mobile">
           <svg class="logo-img">
-            <use width="152" height="32" xlink:href="/sprite/sprite-svg.svg#header--iz-logo-full" href="/sprite/sprite-svg.svg#header--iz-logo-full" />
+            <use width="109" height="25" xlink:href="/sprite/sprite-svg.svg#header--iz-logo-full" href="/sprite/sprite-svg.svg#header--iz-logo-full" />
           </svg>
           <img class="logo-menu__arrow" src="@/assets/img/icons/arrow-logo.svg">
         </div>
