@@ -25,7 +25,7 @@
             <div class="tag-video-item__image__box">
               <img
                 v-if="item.previews && item.previews['900x506']"
-                :src="item.previews['900x506'].path"
+                :data-src="item.previews['900x506'].path"
                 :alt="item.title"
                 class="tag-video-item__image lazyload"
               >
