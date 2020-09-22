@@ -188,16 +188,16 @@ export default {
       const param = JSON.stringify({
         include: {
           materials: {
-            limit: 8,
-            offset: page * 8
+            limit: this.sizeMaterial * 4,
+            offset: page * this.sizeMaterial * 4
           },
           videos: {
-            limit: 4,
-            offset: page * 4
+            limit: this.sizeVideos,
+            offset: page * this.sizeVideos
           },
           photos: {
-            limit: 4,
-            offset: page * 4
+            limit: this.sizePhotos,
+            offset: page * this.sizePhotos
           },
           config: false
         }

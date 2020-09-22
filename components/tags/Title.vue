@@ -33,6 +33,8 @@
 </template>
 
 <script>
+// import 'lazysizes'
+
 export default {
   props: {
     tag: {

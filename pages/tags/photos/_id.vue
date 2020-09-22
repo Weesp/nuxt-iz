@@ -24,7 +24,7 @@ import izAside from '@/components/Aside'
 import izFooter from '@/components/footer/Footer'
 
 const paramPage = {
-  limit: 24
+  limit: 12
 }
 
 export default {

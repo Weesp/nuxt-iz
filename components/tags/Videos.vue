@@ -65,19 +65,10 @@ export default {
       const page = ++this.pageNumber
       const param = JSON.stringify({
         include: {
-          materials: {
-            limit: 8,
-            offset: page * 8
-          },
           videos: {
-            limit: 4,
-            offset: page * 4
-          },
-          photos: {
-            limit: 4,
-            offset: page * 4
-          },
-          config: false
+            limit: this.paramPage.limit,
+            offset: page * this.paramPage.limit
+          }
         }
       })
       const res = await this.$store.dispatch('tags/addTags', this.$route.params.id + '?json=' + param)
