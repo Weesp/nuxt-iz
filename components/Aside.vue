@@ -34,10 +34,12 @@ export default {
     fixedWidgetTop: false
   }),
   mounted () {
-    this.targetScroll = document.querySelector('.aside-widget__box-fix')
-    this.defaultTop = offset(this.targetScroll).top - (this.pdFix * 2)
-    window.addEventListener('resize', this.handleResize)
-    window.addEventListener('scroll', this.handleScroll)
+    if (document.querySelector('.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
+      this.targetScroll = document.querySelector('.aside-widget__box-fix')
+      this.defaultTop = offset(this.targetScroll).top - (this.pdFix * 2)
+      window.addEventListener('resize', this.handleResize)
+      window.addEventListener('scroll', this.handleScroll)
+    }
     // this.handleScroll()
   },
   destroyed () {

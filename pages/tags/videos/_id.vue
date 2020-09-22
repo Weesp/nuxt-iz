@@ -5,7 +5,9 @@
       <div class="container">
         <div class="page-wrapper">
           <section class="section">
-            <izVideos />
+            <izVideos
+              :param-page="paramPage"
+            />
           </section>
           <izAside />
         </div>
@@ -20,6 +22,10 @@ import izHeader from '@/components/header/Header'
 import izVideos from '@/components/tags/Videos'
 import izAside from '@/components/Aside'
 import izFooter from '@/components/footer/Footer'
+
+const paramPage = {
+  limit: 24
+}
 
 export default {
   components: {
@@ -36,8 +42,8 @@ export default {
     const param = JSON.stringify({
       include: {
         videos: {
-          limit: 24,
-          offset: page * 24
+          limit: paramPage.limit,
+          offset: page * paramPage.limit
         },
         topPanel: true,
         menu: true,
@@ -52,6 +58,7 @@ export default {
   },
   data () {
     return {
+      paramPage
     }
   }
 }

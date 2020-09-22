@@ -13,6 +13,7 @@
       />
       <div class="btn-show-more__box">
         <button
+          v-if="pageNumber * paramPage.limit < pageCount"
           class="btn-show-more"
           @click="nextPage"
         >
@@ -37,6 +38,12 @@ export default {
     tagTitle,
     tagPhotos
   },
+  props: {
+    paramPage: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data: () => ({
     pageNumber: 0
   }),
@@ -44,7 +51,12 @@ export default {
     ...mapState('tags', {
       mainTag: 'main',
       photos: 'photos'
-    })
+    }),
+    pageCount () {
+      const l = this.photos.length
+      const s = this.paramPage.limit
+      return Math.ceil(l / s)
+    }
   },
   methods: {
     async nextPage ({ params }) {

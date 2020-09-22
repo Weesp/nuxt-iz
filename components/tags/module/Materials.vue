@@ -40,13 +40,13 @@ export default {
 
 .tag-materials-item {
   display: block;
-  padding: 6px 0px;
+  padding: 10px 0px;
   &:hover {
     .tag-materials-item__title {
       color: $mainHover;
     }
   }
-  .tag-materials-item__date {
+  .tag-materials-item__date { 
     font-size: 11px;
     color: $dateItem;
   }

@@ -52,12 +52,17 @@ export default {
           font-size: 16px;
           font-style: normal;
           font-weight: normal;
-          color: #797979;
+          color: #999999;
         }
         &.active {
           border-bottom: 2px solid $mainSection;
           .tag-tabs-item__text {
             font-weight: 600;
+            color: #000000;
+          }
+        }
+        &:hover {
+          .tag-tabs-item__text{
             color: #000000;
           }
         }

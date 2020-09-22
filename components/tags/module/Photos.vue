@@ -81,18 +81,23 @@ export default {
       display: flex;
       .tag-photo-header__icon__box {
         background: #4d2466;
+        margin-right: 5px;
         @include size(20px);
         .tag-photo-header__icon {
           @include size(20px);
         }
       }
-
       .tag-photo-header__title {
-        padding-left: 5px;
         font-size: 14px;
         color: $mainSection;
         white-space: nowrap;
-        font-weight: 600;
+        font-weight: 400;
+      }
+      .tag-section__line {
+        margin-left: 5px;
+        width: 100%;
+        border-bottom: 1px solid $mainSection;
+        height: 15px;
       }
     }
   }

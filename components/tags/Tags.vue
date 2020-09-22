@@ -25,11 +25,11 @@
         <div class="population-header">
           <div class="population-header__box">
             <img src="@/assets/img/tags/icon-longread.svg" alt="Популярные материалы" class="population-header__icon">
-            <div class="population-header__title">
-              Популярные материалы
-            </div>
-            <div class="tag-section__line" />
           </div>
+          <div class="population-header__title">
+            Популярные материалы
+          </div>
+          <div class="tag-section__line" />
         </div>
         <div class="population-materials__box">
           <a href="/" class="population-material">
@@ -271,18 +271,20 @@ export default {
   }
   .tag-populations {
     .population-header {
+      display: flex;
       .population-header__box {
-        display: flex;
+        margin-right: 5px;
+        @include size(20px);
         .population-header__icon {
           @include size(20px);
+          max-width: none;
         }
-        .population-header__title {
-          margin-left: 5px;
-          font-size: 14px;
-          color: $mainSection;
-          white-space: nowrap;
-          font-weight: 600;
-        }
+      }
+      .population-header__title {
+        font-size: 14px;
+        color: $mainSection;
+        white-space: nowrap;
+        font-weight: 400;
       }
     }
     .population-materials__box {
@@ -349,15 +351,15 @@ export default {
           font-size: 14px;
           color: $mainSection;
           white-space: nowrap;
-          font-weight: 600;
+          font-weight: 400;
         }
       }
     }
     .tag-query__box {
-      padding: 5px 0px;
+      padding: 6px 0px;
       display: flex;
       flex-wrap: wrap;
-      margin: -6px -6px;
+      margin: 0 -6px;
       .tag-query-item {
         margin: 6px;
         .tag-query-item__box {

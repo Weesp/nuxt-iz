@@ -6,7 +6,9 @@
       <div class="container">
         <div class="page-wrapper">
           <section class="section">
-            <izPublications />
+            <izPublications
+              :param-page="paramPage"
+            />
           </section>
           <izAside />
         </div>
@@ -22,6 +24,9 @@ import izPublications from '@/components/tags/Publications'
 import izAside from '@/components/Aside'
 import izFooter from '@/components/footer/Footer'
 
+const paramPage = {
+  limit: 24
+}
 export default {
   // validate ({ params, store, route }) {
   //   return true
@@ -45,8 +50,8 @@ export default {
     const param = JSON.stringify({
       include: {
         materials: {
-          limit: 20,
-          offset: page * 20
+          limit: paramPage.limit,
+          offset: page * paramPage.limit
         },
         topPanel: true,
         menu: true,
@@ -63,6 +68,7 @@ export default {
   },
   data () {
     return {
+      paramPage
     }
   }
 }
