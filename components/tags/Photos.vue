@@ -63,7 +63,7 @@ export default {
       this.$refs.nextBtn.btnLoaded()
       setTimeout(() => {
         this.$refs.nextBtn.btnFinish()
-      }, 3000)
+      }, 2000)
       // const page = ++this.pageNumber
       // const param = JSON.stringify({
       //   include: {
@@ -88,9 +88,4 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/style/utils/vars";
-@import "/assets/style/utils/mixins";
-
-@import "/assets/modules/tags/tags-header";
-
 </style>

@@ -80,8 +80,4 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/style/utils/vars";
-@import "/assets/style/utils/mixins";
-
-@import "/assets/modules/tags/tags-header";
 </style>

@@ -21,7 +21,7 @@
           :items="page.items"
         />
       </div>
-      <div class="tag-populations tag-materials">
+      <!-- <div class="tag-populations tag-materials">
         <div class="population-header">
           <div class="population-header__box">
             <img src="@/assets/img/tags/icon-longread.svg" alt="Популярные материалы" class="population-header__icon">
@@ -123,7 +123,7 @@
             </div>
           </a>
         </div>
-      </div>
+      </div> -->
       <nextBtn
         v-if="pageNumber * 3 < pageCount -3"
         ref="nextBtn"
@@ -251,8 +251,6 @@ export default {
 <style lang="scss">
 @import "/assets/style/utils/vars";
 @import "/assets/style/utils/mixins";
-
-@import "/assets/modules/tags/tags-header";
 
 .tags-content__box {
   display: block;
