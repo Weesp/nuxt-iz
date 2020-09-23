@@ -67,11 +67,15 @@ const timeFormat = (function () {
     val = Math.floor(val)
     return val < 10 ? '0' + val : val
   }
-  return function (sec) {
+  return function (sec, type) {
     const hours = Math.round(+sec / 3600 % 24)
     const minutes = Math.round(+sec / 60 % 60)
     const seconds = Math.round(+sec % 60)
-    return (hours > 0 ? num(hours) + ':' : '') + num(minutes) + ':' + num(seconds)
+    if (type === 'iso') {
+      return Math.floor(hours) + 'T' + Math.floor(minutes) + 'M' + Math.floor(seconds) + 'S'
+    } else {
+      return (hours > 0 ? num(hours) + ':' : '') + num(minutes) + ':' + num(seconds)
+    }
   }
 })()
 
@@ -84,6 +88,8 @@ function localeDate (date) {
     (m < 10 ? '0' + m : m)
 }
 
+const dateISO = date => new Date(date * 1000).toISOString()
+
 module.exports = {
   offset,
   showFooterMenu,
@@ -94,5 +100,6 @@ module.exports = {
   removeFixedElementOnTop,
   standByPosition,
   timeFormat,
-  localeDate
+  localeDate,
+  dateISO
 }

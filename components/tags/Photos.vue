@@ -14,6 +14,7 @@
       <div class="btn-show-more__box">
         <button
           v-if="pageNumber * paramPage.limit < pageCount"
+          ref="btnNext"
           class="btn-show-more"
           @click="nextPage"
         >
@@ -59,35 +60,45 @@ export default {
     }
   },
   methods: {
-    async nextPage ({ params }) {
+    nextPage ({ params }) {
+      this.$nuxt.$loading.start()
+      this.btnDisabled(this.$refs.btnNext)
       // console.log(this.$route)
       // фичуем тута store.dispatch('tags/fetchTags', params.id), // page...
-      const page = ++this.pageNumber
-      const param = JSON.stringify({
-        include: {
-          materials: {
-            limit: 8,
-            offset: page * 8
-          },
-          videos: {
-            limit: 4,
-            offset: page * 4
-          },
-          photos: {
-            limit: 4,
-            offset: page * 4
-          },
-          config: false
-        }
-      })
-      console.log(param)
-      const res = await this.$store.dispatch('tags/addTags', this.$route.params.id + '?json=' + param)
-      res.then(() => {
-        console.log(1111)
-        // this.pageRender(page)
-      })
+      setTimeout(() => {
+        this.btnActived(this.$refs.btnNext)
+        this.$nuxt.$loading.finish()
+      }, 2000)
+      // const page = ++this.pageNumber
+      // const param = JSON.stringify({
+      //   include: {
+      //     photos: {
+      //       limit: this.paramPage.limit,
+      //       offset: page * this.paramPage.limit
+      //     },
+      //     config: false
+      //   }
+      // })
+      // // console.log(param)
+      // const res = await this.$store.dispatch('tags/addTags', this.$route.params.id + '?json=' + param)
+      // res.then(() => {
+      //   console.log(1111)
+      //   // this.pageRender(page)
+      //   this.$nuxt.$loading.finish()
+      // })
+    },
+    btnDisabled (btn) {
+      this.$refs.btnNext.disabled = true
+      this.$refs.btnNext.style['background-color'] = '#5C5C5C'
+      this.$refs.btnNext.style.cursor = 'default'
+    },
+    btnActived (btn) {
+      this.$refs.btnNext.disabled = false
+      this.$refs.btnNext.style['background-color'] = '#452963'
+      this.$refs.btnNext.style.cursor = 'pointer'
     }
   }
+
 }
 </script>
 

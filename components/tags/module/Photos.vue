@@ -24,23 +24,37 @@
       <div
         v-for="item in items"
         :key="item.id"
+        itemscope
+        itemtype="http://schema.org/Thing"
         class="tag-photo-item__container"
       >
-        <a v-if="item.path && item.title" :href="item.path" class="tag-photo-item">
+        <a
+          v-if="item.path && item.title"
+          :href="item.path"
+          class="tag-photo-item"
+          itemprop="url"
+        >
           <div class="tag-photo-item__box">
-            <div class="tag-photo-item__image__box">
+            <div
+              class="tag-photo-item__image__box"
+              itemscope
+              itemtype="http://schema.org/ImageObject"
+            >
               <img
                 v-if="item.previews && item.previews['900x506']"
                 :data-src="item.previews['900x506'].path"
                 :alt="item.title"
+                itemprop="contentUrl"
+                :content="item.previews['900x506'].path"
                 class="tag-photo-item__image lazyload"
               >
             </div>
             <div class="tag-photo-item__text__box">
               <div class="tag-photo-item__text-date">
+                <meta itemprop="datePublished" :content="dateISO(item.date.published)">
                 {{ localeDate(item.date.published) }}
               </div>
-              <div class="tag-photo-item__text-title">
+              <div class="tag-photo-item__text-title" itemprop="name">
                 {{ item.title }}
               </div>
             </div>
@@ -53,7 +67,7 @@
 
 <script>
 import 'lazysizes'
-import { localeDate } from '@/plugins/CustomFunction'
+import { localeDate, dateISO } from '@/plugins/CustomFunction'
 
 export default {
   props: {
@@ -67,7 +81,8 @@ export default {
     }
   },
   methods: {
-    localeDate
+    localeDate,
+    dateISO
   }
 }
 </script>

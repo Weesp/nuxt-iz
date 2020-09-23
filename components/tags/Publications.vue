@@ -64,16 +64,8 @@ export default {
       const param = JSON.stringify({
         include: {
           materials: {
-            limit: 8,
-            offset: page * 8
-          },
-          videos: {
-            limit: 4,
-            offset: page * 4
-          },
-          photos: {
-            limit: 4,
-            offset: page * 4
+            limit: this.paramPage.limit,
+            offset: page * this.paramPage.limit
           },
           config: false
         }

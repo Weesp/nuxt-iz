@@ -19,14 +19,30 @@
       </div>
     </div>
     <div class="tag-video__box">
-      <div v-for="item in items" :key="item.id" class="tag-video-item__container">
-        <a v-if="item.path && item.title" :href="item.path" class="tag-video-item">
+      <div
+        v-for="item in items"
+        :key="item.id"
+        class="tag-video-item__container"
+        itemscope
+        itemtype="https://schema.org/NewsArticle"
+      >
+        <a
+          v-if="item.path && item.title"
+          :href="item.path"
+          class="tag-video-item"
+          itemprop="url"
+        >
           <div class="tag-video-item__box">
-            <div class="tag-video-item__image__box">
+            <div
+              class="tag-video-item__image__box"
+              itemscope
+              itemtype="http://schema.org/VideoObject"
+            >
               <img
                 v-if="item.previews && item.previews['900x506']"
                 :data-src="item.previews['900x506'].path"
                 :alt="item.title"
+                itemprop="thumbnail"
                 class="tag-video-item__image lazyload"
               >
               <div class="tag-video-item__time__box">
@@ -43,7 +59,10 @@
                 <div
                   v-if="item.duration"
                   class="tag-video-item__time-value"
-                >{{ timeFormat(+item.duration) }}</div>
+                >
+                  <meta itemprop="duration" :content="timeFormat(item.duration, 'iso')">
+                  {{ timeFormat(+item.duration) }}
+                </div>
               </div>
               <div class="tag-video-item__play__box">
                 <svg class="tag-video-item__play">
@@ -57,8 +76,11 @@
               </div>
             </div>
             <div class="tag-video-item__text__box">
-              <div class="tag-video-item__text-date">{{ localeDate(item.date.published) }}</div>
-              <div class="tag-video-item__text-title">{{ item.title }}</div>
+              <div class="tag-video-item__text-date">
+                <meta itemprop="datePublished" :content="dateISO(item.date.published)">
+                {{ localeDate(item.date.published) }}
+              </div>
+              <div class="tag-video-item__text-title" itemprop="name">{{ item.title }}</div>
             </div>
           </div>
         </a>
@@ -69,7 +91,7 @@
 
 <script>
 import 'lazysizes'
-import { timeFormat, localeDate } from '@/plugins/CustomFunction'
+import { timeFormat, localeDate, dateISO } from '@/plugins/CustomFunction'
 
 export default {
   props: {
@@ -84,7 +106,8 @@ export default {
   },
   methods: {
     timeFormat,
-    localeDate
+    localeDate,
+    dateISO
   }
 }
 </script>

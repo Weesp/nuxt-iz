@@ -21,6 +21,7 @@ import izHeader from '@/components/header/Header'
 import izTags from '@/components/tags/Tags'
 import izAside from '@/components/Aside'
 import izFooter from '@/components/footer/Footer'
+// import LoadingBar from '@/components/LoadingBar'
 
 export default {
   // validate ({ params, store, route }) {
@@ -31,6 +32,7 @@ export default {
     izTags,
     izAside,
     izFooter
+    // LoadingBar
   },
   asyncData ({ params, store, error, query }) {
     // await store.dispatch('tags/fetchTags', params.id).catch(function (err) {

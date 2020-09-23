@@ -12,22 +12,40 @@
         <div class="menu-mini__label mobile-item__title">
           Материалы
         </div>
-        <ul class="menu-items">
+        <ul
+          class="menu-items"
+          itemscope
+          itemtype="http://schema.org/SiteNavigationElement"
+        >
           <div
             v-for="item in menuItems"
             :key="item.title"
             :class="'menu-item__box' + (item && item.children ? ' rubrics-items' : '')"
+            itemscope
+            itemtype="http://schema.org/ItemList"
+            :itemprop="item.title"
           >
-            <li v-if="item && item.children" class="menu-item">
+            <li
+              v-if="item && item.children"
+              class="menu-item"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="http://schema.org/ItemList"
+            >
               <div class="rubrics-items__box">
                 <svg class="rubrics-items__img">
                   <use width="13" height="13" xlink:href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_header_menu_down" href="/sprite/sprite-svg.svg?v=1.3#SVG--icon_header_menu_down" />
                 </svg>
-                <span v-if="item.title" class="rubrics-items__text mobile-item__title">{{ item.title }}</span>
+                <span v-if="item.title" itemprop="name" class="rubrics-items__text mobile-item__title">{{ item.title }}</span>
               </div>
               <ul class="rubrics">
-                <li v-for="rubric in item.children" :key="rubric.title" class="rubric-item">
-                  <a v-if="rubric.path" :href="rubric.path">
+                <li
+                  v-for="rubric in item.children"
+                  :key="rubric.title"
+                  class="rubric-item"
+                  itemprop="itemListElement"
+                >
+                  <a v-if="rubric.path" :href="rubric.path" itemprop="url">
                     <svg v-if="rubric.icon" class="rubric-item__icon">
                       <use
                         :width="(rubric.width ? rubric.width : 20)"
@@ -37,15 +55,16 @@
                       />
                     </svg>
                     <div v-else class="rubric-item__icon" />
-                    <div v-if="rubric.title" class="rubric-item__text mobile-item__label">
+                    <div v-if="rubric.title" itemprop="name" class="rubric-item__text mobile-item__label">
                       {{ rubric.title }}
                     </div>
                   </a>
                 </li>
               </ul>
             </li>
-            <li v-else class="menu-item">
-              <a v-if="item && item.path && item.title" :href="item.path" class="mobile-item__label">
+            <li v-else class="menu-item" itemprop="itemListElement">
+              <a v-if="item && item.path && item.title" :href="item.path" itemprop="url" class="mobile-item__label">
+                <meta itemprop="name" :content="item.title">
                 {{ item.title }}
               </a>
             </li>

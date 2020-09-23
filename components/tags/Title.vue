@@ -1,11 +1,12 @@
 <template>
-  <div class="tag-title">
+  <div class="tag-title" itemprop="mainEntity" itemscope itemtype="https://schema.org/NewsArticle">
     <div v-if="tag && tag.id" class="tag-title__box">
       <div v-if="tag.previews && tag.previews['900x506']" class="tag-title-image__box">
         <img
           class="tag-title-image"
           :src="tag.previews['900x506'].path"
           :alt="'Все новости с тегом ' + tag.title"
+          itemprop="image"
         >
       </div>
       <div class="tag-title__background">
@@ -22,10 +23,10 @@
           <div class="tag-title-content__label">
             Все новости с тегом
           </div>
-          <div class="tag-title-content__title">
+          <div class="tag-title-content__title" itemprop="headline">
             {{ tag.title }}
           </div>
-          <div v-if="tag.description" class="tag-title-content__text" v-html="tag.description" />
+          <div v-if="tag.description" class="tag-title-content__text" itemprop="description" v-html="tag.description" />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div itemscope itemtype="https://schema.org/WebPage">
     <Nuxt />
   </div>
 </template>
