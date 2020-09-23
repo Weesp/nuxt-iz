@@ -70,11 +70,11 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-  },
-  // loading: '@/components/LoadingBar.vue'
-  loading: {
-    color: '#ffffff',
-    height: '5px'
-    // rtl: true
   }
+  // loading: '@/components/LoadingBar.vue'
+  // loading: {
+  //   color: '#ffffff',
+  //   height: '5px'
+  //   // rtl: true
+  // }
 }

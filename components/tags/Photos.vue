@@ -11,16 +11,11 @@
         :items="photos"
         :title="false"
       />
-      <div class="btn-show-more__box">
-        <button
-          v-if="pageNumber * paramPage.limit < pageCount"
-          ref="btnNext"
-          class="btn-show-more"
-          @click="nextPage"
-        >
-          Показать ещё
-        </button>
-      </div>
+      <nextBtn
+        v-if="pageNumber * paramPage.limit < pageCount"
+        ref="nextBtn"
+        @nextPage="nextPage"
+      />
     </div>
   </div>
 </template>
@@ -32,12 +27,14 @@ import { mapState } from 'vuex'
 import tagTitle from '@/components/tags/Title'
 import tabMenu from '@/components/tags/TabMenu'
 import tagPhotos from '@/components/tags/module/Photos'
+import nextBtn from '@/components/NextBtn'
 
 export default {
   components: {
     tabMenu,
     tagTitle,
-    tagPhotos
+    tagPhotos,
+    nextBtn
   },
   props: {
     paramPage: {
@@ -60,15 +57,13 @@ export default {
     }
   },
   methods: {
-    nextPage ({ params }) {
-      this.$nuxt.$loading.start()
-      this.btnDisabled(this.$refs.btnNext)
+    nextPage () {
       // console.log(this.$route)
       // фичуем тута store.dispatch('tags/fetchTags', params.id), // page...
+      this.$refs.nextBtn.btnLoaded()
       setTimeout(() => {
-        this.btnActived(this.$refs.btnNext)
-        this.$nuxt.$loading.finish()
-      }, 2000)
+        this.$refs.nextBtn.btnFinish()
+      }, 3000)
       // const page = ++this.pageNumber
       // const param = JSON.stringify({
       //   include: {
@@ -86,16 +81,6 @@ export default {
       //   // this.pageRender(page)
       //   this.$nuxt.$loading.finish()
       // })
-    },
-    btnDisabled (btn) {
-      this.$refs.btnNext.disabled = true
-      this.$refs.btnNext.style['background-color'] = '#5C5C5C'
-      this.$refs.btnNext.style.cursor = 'default'
-    },
-    btnActived (btn) {
-      this.$refs.btnNext.disabled = false
-      this.$refs.btnNext.style['background-color'] = '#452963'
-      this.$refs.btnNext.style.cursor = 'pointer'
     }
   }
 

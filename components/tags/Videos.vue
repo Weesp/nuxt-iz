@@ -11,15 +11,11 @@
         :items="videos"
         :title="false"
       />
-      <div class="btn-show-more__box">
-        <button
-          v-if="pageNumber * paramPage.limit < pageCount"
-          class="btn-show-more"
-          @click="nextPage"
-        >
-          Показать ещё
-        </button>
-      </div>
+      <nextBtn
+        v-if="pageNumber * paramPage.limit < pageCount"
+        ref="nextBtn"
+        @nextPage="nextPage"
+      />
     </div>
   </div>
 </template>
@@ -32,11 +28,14 @@ import tagTitle from '@/components/tags/Title'
 import tabMenu from '@/components/tags/TabMenu'
 import tagVideos from '@/components/tags/module/Videos'
 
+import nextBtn from '@/components/NextBtn'
+
 export default {
   components: {
     tabMenu,
     tagTitle,
-    tagVideos
+    tagVideos,
+    nextBtn
   },
   props: {
     paramPage: {
@@ -59,7 +58,7 @@ export default {
     }
   },
   methods: {
-    async nextPage ({ params }) {
+    async nextPage () {
       // console.log(this.$route)
       // фичуем тута store.dispatch('tags/fetchTags', params.id), // page...
       const page = ++this.pageNumber
@@ -85,5 +84,4 @@ export default {
 @import "/assets/style/utils/mixins";
 
 @import "/assets/modules/tags/tags-header";
-
 </style>

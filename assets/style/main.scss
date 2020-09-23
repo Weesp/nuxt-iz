@@ -93,35 +93,8 @@ section,
   }
 }
 
-.btn-show-more__box{
-  text-align: center;
-  .btn-show-more {
-    min-width: 354px;
-    margin: 30px 0 10px;
-    padding: 20px;
-    text-align: center;
-    background-color: $secondColor;
-    text-transform: uppercase;
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: 500;
-    color: #ffffff;
-    cursor: pointer;
-    @include transition-all;
-    &.disabled{
-      background-color: $urlDefault
-    }
-    @media screen and (max-width: $tableWidth) {
-      font-size: 14px;
-      padding: 15px;
-    }
-    @media screen and (max-width: $phoneWidth ) {
-      font-size: 12px;
-      width: 100%;
-      min-width: inherit;
-    }
-  }
+img.lazyload:not([src]) {
+  visibility: hidden;
 }
-
 // Modules
 // @import "modules/my-module.scss";

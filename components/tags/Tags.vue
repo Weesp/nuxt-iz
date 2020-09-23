@@ -124,15 +124,11 @@
           </a>
         </div>
       </div>
-      <div class="btn-show-more__box">
-        <button
-          v-if="pageNumber * 3 < pageCount -3"
-          class="btn-show-more"
-          @click="nextPage"
-        >
-          Показать ещё
-        </button>
-      </div>
+      <nextBtn
+        v-if="pageNumber * 3 < pageCount -3"
+        ref="nextBtn"
+        @nextPage="nextPage"
+      />
     </div>
   </div>
 </template>
@@ -145,6 +141,7 @@ import tabMenu from '@/components/tags/TabMenu'
 import tagMaterials from '@/components/tags/module/Materials'
 import tagVideos from '@/components/tags/module/Videos'
 import tagPhotos from '@/components/tags/module/Photos'
+import nextBtn from '@/components/NextBtn'
 
 export default {
   components: {
@@ -152,7 +149,8 @@ export default {
     tagTitle,
     tagMaterials,
     tagVideos,
-    tagPhotos
+    tagPhotos,
+    nextBtn
   },
   data: () => ({
     pageItems: [],
