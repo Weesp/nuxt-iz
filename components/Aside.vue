@@ -6,12 +6,13 @@
       </div>
       <div class="aside-widget__box">
         <div class="aside-widget__box-fix">
-          <div class="aside-widget__widget-image">
+          <div id="adfox_151870576919835175" />
+          <!-- <div class="aside-widget__widget-image">
             <div class="widget-1" />
           </div>
           <div class="aside-widget__widget-second">
             <div class="widget-2" />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -31,7 +32,8 @@ export default {
     pdFix: 75, // динамичным сделат, вдруг меню изме // отступ от уже фиксированных элементов // скорее передавать из хедер
     pdBot: 30,
     fixedWidgetBot: false,
-    fixedWidgetTop: false
+    fixedWidgetTop: false,
+    extid: ''
   }),
   mounted () {
     if (document.querySelector('.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
@@ -40,12 +42,47 @@ export default {
       window.addEventListener('resize', this.handleResize)
       window.addEventListener('scroll', this.handleScroll)
     }
+    this.extid = localStorage?.extid ? localStorage.extid : ''
+    console.log(this.extid)
+    if (!this.extid) {
+      this.extid = this.extidGenerate()
+    }
+    if (window?.YA?.adfoxCode) {
+      window.Ya.adfoxCode.createScroll({
+        ownerId: 264443,
+        containerId: 'adfox_151870576919835175',
+        params: {
+          extid_tag: 'izvestia',
+          extid: this.extid,
+          p1: 'bzisb',
+          p2: 'fulf',
+          puid8: '',
+          puid12: '186114',
+          puid21: '',
+          puid26: 0
+        }
+      }, ['desktop', 'tablet'], {
+        tabletWidth: 1023,
+        phoneWidth: 480,
+        isAutoReloads: false
+      })
+    }
     // this.handleScroll()
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    extidGenerate () {
+      let text = ''
+      const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+      for (let i = 0; i < 47; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length))
+      }
+      text = encodeURIComponent(text)
+      localStorage.extid = text
+      return text
+    },
     handleResize () {
       this.targetScroll = document.querySelector('.aside-widget__box-fix')
       this.defaultTop = offset(this.targetScroll).top - (this.pdFix * 2)
