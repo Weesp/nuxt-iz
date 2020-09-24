@@ -26,7 +26,7 @@ import { mapState } from 'vuex'
 
 import tagTitle from '@/components/tags/Title'
 import tabMenu from '@/components/tags/TabMenu'
-import tagPhotos from '@/components/tags/module/Photos'
+import tagPhotos from '@/components/tags/module/PhotosList'
 import nextBtn from '@/components/NextBtn'
 
 export default {

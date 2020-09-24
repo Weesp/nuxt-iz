@@ -28,7 +28,7 @@ import { mapState } from 'vuex'
 
 import tagTitle from '@/components/tags/Title'
 import tabMenu from '@/components/tags/TabMenu'
-import tagMaterials from '@/components/tags/module/Materials'
+import tagMaterials from '@/components/tags/module/MaterialsList'
 
 export default {
   components: {

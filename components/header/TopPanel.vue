@@ -1,5 +1,6 @@
 <template>
   <div class="top-panel">
+    <div id="adfox_151870576919835175" />
     <div class="top-panel__box">
       <div class="top-panel__column top-panel__linklist">
         <ul class="linklist">
@@ -19,11 +20,13 @@
 
 <script>
 import rates from '@/components/header/Rates'
+import extid from '@/mixins/extid'
 
 export default {
   components: {
     rates
   },
+  mixins: [extid],
   props: {
     topLincs: {
       type: Array,
@@ -40,6 +43,30 @@ export default {
   },
   data () {
     return {}
+  },
+  mounted () {
+    // const extid = this.getUserExtid() // mixin extid
+    if (window?.Ya?.adfoxCode) {
+      console.log(22222)
+      // window.Ya.adfoxCode.createScroll({
+      //   ownerId: 264443,
+      //   containerId: 'adfox_151870576919835175',
+      //   params: {
+      //     extid_tag: 'izvestia',
+      //     extid,
+      //     p1: 'bzisb',
+      //     p2: 'fulf',
+      //     puid8: '',
+      //     puid12: '186114',
+      //     puid21: '',
+      //     puid26: 0
+      //   }
+      // }, ['desktop', 'tablet'], {
+      //   tabletWidth: 1023,
+      //   phoneWidth: 480,
+      //   isAutoReloads: false
+      // })
+    }
   }
   // methods: {
   //   async getCourse () {

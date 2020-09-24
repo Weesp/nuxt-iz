@@ -6,7 +6,7 @@
       </div>
       <div class="aside-widget__box">
         <div class="aside-widget__box-fix">
-          <div id="adfox_151870576919835175" />
+          <div id="adfox_151870577374515411" />
           <!-- <div class="aside-widget__widget-image">
             <div class="widget-1" />
           </div>
@@ -21,10 +21,11 @@
 
 <script>
 import positionScroll from '@/mixins/scroll'
+import extid from '@/mixins/extid'
 import { removeFixedElementOnTop, fixedElementOnTop, offset, standByPosition, fixedElementOnBottom } from '@/plugins/CustomFunction'
 
 export default {
-  mixins: [positionScroll],
+  mixins: [positionScroll, extid],
   data: () => ({
     defaultTop: 0,
     lastScrollTop: 0,
@@ -32,8 +33,7 @@ export default {
     pdFix: 75, // динамичным сделат, вдруг меню изме // отступ от уже фиксированных элементов // скорее передавать из хедер
     pdBot: 30,
     fixedWidgetBot: false,
-    fixedWidgetTop: false,
-    extid: ''
+    fixedWidgetTop: false
   }),
   mounted () {
     if (document.querySelector('.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
@@ -42,20 +42,17 @@ export default {
       window.addEventListener('resize', this.handleResize)
       window.addEventListener('scroll', this.handleScroll)
     }
-    this.extid = localStorage?.extid ? localStorage.extid : ''
-    console.log(this.extid)
-    if (!this.extid) {
-      this.extid = this.extidGenerate()
-    }
-    if (window?.YA?.adfoxCode) {
+    const extid = this.getUserExtid() // mixin extid
+    if (window?.Ya?.adfoxCode) {
+      console.log(1111)
       window.Ya.adfoxCode.createScroll({
         ownerId: 264443,
-        containerId: 'adfox_151870576919835175',
+        containerId: 'adfox_151870577374515411',
         params: {
           extid_tag: 'izvestia',
-          extid: this.extid,
-          p1: 'bzisb',
-          p2: 'fulf',
+          extid,
+          p1: 'bzirr',
+          p2: 'fulg',
           puid8: '',
           puid12: '186114',
           puid21: '',
@@ -73,16 +70,6 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    extidGenerate () {
-      let text = ''
-      const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-      for (let i = 0; i < 47; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length))
-      }
-      text = encodeURIComponent(text)
-      localStorage.extid = text
-      return text
-    },
     handleResize () {
       this.targetScroll = document.querySelector('.aside-widget__box-fix')
       this.defaultTop = offset(this.targetScroll).top - (this.pdFix * 2)

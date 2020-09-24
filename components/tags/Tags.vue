@@ -138,9 +138,9 @@ import { mapState } from 'vuex'
 
 import tagTitle from '@/components/tags/Title'
 import tabMenu from '@/components/tags/TabMenu'
-import tagMaterials from '@/components/tags/module/Materials'
-import tagVideos from '@/components/tags/module/Videos'
-import tagPhotos from '@/components/tags/module/Photos'
+import tagMaterials from '@/components/tags/module/MaterialsList'
+import tagVideos from '@/components/tags/module/VideosList'
+import tagPhotos from '@/components/tags/module/PhotosList'
 import nextBtn from '@/components/NextBtn'
 
 export default {
