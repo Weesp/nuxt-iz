@@ -1,12 +1,12 @@
-import { isObject, isDefined } from '@/utility/checkers'
+import { isObject, isDefined } from '@/plugins/utility/checkers'
 
 export default class Storage {
-  constructor (provider = window.localStorage) {
+  constructor (provider) {
     this.provider = provider
   }
 
   get (key) {
-    const value = this.provider.getItem(key)
+    const value = this.provider[key]
     try {
       return JSON.parse(value)
     } catch (err) {
@@ -15,7 +15,7 @@ export default class Storage {
   }
 
   set (key, value) {
-    if (isDefined(value)) { this.provider.setItem(key, isObject(value) ? JSON.stringify(value) : value) }
+    if (isDefined(value)) { this.provider[key] = isObject(value) ? JSON.stringify(value) : value }
     return this
   }
 

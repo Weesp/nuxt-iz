@@ -6,6 +6,12 @@
       </div>
       <div class="aside-widget__box">
         <div class="aside-widget__box-fix">
+          <div>
+            <div id="adfox" />
+          </div>
+          <div>
+            <div id="adfox1" />
+          </div>
           <div id="adfox_151870577374515411" />
           <!-- <div class="aside-widget__widget-image">
             <div class="widget-1" />
@@ -42,34 +48,61 @@ export default {
       window.addEventListener('resize', this.handleResize)
       window.addEventListener('scroll', this.handleScroll)
     }
-    const extid = this.getUserExtid() // mixin extid
-    if (window?.Ya?.adfoxCode) {
-      console.log(1111)
-      window.Ya.adfoxCode.createScroll({
-        ownerId: 264443,
-        containerId: 'adfox_151870577374515411',
-        params: {
-          extid_tag: 'izvestia',
-          extid,
-          p1: 'bzirr',
-          p2: 'fulg',
-          puid8: '',
-          puid12: '186114',
-          puid21: '',
-          puid26: 0
-        }
-      }, ['desktop', 'tablet'], {
-        tabletWidth: 1023,
-        phoneWidth: 480,
-        isAutoReloads: false
-      })
-    }
+    this.advertisingInit().then(() => {
+      this.setMenHeight()
+    })
+    // const extid = this.getUserExtid() // mixin extid
+    // window.Ya.adfoxCode.create({
+    //   ownerId: 264443,
+    //   containerId: 'adfox_151870577374515411',
+    //   params: {
+    //     extid_tag: 'izvestia',
+    //     extid,
+    //     p1: 'bzirr',
+    //     p2: 'fulg',
+    //     puid8: '',
+    //     puid12: '186114',
+    //     puid21: '',
+    //     puid26: 0
+    //   }
+    // }, ['desktop', 'tablet'], {
+    //   tabletWidth: 1023,
+    //   phoneWidth: 480,
+    //   isAutoReloads: false
+    // })
+    // }
     // this.handleScroll()
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    async advertisingInit () {
+      await setTimeout(() => {
+        if (window?.Ya?.adfoxCode) {
+          window.Ya.adfoxCode.createScroll({
+            ownerId: 208087,
+            containerId: 'adfox',
+            params: {
+              pt: 'b',
+              p1: 'bsoji'
+            }
+          })
+          window.Ya.adfoxCode.createScroll({
+            ownerId: 208087,
+            containerId: 'adfox1',
+            params: {
+              pt: 'b',
+              p1: 'bsoji'
+            }
+          })
+        }
+      }, 1000)
+    },
+    setMenHeight () {
+      const asideHeight = document.querySelector('.aside').offsetHeight
+      document.querySelector('section.section').style['min-height'] = asideHeight + 500 + 'px'
+    },
     handleResize () {
       this.targetScroll = document.querySelector('.aside-widget__box-fix')
       this.defaultTop = offset(this.targetScroll).top - (this.pdFix * 2)
@@ -78,6 +111,7 @@ export default {
       const target = this.targetScroll
       const scrollTop = this.positionScroll.y
       const offsetFix = offset(target).top
+      console.log(offsetFix)
       const clientHeight = document.documentElement.clientHeight
       const scrollBottom = scrollTop + clientHeight
       if (this.lastScrollTop > scrollTop) {
