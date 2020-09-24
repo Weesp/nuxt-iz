@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-// import { timeFormat, localeDate } from '@/plugins/CustomFunction'
+import { mapState, mapMutations } from 'vuex'
+// import { offset } from '@/plugins/CustomFunction'
 
 import tagTitle from '@/components/tags/Title'
 import tabMenu from '@/components/tags/TabMenu'
@@ -50,6 +50,9 @@ export default {
       mainTag: 'main',
       photos: 'photos'
     }),
+    ...mapState('slider', {
+      pdFix: 'pdFix'
+    }),
     pageCount () {
       const l = this.photos.length
       const s = this.paramPage.limit
@@ -62,7 +65,14 @@ export default {
       // фичуем тута store.dispatch('tags/fetchTags', params.id), // page...
       this.$refs.nextBtn.btnLoaded()
       setTimeout(() => {
+        const box = document.querySelector('.tag-photo__box')
+        const clone = box.cloneNode(true)
+        box.insertAdjacentElement('afterend', clone)
         this.$refs.nextBtn.btnFinish()
+        if (document.querySelector('.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
+          this.setActive(true)
+        }
+        // this.$store.commit('SET_DEFAULT_TOP', document.querySelector('.aside-widget__box-fix'))
       }, 2000)
       // const page = ++this.pageNumber
       // const param = JSON.stringify({
@@ -81,7 +91,10 @@ export default {
       //   // this.pageRender(page)
       //   this.$nuxt.$loading.finish()
       // })
-    }
+    },
+    ...mapMutations('slider', {
+      setActive: 'SET_ACTIVE'
+    })
   }
 
 }
