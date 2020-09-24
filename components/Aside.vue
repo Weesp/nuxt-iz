@@ -28,7 +28,7 @@ export default {
     defaultTop: 0,
     lastScrollTop: 0,
     targetScroll: '',
-    pdFix: 75, // динамичным сделат, вдруг меню изме // отступ от уже фиксированных элементов // скорее передавать из хедер
+    pdFix: 0, // динамичным сделат, вдруг меню изме // отступ от уже фиксированных элементов // скорее передавать из хедер
     pdBot: 30,
     fixedWidgetBot: false,
     fixedWidgetTop: false
