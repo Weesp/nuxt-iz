@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div id="adfox_151870576919835175" />
     <topPanel
       :top-lincs="topLincs"
     />
@@ -57,6 +58,8 @@ import logo5Tv from '@/assets/img/logos/5tv.svg'
 import logoSE from '@/assets/img/logos/SE.png'
 import logoMoreTv from '@/assets/img/logos/moreTv.svg'
 
+import extid from '@/mixins/extid'
+
 export default {
   components: {
     topPanel,
@@ -80,7 +83,7 @@ export default {
       }
     }
   },
-  mixins: [positionScroll],
+  mixins: [positionScroll, extid],
   data () {
     return {
       defaultTop: 0,
@@ -211,6 +214,28 @@ export default {
     this.defaultTop = offset(this.targetScroll).top
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
+    const extid = this.getUserExtid() // mixin extid
+    if (window?.Ya?.adfoxCode) {
+      console.log('top advertising')
+      window.Ya.adfoxCode.create({
+        ownerId: 264443,
+        containerId: 'adfox_151870576919835175',
+        params: {
+          extid_tag: 'izvestia',
+          extid,
+          p1: 'bzisb',
+          p2: 'fulf',
+          puid8: '1900',
+          puid12: '186114',
+          puid21: '1',
+          puid26: '0'
+        }
+      }, ['desktop', 'tablet'], {
+        tabletWidth: 1023,
+        phoneWidth: 480,
+        isAutoReloads: false
+      })
+    }
   },
   destroyed () {
     window.removeEventListener('resize', this.handleResize)

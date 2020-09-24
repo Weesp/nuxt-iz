@@ -6,12 +6,16 @@
       </div>
       <div class="aside-widget__box">
         <div class="aside-widget__box-fix">
-          <div class="aside-widget__widget-image">
+          <div id="adfox" />
+          <div id="adfox1" />
+          <div id="adfox2" />
+          <div id="adfox_151870577374515411" />
+          <!-- <div class="aside-widget__widget-image">
             <div class="widget-1" />
           </div>
           <div class="aside-widget__widget-second">
             <div class="widget-2" />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -19,36 +23,81 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 import positionScroll from '@/mixins/scroll'
+import extid from '@/mixins/extid'
 import { removeFixedElementOnTop, fixedElementOnTop, offset, standByPosition, fixedElementOnBottom } from '@/plugins/CustomFunction'
 
 export default {
-  mixins: [positionScroll],
+  mixins: [positionScroll, extid],
   data: () => ({
-    defaultTop: 0,
     lastScrollTop: 0,
-    targetScroll: '',
-    pdFix: 0, // динамичным сделат, вдруг меню изме // отступ от уже фиксированных элементов // скорее передавать из хедер
-    pdBot: 30,
     fixedWidgetBot: false,
     fixedWidgetTop: false
   }),
-  mounted () {
-    if (document.querySelector('.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
-      this.targetScroll = document.querySelector('.aside-widget__box-fix')
-      this.defaultTop = offset(this.targetScroll).top - (this.pdFix * 2)
-      window.addEventListener('resize', this.handleResize)
-      window.addEventListener('scroll', this.handleScroll)
+  computed: {
+    ...mapState('slider', {
+      defaultTop: 'defaultTop',
+      targetScroll: 'targetScroll',
+      pdFix: 'pdFix',
+      pdBot: 'pdBot',
+      active: 'active'
+    })
+  },
+  watch: {
+    active () {
+      if (this.active) {
+        this.initScroll()
+      } else {
+        this.destroyedScroll()
+      }
+      return this.active
     }
-    // this.handleScroll()
+  },
+  mounted () {
+    this.advertisingInit()
+    setTimeout(() => {
+      if (document.querySelector('.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
+        this.setActive(true)
+      }
+    }, 1000)
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    initScroll () {
+      console.log('init Events SCROLL')
+      this.setTargetScoll(document.querySelector('.aside-widget__box-fix'))
+      this.setDefTop(offset(this.targetScroll).top - (this.pdFix * 2))
+      window.addEventListener('resize', this.handleResize)
+      window.addEventListener('scroll', this.handleScroll)
+    },
+    destroyedScroll () {
+      console.log('remove Events SCROLL')
+      window.removeEventListener('scroll', this.handleScroll)
+      window.removeEventListener('resize', this.handleResize)
+    },
+    async setAdfox (id) {
+      return await window.Ya.adfoxCode.create({
+        ownerId: 208087,
+        containerId: id,
+        params: {
+          pt: 'b',
+          p1: 'bsoji'
+        }
+      })
+    },
+    advertisingInit () {
+      this.setAdfox('adfox')
+      this.setAdfox('adfox1')
+      this.setAdfox('adfox2')
+    },
     handleResize () {
-      this.targetScroll = document.querySelector('.aside-widget__box-fix')
-      this.defaultTop = offset(this.targetScroll).top - (this.pdFix * 2)
+      this.setTargetScoll(document.querySelector('.aside-widget__box-fix'))
+      this.setDefTop(offset(this.targetScroll).top - (this.pdFix * 2))
     },
     handleScroll () {
       const target = this.targetScroll
@@ -97,7 +146,12 @@ export default {
         }
       }
       this.lastScrollTop = scrollTop
-    }
+    },
+    ...mapMutations('slider', {
+      setTargetScoll: 'SET_TARGET_SCROLL',
+      setDefTop: 'SET_DEFAULT_TOP',
+      setActive: 'SET_ACTIVE'
+    })
   }
 }
 </script>
@@ -110,26 +164,14 @@ export default {
   position: relative;
   .aside__box {
     margin: 15px 0px;
-    .aside__image {
-    }
     .aside-widget__box {
+      position: relative;
       .aside-widget__box-fix {
-        // position: absolute;
+        overflow: hidden;
         width: 310px;
-      }
-      .aside-widget__widget-image {
-        padding-top: 15px;
-      }
-      .aside-widget__widget-second {
-        padding: 15px 0px;
-      }
-      .widget-1 {
-        height: 350px;
-        background: $izColor;
-      }
-      .widget-2 {
-        height: 500px;
-        background: $textItem;
+        & > div{
+          padding-top: 15px;
+        }
       }
     }
   }
