@@ -30,8 +30,8 @@ export default {
     script: [
       {
         src: 'https://yastatic.net/pcode/adfox/loader.js',
-        crossorigin: 'anonymous'
-
+        crossorigin: 'anonymous',
+        async: 'async'
       }
     ],
     link: [

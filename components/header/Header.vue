@@ -277,8 +277,8 @@ export default {
       })
     },
     setAdFoxTable () {
-      document.getElementById(this.dectopAdId).classList.remove('active')
-      document.getElementById(this.tableAdId).classList.add('active')
+      // document.getElementById(this.dectopAdId).classList.remove('active')
+      // document.getElementById(this.tableAdId).classList.add('active')
       if (!this.tableAd) {
         console.log('phone advertising')
         this.tableAd = window.Ya.adfoxCode.createAdaptive({
@@ -292,7 +292,7 @@ export default {
             puid21: '1',
             puid26: '0'
           }
-        }, ['phone'], {
+        }, ['phone', 'tablet'], {
           tabletWidth: 768,
           phoneWidth: 520,
           isAutoReloads: false
@@ -300,17 +300,21 @@ export default {
       }
     },
     setAdFoxHeader () {
-      document.getElementById(this.tableAdId).classList.remove('active')
-      document.getElementById(this.dectopAdId).classList.add('active')
+      // document.getElementById(this.tableAdId).classList.remove('active')
+      // document.getElementById(this.dectopAdId).classList.add('active')
       if (!this.dectopAd) {
         console.log('top advertising')
-        this.dectopAd = window.Ya.adfoxCode.create({
+        this.dectopAd = window.Ya.adfoxCode.createAdaptive({
           ownerId: 208087,
           containerId: this.dectopAdId,
           params: {
             pt: 'b',
             p1: 'bsoji'
           }
+        }, ['desktop'], {
+          tabletWidth: 768,
+          phoneWidth: 520,
+          isAutoReloads: false
         })
       }
     },
@@ -1104,9 +1108,9 @@ export default {
   }
 }
 .advertising {
-  display: none;
+  // display: none;
   &.active {
-    display: block;
+    // display: block;
   }
 }
 // menu-switcher checked

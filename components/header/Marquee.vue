@@ -71,8 +71,9 @@ export default {
   },
   mounted () {
     setTimeout(() => {
+      this.targetScroll = document.querySelector('.marquee')
       this.pdFix = document.querySelector('.header-iz').offsetHeight
-      this.defaultTop = offset(this.$refs.marquee).top - this.pdFix
+      this.defaultTop = offset(this.targetScroll).top - this.pdFix
       window.addEventListener('scroll', this.handleScroll)
       window.addEventListener('resize', this.handleResize)
     }, 1000)
@@ -84,10 +85,10 @@ export default {
   methods: {
     handleResize (evt) {
       this.pdFix = document.querySelector('.header-iz').offsetHeight
-      this.defaultTop = offset(this.$refs.marquee).top - this.pdFix
+      this.defaultTop = offset(this.targetScroll).top - this.pdFix
     },
     handleScroll (evt) {
-      const target = this.$refs.marquee
+      const target = this.targetScroll
       const scrollTop = this.positionScroll.y
       if (this.lastScrollTop > scrollTop) {
         // UP
