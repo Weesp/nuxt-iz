@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import izHeader from '@/components/header/Header'
 import izPublications from '@/components/tags/Publications'
 import izAside from '@/components/Aside'
@@ -70,6 +71,14 @@ export default {
     return {
       paramPage
     }
+  },
+  mounted () {
+    this.setSection(this.$refs.mainSection)
+  },
+  methods: {
+    ...mapMutations('slider', {
+      setSection: 'SET_MAIN_SECTION'
+    })
   }
 }
 </script>

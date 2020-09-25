@@ -200,10 +200,8 @@ export default {
           config: false
         }
       })
-      console.log(param)
       const res = await this.$store.dispatch('tags/addTags', this.$route.params.id + '?json=' + param)
       res.then(() => {
-        console.log(1111)
         this.pageRender(page)
       })
     },

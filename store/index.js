@@ -1,6 +1,6 @@
 export const state = () => ({
   errors: [],
-  table: false,
+  table: null,
   clientWidth: 0
 })
 

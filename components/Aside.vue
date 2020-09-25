@@ -1,6 +1,6 @@
 <template>
   <aside class="aside">
-    <div class="aside__box">
+    <div ref="asideBox" class="aside__box">
       <div class="aside-video__box">
         <img src="@/assets/img/video.webp" alt="iz aside video" class="aside__image">
       </div>
@@ -34,15 +34,15 @@ export default {
   data: () => ({
     lastScrollTop: 0,
     fixedWidgetBot: false,
-    fixedWidgetTop: false,
-    targetScroll: ''
+    fixedWidgetTop: false
   }),
   computed: {
     ...mapState('slider', {
       defaultTop: 'defaultTop',
       pdFix: 'pdFix',
       pdBot: 'pdBot',
-      active: 'active'
+      active: 'active',
+      mainSection: 'mainSection'
     })
   },
   watch: {
@@ -59,7 +59,7 @@ export default {
     const $this = this
     this.advertisingInit().then(function () {
       setTimeout(() => {
-        if (document.querySelector('.section').offsetHeight - $this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
+        if ($this.mainSection.offsetHeight - $this.pdFix >= $this.$refs.asideBox.offsetHeight) {
           $this.setActive(true)
         }
       }, 1000)
@@ -71,7 +71,6 @@ export default {
   },
   methods: {
     initScroll () {
-      this.setTargetScoll(document.querySelector('.aside-widget__box-fix'))
       this.setDefTop(offset(this.$refs.asideFix).top - (this.pdFix * 2))
       window.addEventListener('resize', this.handleResize)
       window.addEventListener('scroll', this.handleScroll)
@@ -79,6 +78,12 @@ export default {
     destroyedScroll () {
       window.removeEventListener('scroll', this.handleScroll)
       window.removeEventListener('resize', this.handleResize)
+    },
+    handleResize () {
+      this.setDefTop(offset(this.$refs.asideFix).top - (this.pdFix * 2))
+      if (this.mainSection.offsetHeight - this.pdFix >= this.$refs.asideBox.offsetHeight) {
+        this.setActive(true)
+      }
     },
     setAdfox (id) {
       return window.Ya.adfoxCode.create({
@@ -96,10 +101,6 @@ export default {
         this.setAdfox('adfox1'),
         this.setAdfox('adfox2')
       ])
-    },
-    handleResize () {
-      // this.setTargetScoll(document.querySelector('.aside-widget__box-fix'))
-      this.setDefTop(offset(this.$refs.asideFix).top - (this.pdFix * 2))
     },
     handleScroll () {
       const target = this.$refs.asideFix
@@ -150,7 +151,6 @@ export default {
       this.lastScrollTop = scrollTop
     },
     ...mapMutations('slider', {
-      setTargetScoll: 'SET_TARGET_SCROLL',
       setDefTop: 'SET_DEFAULT_TOP',
       setActive: 'SET_ACTIVE'
     })

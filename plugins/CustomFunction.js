@@ -90,6 +90,10 @@ function localeDate (date) {
 
 const dateISO = date => new Date(date * 1000).toISOString()
 
+function toggleActive (el) {
+  el && el.classList.contains('active') ? el.classList.remove('active') : el.classList.add('active')
+}
+
 module.exports = {
   offset,
   showFooterMenu,
@@ -101,5 +105,6 @@ module.exports = {
   standByPosition,
   timeFormat,
   localeDate,
-  dateISO
+  dateISO,
+  toggleActive
 }

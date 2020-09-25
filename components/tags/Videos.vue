@@ -72,7 +72,6 @@ export default {
       })
       const res = await this.$store.dispatch('tags/addTags', this.$route.params.id + '?json=' + param)
       res.then(() => {
-        console.log(1111)
       })
     }
   }

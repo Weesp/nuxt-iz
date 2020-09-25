@@ -4,7 +4,7 @@
     <div class="content-wrapper">
       <div class="container">
         <div class="page-wrapper">
-          <section class="section">
+          <section ref="mainSection" class="section">
             <izPhotos
               :param-page="paramPage"
             />
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import izHeader from '@/components/header/Header'
 import izPhotos from '@/components/tags/Photos'
 import izAside from '@/components/Aside'
@@ -70,6 +71,14 @@ export default {
     return {
       paramPage
     }
+  },
+  mounted () {
+    this.setSection(this.$refs.mainSection)
+  },
+  methods: {
+    ...mapMutations('slider', {
+      setSection: 'SET_MAIN_SECTION'
+    })
   }
 }
 </script>

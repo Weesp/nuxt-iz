@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <div id="adfox_151870576919835175" />
-    <div id="adfox_159186748856245181" />
+    <div id="adfox_151870576919835175" class="advertising" />
+    <div id="adfox_159186748856245181" class="advertising" />
     <topPanel
       :top-lincs="topLincs"
     />
     <input id="menuSwitcher" class="menu-switcher" type="checkbox">
     <div ref="backFixBox" class="header-iz__back" />
-    <div class="header-iz">
+    <div ref="header" class="header-iz">
       <logo
         :logo-menu-items="logoMenuItems"
       />
@@ -87,9 +87,12 @@ export default {
   mixins: [positionScroll, extid],
   data () {
     return {
+      tableAdId: 'adfox_159186748856245181',
+      dectopAdId: 'adfox_151870576919835175',
+      tableAd: false,
+      dectopAd: false,
       defaultTop: 0,
       lastScrollTop: 0,
-      targetScroll: '',
       showBtnHeight: 350,
       logoMenuItems: [
         {
@@ -214,63 +217,16 @@ export default {
       table: 'table'
     })
   },
+  watch: {
+    table () {
+      this.table ? this.setAdFoxTable() : this.setAdFoxHeader()
+    }
+  },
   mounted () {
     this.setClientWidth(document.documentElement.clientWidth)
-    console.log(this.table)
     // const extid = this.getUserExtid() // mixin extid
-    if (this.table) {
-      if (window?.Ya?.adfoxCode) {
-        console.log('phone advertising')
-        window.Ya.adfoxCode.createAdaptive({
-          ownerId: 264443,
-          containerId: 'adfox_159186748856245181',
-          params: {
-            p1: 'cbmpm',
-            p2: 'fvav',
-            puid8: '0',
-            puid12: '186114',
-            puid21: '1',
-            puid26: '0'
-          }
-        }, ['phone'], {
-          tabletWidth: 768,
-          phoneWidth: 520,
-          isAutoReloads: false
-        })
-      }
-    } else if (window?.Ya?.adfoxCode) {
-      console.log('top advertising')
-      window.Ya.adfoxCode.create({
-        ownerId: 208087,
-        containerId: 'adfox_151870576919835175',
-        params: {
-          pt: 'b',
-          p1: 'bsoji'
-        }
-      })
-      // window.Ya.adfoxCode.create({
-      //   ownerId: 264443,
-      //   containerId: 'adfox_151870576919835175',
-      //   params: {
-      //     extid_tag: 'izvestia',
-      //     extid,
-      //     p1: 'bzisb',
-      //     p2: 'fulf',
-      //     puid8: '1900',
-      //     puid12: '186114',
-      //     puid21: '1',
-      //     puid26: '0'
-      //   }
-      // }, ['desktop', 'tablet'], {
-      //   tabletWidth: 1023,
-      //   phoneWidth: 480,
-      //   isAutoReloads: false
-      // })
-    }
-
     setTimeout(() => {
-      this.targetScroll = document.querySelector('.header-iz')
-      this.defaultTop = offset(this.targetScroll).top
+      this.defaultTop = offset(this.$refs.header).top
       window.addEventListener('resize', this.handleResize)
       window.addEventListener('scroll', this.handleScroll)
     }, 1000)
@@ -281,12 +237,12 @@ export default {
   },
   methods: {
     handleResize () {
-      this.targetScroll = document.querySelector('.header-iz')
-      this.defaultTop = offset(this.targetScroll).top
+      this.setClientWidth(document.documentElement.clientWidth)
+      this.defaultTop = offset(this.$refs.header).top
     },
     handleScroll (evt) {
       const btnTop = this.$refs.btnTop
-      const targetHeader = this.targetScroll
+      const targetHeader = this.$refs.header
       const scrollTop = this.positionScroll.y
       const showBtnControl = window.innerHeight / 3 > this.showBtnHeight ? this.showBtnHeight : window.innerHeight / 3
       const backFixBox = this.$refs.backFixBox
@@ -319,6 +275,44 @@ export default {
         top: 0,
         behavior: 'smooth'
       })
+    },
+    setAdFoxTable () {
+      document.getElementById(this.dectopAdId).classList.remove('active')
+      document.getElementById(this.tableAdId).classList.add('active')
+      if (!this.tableAd) {
+        console.log('phone advertising')
+        this.tableAd = window.Ya.adfoxCode.createAdaptive({
+          ownerId: 264443,
+          containerId: this.tableAdId,
+          params: {
+            p1: 'cbmpm',
+            p2: 'fvav',
+            puid8: '0',
+            puid12: '186114',
+            puid21: '1',
+            puid26: '0'
+          }
+        }, ['phone'], {
+          tabletWidth: 768,
+          phoneWidth: 520,
+          isAutoReloads: false
+        })
+      }
+    },
+    setAdFoxHeader () {
+      document.getElementById(this.tableAdId).classList.remove('active')
+      document.getElementById(this.dectopAdId).classList.add('active')
+      if (!this.dectopAd) {
+        console.log('top advertising')
+        this.dectopAd = window.Ya.adfoxCode.create({
+          ownerId: 208087,
+          containerId: this.dectopAdId,
+          params: {
+            pt: 'b',
+            p1: 'bsoji'
+          }
+        })
+      }
     },
     ...mapMutations({
       setClientWidth: 'SET_CLIENT_WIDTH'
@@ -1109,7 +1103,12 @@ export default {
     }
   }
 }
-
+.advertising {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
 // menu-switcher checked
 .menu-switcher {
   position: absolute;

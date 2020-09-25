@@ -10,15 +10,11 @@
       <tagMaterials
         :items="materials"
       />
-      <div class="btn-show-more__box">
-        <button
-          v-if="pageNumber * paramPage.limit < pageCount"
-          class="btn-show-more"
-          @click="nextPage"
-        >
-          Показать ещё
-        </button>
-      </div>
+      <nextBtn
+        v-if="pageNumber * paramPage.limit < pageCount"
+        ref="nextBtn"
+        @nextPage="nextPage"
+      />
     </div>
   </div>
 </template>
@@ -29,12 +25,14 @@ import { mapState } from 'vuex'
 import tagTitle from '@/components/tags/Title'
 import tabMenu from '@/components/tags/TabMenu'
 import tagMaterials from '@/components/tags/module/MaterialsList'
+import nextBtn from '@/components/NextBtn'
 
 export default {
   components: {
     tabMenu,
     tagTitle,
-    tagMaterials
+    tagMaterials,
+    nextBtn
   },
   props: {
     paramPage: {
@@ -70,10 +68,8 @@ export default {
           config: false
         }
       })
-      console.log(param)
       const res = await this.$store.dispatch('tags/addTags', this.$route.params.id + '?json=' + param)
       res.then(() => {
-        console.log(1111)
         // this.pageRender(page)
       })
     }

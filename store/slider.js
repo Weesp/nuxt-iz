@@ -3,7 +3,8 @@ export const state = () => ({
   targetScroll: '',
   pdFix: 75,
   pdBot: 30,
-  active: false
+  active: false,
+  mainSection: ''
 })
 
 export const mutations = {
@@ -15,6 +16,9 @@ export const mutations = {
   },
   SET_ACTIVE (state, value) {
     state.active = value
+  },
+  SET_MAIN_SECTION (state, value) {
+    state.targetScroll = value
   }
 }
 
