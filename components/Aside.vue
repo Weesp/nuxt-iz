@@ -69,19 +69,17 @@ export default {
   },
   methods: {
     initScroll () {
-      console.log('init Events SCROLL')
       this.setTargetScoll(document.querySelector('.aside-widget__box-fix'))
       this.setDefTop(offset(this.targetScroll).top - (this.pdFix * 2))
       window.addEventListener('resize', this.handleResize)
       window.addEventListener('scroll', this.handleScroll)
     },
     destroyedScroll () {
-      console.log('remove Events SCROLL')
       window.removeEventListener('scroll', this.handleScroll)
       window.removeEventListener('resize', this.handleResize)
     },
-    async setAdfox (id) {
-      return await window.Ya.adfoxCode.create({
+    setAdfox (id) {
+      return window.Ya.adfoxCode.create({
         ownerId: 208087,
         containerId: id,
         params: {

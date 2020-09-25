@@ -210,31 +210,41 @@ export default {
     })
   },
   mounted () {
-    this.targetScroll = document.querySelector('.header-iz')
-    this.defaultTop = offset(this.targetScroll).top
-    window.addEventListener('resize', this.handleResize)
-    window.addEventListener('scroll', this.handleScroll)
-    const extid = this.getUserExtid() // mixin extid
+    // const extid = this.getUserExtid() // mixin extid
     if (window?.Ya?.adfoxCode) {
       console.log('top advertising')
       window.Ya.adfoxCode.create({
-        ownerId: 264443,
+        ownerId: 208087,
         containerId: 'adfox_151870576919835175',
         params: {
-          extid_tag: 'izvestia',
-          extid,
-          p1: 'bzisb',
-          p2: 'fulf',
-          puid8: '1900',
-          puid12: '186114',
-          puid21: '1',
-          puid26: '0'
+          pt: 'b',
+          p1: 'bsoji'
         }
-      }, ['desktop', 'tablet'], {
-        tabletWidth: 1023,
-        phoneWidth: 480,
-        isAutoReloads: false
       })
+      setTimeout(() => {
+        this.targetScroll = document.querySelector('.header-iz')
+        this.defaultTop = offset(this.targetScroll).top
+        window.addEventListener('resize', this.handleResize)
+        window.addEventListener('scroll', this.handleScroll)
+      }, 1000)
+      // window.Ya.adfoxCode.create({
+      //   ownerId: 264443,
+      //   containerId: 'adfox_151870576919835175',
+      //   params: {
+      //     extid_tag: 'izvestia',
+      //     extid,
+      //     p1: 'bzisb',
+      //     p2: 'fulf',
+      //     puid8: '1900',
+      //     puid12: '186114',
+      //     puid21: '1',
+      //     puid26: '0'
+      //   }
+      // }, ['desktop', 'tablet'], {
+      //   tabletWidth: 1023,
+      //   phoneWidth: 480,
+      //   isAutoReloads: false
+      // })
     }
   },
   destroyed () {
@@ -245,7 +255,6 @@ export default {
     handleResize () {
       this.targetScroll = document.querySelector('.header-iz')
       this.defaultTop = offset(this.targetScroll).top
-      // console.log(this.defaultTop)
     },
     handleScroll (evt) {
       const btnTop = this.$refs.btnTop

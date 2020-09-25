@@ -69,7 +69,7 @@ export default {
         const clone = box.cloneNode(true)
         box.insertAdjacentElement('afterend', clone)
         this.$refs.nextBtn.btnFinish()
-        if (document.querySelector('.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
+        if (document.querySelector('section.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
           this.setActive(true)
         }
         // this.$store.commit('SET_DEFAULT_TOP', document.querySelector('.aside-widget__box-fix'))

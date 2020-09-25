@@ -10,6 +10,12 @@ export default {
   ** See https://nuxtjs.org/api/configuration-target
   */
   target: 'server',
+  env: {
+    API_PATHS: {
+      host: 'https://iz.ru/api/0',
+      tag: 'tag'
+    }
+  },
   /*
   ** Headers of the page
   ** See https://nuxtjs.org/api/configuration-head
@@ -83,5 +89,8 @@ export default {
   //   color: '#ffffff',
   //   height: '5px'
   //   // rtl: true
+  // }
+  // router: {
+  //   middleware: 'navigation'
   // }
 }

@@ -71,10 +71,12 @@ export default {
     })
   },
   mounted () {
-    this.targetScroll = document.querySelector('.marquee')
-    this.pdFix = document.querySelector('.header-iz').offsetHeight
-    this.defaultTop = offset(this.targetScroll).top - this.pdFix
-    window.addEventListener('scroll', this.handleScroll)
+    setTimeout(() => {
+      this.targetScroll = document.querySelector('.marquee')
+      this.pdFix = document.querySelector('.header-iz').offsetHeight
+      this.defaultTop = offset(this.targetScroll).top - this.pdFix
+      window.addEventListener('scroll', this.handleScroll)
+    }, 1000)
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
