@@ -13,6 +13,7 @@
 <script>
 export default {
   data: () => ({}),
+  // middleware: ['navigation'],
   methods: {
     btnLoaded (btn = this.$refs.nextBtn) {
       if (btn) {

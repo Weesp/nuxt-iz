@@ -6,7 +6,7 @@
 //     404: '{statusCode: 404, message: "Страница не найденна"}'
 //   }
 // }
-import { API_PATHS } from '@/config'
+// import { API_PATHS } from '@/config'
 
 export const state = () => ({
   main: [],
@@ -79,7 +79,7 @@ export const mutations = {
 export const actions = {
   fetchTags ({ commit }, tag) {
     return this.$axios
-      .$get(`${API_PATHS.host}/${API_PATHS.tag}/${tag}`)
+      .$get(`${process.env.API_PATHS.host}/${process.env.API_PATHS.tag}/${tag}`)
       .then(({ status, object, included = {} }) => {
         if (status.code !== 200) { throw new Error(`http response status: ${status.code}`) }
         const { topPanel, menu, ticker, videos, photos, materials } = included
@@ -94,7 +94,7 @@ export const actions = {
   },
   addTags ({ commit }, tag) {
     return this.$axios
-      .$get(`${API_PATHS.host}/${API_PATHS.tag}/${tag}`)
+      .$get(`${process.env.API_PATHS.host}/${process.env.API_PATHS.tag}/${tag}`)
       .then(({ status, included = {} }) => {
         if (status.code !== 200) { throw new Error(`http response status: ${status.code}`) }
         const { videos, photos, materials } = included
