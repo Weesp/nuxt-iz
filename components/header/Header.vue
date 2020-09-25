@@ -219,7 +219,9 @@ export default {
   },
   watch: {
     table () {
-      this.table ? this.setAdFoxTable() : this.setAdFoxHeader()
+      if (window?.Ya?.adfoxCode) {
+        this.table ? this.setAdFoxTable() : this.setAdFoxHeader()
+      }
     }
   },
   mounted () {

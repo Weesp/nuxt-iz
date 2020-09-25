@@ -27,13 +27,12 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
-    script: [
-      {
-        src: 'https://yastatic.net/pcode/adfox/loader.js',
-        crossorigin: 'anonymous',
-        async: 'async'
-      }
-    ],
+    // script: [
+    //   {
+    //     src: 'https://yastatic.net/pcode/adfox/loader.js',
+    //     crossorigin: 'anonymous'
+    //   }
+    // ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ]

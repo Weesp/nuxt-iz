@@ -57,13 +57,15 @@ export default {
   },
   mounted () {
     const $this = this
-    this.advertisingInit().then(function () {
-      setTimeout(() => {
-        if ($this.mainSection.offsetHeight - $this.pdFix >= $this.$refs.asideBox.offsetHeight) {
-          $this.setActive(true)
-        }
-      }, 1000)
-    })
+    if (window?.Ya?.adfoxCode) {
+      this.advertisingInit().then(function () {
+        setTimeout(() => {
+          if ($this.mainSection.offsetHeight - $this.pdFix >= $this.$refs.asideBox.offsetHeight) {
+            $this.setActive(true)
+          }
+        }, 1000)
+      })
+    }
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
