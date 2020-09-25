@@ -5,7 +5,7 @@
         <img src="@/assets/img/video.webp" alt="iz aside video" class="aside__image">
       </div>
       <div class="aside-widget__box">
-        <div class="aside-widget__box-fix">
+        <div ref="asideFix" class="aside-widget__box-fix">
           <div id="adfox" />
           <div id="adfox1" />
           <div id="adfox2" />
@@ -34,12 +34,12 @@ export default {
   data: () => ({
     lastScrollTop: 0,
     fixedWidgetBot: false,
-    fixedWidgetTop: false
+    fixedWidgetTop: false,
+    targetScroll: ''
   }),
   computed: {
     ...mapState('slider', {
       defaultTop: 'defaultTop',
-      targetScroll: 'targetScroll',
       pdFix: 'pdFix',
       pdBot: 'pdBot',
       active: 'active'
@@ -56,12 +56,14 @@ export default {
     }
   },
   mounted () {
-    this.advertisingInit()
-    setTimeout(() => {
-      if (document.querySelector('.section').offsetHeight - this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
-        this.setActive(true)
-      }
-    }, 1000)
+    const $this = this
+    this.advertisingInit().then(function () {
+      setTimeout(() => {
+        if (document.querySelector('.section').offsetHeight - $this.pdFix >= document.querySelector('.aside__box').offsetHeight) {
+          $this.setActive(true)
+        }
+      }, 1000)
+    })
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
@@ -70,7 +72,7 @@ export default {
   methods: {
     initScroll () {
       this.setTargetScoll(document.querySelector('.aside-widget__box-fix'))
-      this.setDefTop(offset(this.targetScroll).top - (this.pdFix * 2))
+      this.setDefTop(offset(this.$refs.asideFix).top - (this.pdFix * 2))
       window.addEventListener('resize', this.handleResize)
       window.addEventListener('scroll', this.handleScroll)
     },
@@ -88,17 +90,19 @@ export default {
         }
       })
     },
-    advertisingInit () {
-      this.setAdfox('adfox')
-      this.setAdfox('adfox1')
-      this.setAdfox('adfox2')
+    async advertisingInit () {
+      return await Promise.all([
+        this.setAdfox('adfox'),
+        this.setAdfox('adfox1'),
+        this.setAdfox('adfox2')
+      ])
     },
     handleResize () {
-      this.setTargetScoll(document.querySelector('.aside-widget__box-fix'))
-      this.setDefTop(offset(this.targetScroll).top - (this.pdFix * 2))
+      // this.setTargetScoll(document.querySelector('.aside-widget__box-fix'))
+      this.setDefTop(offset(this.$refs.asideFix).top - (this.pdFix * 2))
     },
     handleScroll () {
-      const target = this.targetScroll
+      const target = this.$refs.asideFix
       const scrollTop = this.positionScroll.y
       const offsetFix = offset(target).top
       const clientHeight = document.documentElement.clientHeight
@@ -140,7 +144,7 @@ export default {
             }
           }
         } else if (offsetFix <= scrollTop + this.pdFix) {
-          fixedElementOnTop(this.targetScroll, this.pdFix)
+          fixedElementOnTop(this.$refs.asideFix, this.pdFix)
         }
       }
       this.lastScrollTop = scrollTop

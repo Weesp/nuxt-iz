@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div id="adfox_151870576919835175" />
+    <div id="adfox_159186748856245181" />
     <topPanel
       :top-lincs="topLincs"
     />
@@ -33,7 +34,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import topPanel from '@/components/header/TopPanel'
 import logo from '@/components/header/Logo'
@@ -207,11 +208,37 @@ export default {
     ...mapState('tags', {
       topLincs: 'topPanel',
       mainMenu: 'mainMenu'
+    }),
+    ...mapState({
+      clientWidth: 'clientWidth',
+      table: 'table'
     })
   },
   mounted () {
+    this.setClientWidth(document.documentElement.clientWidth)
+    console.log(this.table)
     // const extid = this.getUserExtid() // mixin extid
-    if (window?.Ya?.adfoxCode) {
+    if (this.table) {
+      if (window?.Ya?.adfoxCode) {
+        console.log('phone advertising')
+        window.Ya.adfoxCode.createAdaptive({
+          ownerId: 264443,
+          containerId: 'adfox_159186748856245181',
+          params: {
+            p1: 'cbmpm',
+            p2: 'fvav',
+            puid8: '0',
+            puid12: '186114',
+            puid21: '1',
+            puid26: '0'
+          }
+        }, ['phone'], {
+          tabletWidth: 768,
+          phoneWidth: 520,
+          isAutoReloads: false
+        })
+      }
+    } else if (window?.Ya?.adfoxCode) {
       console.log('top advertising')
       window.Ya.adfoxCode.create({
         ownerId: 208087,
@@ -221,12 +248,6 @@ export default {
           p1: 'bsoji'
         }
       })
-      setTimeout(() => {
-        this.targetScroll = document.querySelector('.header-iz')
-        this.defaultTop = offset(this.targetScroll).top
-        window.addEventListener('resize', this.handleResize)
-        window.addEventListener('scroll', this.handleScroll)
-      }, 1000)
       // window.Ya.adfoxCode.create({
       //   ownerId: 264443,
       //   containerId: 'adfox_151870576919835175',
@@ -246,6 +267,13 @@ export default {
       //   isAutoReloads: false
       // })
     }
+
+    setTimeout(() => {
+      this.targetScroll = document.querySelector('.header-iz')
+      this.defaultTop = offset(this.targetScroll).top
+      window.addEventListener('resize', this.handleResize)
+      window.addEventListener('scroll', this.handleScroll)
+    }, 1000)
   },
   destroyed () {
     window.removeEventListener('resize', this.handleResize)
@@ -291,7 +319,10 @@ export default {
         top: 0,
         behavior: 'smooth'
       })
-    }
+    },
+    ...mapMutations({
+      setClientWidth: 'SET_CLIENT_WIDTH'
+    })
   }
 }
 </script>

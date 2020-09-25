@@ -1,5 +1,7 @@
 export const state = () => ({
-  errors: []
+  errors: [],
+  table: false,
+  clientWidth: 0
 })
 
 export const getters = {
@@ -11,6 +13,10 @@ export const getters = {
 export const mutations = {
   PUSH_ERROR (state, value) {
     state.errors.push(value)
+  },
+  SET_CLIENT_WIDTH (state, value) {
+    value <= 768 ? state.table = true : state.table = false
+    state.clientWidth = value
   }
 }
 
