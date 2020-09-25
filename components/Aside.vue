@@ -59,11 +59,13 @@ export default {
     const $this = this
     if (window?.Ya?.adfoxCode) {
       this.advertisingInit().then(function () {
-        setTimeout(() => {
-          if ($this.mainSection.offsetHeight - $this.pdFix >= $this.$refs.asideBox.offsetHeight) {
-            $this.setActive(true)
-          }
-        }, 1000)
+        console.log(1111)
+        // debugger
+        // setTimeout(() => {
+        if ($this.mainSection.offsetHeight - $this.pdFix >= $this.$refs.asideBox.offsetHeight) {
+          $this.setActive(true)
+        }
+        // }, 1000)
       })
     }
   },
@@ -88,17 +90,22 @@ export default {
       }
     },
     setAdfox (id) {
-      return window.Ya.adfoxCode.create({
-        ownerId: 208087,
-        containerId: id,
-        params: {
-          pt: 'b',
-          p1: 'bsoji'
-        }
-      })
+      return new Promise((resolve, reject) =>
+        window.Ya.adfoxCode.create({
+          ownerId: 208087,
+          containerId: id,
+          params: {
+            pt: 'b',
+            p1: 'bsoji'
+          },
+          onRender () {
+            resolve(true)
+          }
+        })
+      )
     },
-    async advertisingInit () {
-      return await Promise.all([
+    advertisingInit () {
+      return Promise.all([
         this.setAdfox('adfox'),
         this.setAdfox('adfox1'),
         this.setAdfox('adfox2')
