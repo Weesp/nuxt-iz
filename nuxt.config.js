@@ -31,7 +31,6 @@ export default {
       {
         src: 'https://yastatic.net/pcode/adfox/loader.js',
         crossorigin: 'anonymous'
-
       }
     ],
     link: [

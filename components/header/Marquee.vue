@@ -1,6 +1,6 @@
 <template>
   <div class="marquee__box">
-    <div class="marquee">
+    <div ref="marquee" class="marquee">
       <div class="marquee__inner">
         <div
           v-for="item in marqueeItem"
@@ -62,7 +62,6 @@ export default {
   data: () => ({
     defaultTop: 0,
     lastScrollTop: 0,
-    targetScroll: '',
     pdFix: 0
   }),
   computed: {
@@ -76,12 +75,18 @@ export default {
       this.pdFix = document.querySelector('.header-iz').offsetHeight
       this.defaultTop = offset(this.targetScroll).top - this.pdFix
       window.addEventListener('scroll', this.handleScroll)
+      window.addEventListener('resize', this.handleResize)
     }, 1000)
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    handleResize (evt) {
+      this.pdFix = document.querySelector('.header-iz').offsetHeight
+      this.defaultTop = offset(this.targetScroll).top - this.pdFix
+    },
     handleScroll (evt) {
       const target = this.targetScroll
       const scrollTop = this.positionScroll.y
