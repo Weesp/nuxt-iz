@@ -23,8 +23,8 @@
             :class="'menu-item__box' + (item && item.children ? ' rubrics-items' : '')"
             itemscope
             itemtype="http://schema.org/ItemList"
-            :itemprop="item.title"
           >
+            <meta v-if="item && item.children" itemprop="name" :content="item.title">
             <li
               v-if="item && item.children"
               class="menu-item"
