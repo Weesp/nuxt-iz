@@ -240,7 +240,7 @@ export default {
   methods: {
     handleResize () {
       this.setClientWidth(document.documentElement.clientWidth)
-      this.defaultTop = offset(this.$refs.header).top
+      this.defaultTop = offset(this.$refs.backFixBox).top
     },
     handleScroll (evt) {
       const btnTop = this.$refs.btnTop
@@ -255,6 +255,10 @@ export default {
           removeFixedElementOnTop(targetHeader)
           backFixBox.style.height = ''
           backFixBox.style.position = 'absolute'
+        } else {
+          fixedElementOnTop(targetHeader)
+          backFixBox.style.height = headerHeight + 'px'
+          backFixBox.style.position = 'relative'
         }
         if (scrollTop <= showBtnControl) {
           btnTop.classList.remove('active')

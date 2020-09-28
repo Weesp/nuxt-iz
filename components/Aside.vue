@@ -1,10 +1,10 @@
 <template>
-  <aside class="aside">
+  <aside ref="aside" class="aside">
     <div ref="asideBox" class="aside__box">
       <div class="aside-video__box">
         <img src="@/assets/img/video.webp" alt="iz aside video" class="aside__image">
       </div>
-      <div class="aside-widget__box">
+      <div ref="asideWidgetsBox" class="aside-widget__box">
         <div ref="asideFix" class="aside-widget__box-fix">
           <div id="adfox" />
           <div id="adfox1" />
@@ -59,13 +59,9 @@ export default {
     const $this = this
     if (window?.Ya?.adfoxCode) {
       this.advertisingInit().then(function () {
-        console.log(1111)
-        // debugger
-        // setTimeout(() => {
         if ($this.mainSection.offsetHeight - $this.pdFix >= $this.$refs.asideBox.offsetHeight) {
           $this.setActive(true)
         }
-        // }, 1000)
       })
     }
   },
@@ -75,7 +71,8 @@ export default {
   },
   methods: {
     initScroll () {
-      this.setDefTop(offset(this.$refs.asideFix).top - (this.pdFix * 2))
+      this.setDefTop(offset(this.$refs.asideWidgetsBox).top - (this.pdFix * 2))
+      this.$refs.asideWidgetsBox.style.position = 'absolute'
       window.addEventListener('resize', this.handleResize)
       window.addEventListener('scroll', this.handleScroll)
     },
@@ -84,7 +81,9 @@ export default {
       window.removeEventListener('resize', this.handleResize)
     },
     handleResize () {
-      this.setDefTop(offset(this.$refs.asideFix).top - (this.pdFix * 2))
+      if (window.getComputedStyle(this.$refs.aside).visibility === 'visible') {
+        this.setDefTop(offset(this.$refs.asideWidgetsBox).top - (this.pdFix * 2))
+      }
       if (this.mainSection.offsetHeight - this.pdFix >= this.$refs.asideBox.offsetHeight) {
         this.setActive(true)
       }

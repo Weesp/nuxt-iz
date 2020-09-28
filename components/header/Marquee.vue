@@ -85,7 +85,7 @@ export default {
   methods: {
     handleResize (evt) {
       this.pdFix = document.querySelector('.header-iz').offsetHeight
-      this.defaultTop = offset(this.targetScroll).top - this.pdFix
+      this.defaultTop = offset(document.querySelector('.header-iz__back')).top - this.pdFix
     },
     handleScroll (evt) {
       const target = this.targetScroll
