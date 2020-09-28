@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     nextPage () {
-      // console.log(this.$route)
       // фичуем тута store.dispatch('tags/fetchTags', params.id), // page...
       this.$refs.nextBtn.btnLoaded()
       setTimeout(() => {
@@ -95,8 +94,70 @@ export default {
     ...mapMutations('slider', {
       setActive: 'SET_ACTIVE'
     })
+  },
+  head () {
+    return {
+      title: this.mainTag.title ? 'Все фото с тегом ' + this.mainTag.title : '',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.mainTag.description || 'Все фото с тегом ' + this.mainTag.title
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.mainTag.description || 'Все фото с тегом ' + this.mainTag.title
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.mainTag.description || 'Все фото с тегом ' + this.mainTag.title
+        }
+      ],
+      link: [
+        {
+          rel: 'canonical',
+          href: this.$route.fullPath
+        }
+      ],
+      script: [
+        {
+          type: 'application/ld+json',
+          json: {
+            '@context': 'http://schema.org/',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                item: {
+                  '@id': 'https://iz.ru',
+                  name: 'iz.ru'
+                }
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                item: {
+                  '@id': 'https://iz.ru/tags',
+                  name: 'Теги'
+                }
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                item: {
+                  '@id': this.$route.fullPath,
+                  name: 'Фото ' + this.mainTag.title
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
   }
-
 }
 </script>
 

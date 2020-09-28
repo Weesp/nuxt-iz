@@ -24,14 +24,46 @@ export default {
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     script: [
       {
         src: 'https://yastatic.net/pcode/adfox/loader.js',
         crossorigin: 'anonymous',
         async: 'async'
+      },
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org/',
+          '@type': 'Person',
+          name: 'IZ.RU',
+          url: 'https://iz.ru',
+          sameAs: [
+            'https://vk.com/izvestia',
+            'https://www.facebook.com/izvestia.ru',
+            'https://ok.ru/group/53243993063542',
+            'https://twitter.com/izvestia_ru',
+            'https://plus.google.com/u/0/+izvestiaru',
+            'https://flipboard.com/@IZ_RU',
+            'https://www.instagram.com/izvestia_ru/',
+            'https://www.youtube.com/channel/UCpusbvpcIFlVxax9KajEijg',
+            'https://t.me/izvestia'
+          ]
+        }
+      },
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org/',
+          '@type': 'WebSite',
+          url: 'https://iz.ru/',
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: 'https://iz.ru/search?text={search_term_string}',
+            'query-input': 'required name=search_term_string'
+          }
+        }
       }
     ],
     link: [
@@ -51,7 +83,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    // { src: '@/plugins/ScrollGlobal.js', mode: 'client' }
+    // { src: '@/mixins/metaHead.js', mode: 'client' }
   ],
   /*
   ** Auto import components

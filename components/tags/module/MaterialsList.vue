@@ -20,7 +20,13 @@
               <meta itemprop="datePublished" :content="dateISO(item.date.published)">
               {{ item.date.published ? localeDate(item.date.published) : item.date }}
             </div>
-            <div class="tag-materials-item__title" itemprop="name">{{ item.title }}</div>
+            <div class="tag-materials-item__title" itemprop="name">
+              <meta
+                itemprop="headline"
+                :content="item.title"
+              >
+              {{ item.title }}
+            </div>
             <div class="tag-materials-item__text" itemprop="description">{{ item.description }}</div>
           </a>
         </div>
