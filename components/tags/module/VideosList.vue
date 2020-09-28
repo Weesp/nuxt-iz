@@ -32,12 +32,17 @@
           class="tag-video-item"
           itemprop="url"
         >
-          <div class="tag-video-item__box">
-            <div
-              class="tag-video-item__image__box"
-              itemscope
-              itemtype="http://schema.org/VideoObject"
-            >
+          <div
+            class="tag-video-item__box"
+            itemscope
+            itemtype="http://schema.org/VideoObject"
+          >
+            <div class="tag-video-item__image__box">
+              <meta
+                v-if="item.previews && item.previews['900x506']"
+                itemprop="thumbnailUrl"
+                :content="item.previews['900x506'].path"
+              >
               <img
                 v-if="item.previews && item.previews['900x506']"
                 :data-src="item.previews['900x506'].path"
