@@ -524,7 +524,7 @@ export default {
       }
     }
   }
-  ul.menu-items {
+  .menu-items {
     list-style-type: none;
     display: flex;
     align-items: center;
@@ -1135,11 +1135,11 @@ export default {
     right: 0px;
     overflow-y: auto;
     height: auto;
-    nav.menu__box {
+    .menu__box {
       // left: 0;
       // position: fixed;
       width: 100%;
-      ul.menu-items {
+      .menu-items {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         text-transform: uppercase;
@@ -1171,7 +1171,7 @@ export default {
     }
   }
   @media (min-width: $tableWidth) and (max-width: $smDesktopWidth) {
-    nav.menu__box {
+    .menu__box {
       left: 0;
       .menu-items__box {
         display: block;

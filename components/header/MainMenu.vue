@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <nav class="menu__box">
+    <div class="menu__box">
       <label class="menu-open" for="menuSwitcher">
         <div class="burger">
           <div class="burger__box">
@@ -12,16 +12,17 @@
         <div class="menu-mini__label mobile-item__title">
           Материалы
         </div>
-        <ul
+        <nav
           class="menu-items"
           itemscope
           itemtype="http://schema.org/SiteNavigationElement"
         >
-          <div
+          <ul
             v-for="item in menuItems"
             :key="item.title"
             :class="'menu-item__box' + (item && item.children ? ' rubrics-items' : '')"
             itemscope
+            itemprop="about"
             itemtype="http://schema.org/ItemList"
           >
             <li
@@ -37,7 +38,7 @@
                 </svg>
                 <span v-if="item.title" itemprop="name" class="rubrics-items__text mobile-item__title">{{ item.title }}</span>
               </div>
-              <ul class="rubrics">
+              <ul class="rubrics" itemprop="itemListElement" itemscope itemtype="http://schema.org/ItemList">
                 <li
                   v-for="rubric in item.children"
                   :key="rubric.title"
@@ -63,7 +64,7 @@
                 </li>
               </ul>
             </li>
-            <li
+            <div
               v-else
               class="menu-item"
               itemprop="itemListElement"
@@ -74,9 +75,9 @@
                 <meta itemprop="name" :content="item.title">
                 {{ item.title }}
               </a>
-            </li>
-          </div>
-        </ul>
+            </div>
+          </ul>
+        </nav>
         <div class="mobile-footer">
           <div class="mobile-newspaper">
             <div class="mobile-newspaper__items__box">
@@ -169,7 +170,7 @@
           </div>
         </div>
       </label>
-    </nav>
+    </div>
   </div>
 </template>
 
