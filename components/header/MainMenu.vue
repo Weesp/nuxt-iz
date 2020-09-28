@@ -63,7 +63,13 @@
                 </li>
               </ul>
             </li>
-            <li v-else class="menu-item" itemprop="itemListElement">
+            <li
+              v-else
+              class="menu-item"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="http://schema.org/ItemList"
+            >
               <a v-if="item && item.path && item.title" :href="item.path" itemprop="url" class="mobile-item__label">
                 <meta itemprop="name" :content="item.title">
                 {{ item.title }}
