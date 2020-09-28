@@ -24,7 +24,6 @@
             itemscope
             itemtype="http://schema.org/ItemList"
           >
-            <meta v-if="item && item.children" itemprop="name" :content="item.title">
             <li
               v-if="item && item.children"
               class="menu-item"
@@ -44,6 +43,8 @@
                   :key="rubric.title"
                   class="rubric-item"
                   itemprop="itemListElement"
+                  itemscope
+                  itemtype="http://schema.org/ItemList"
                 >
                   <a v-if="rubric.path" :href="rubric.path" itemprop="url">
                     <svg v-if="rubric.icon" class="rubric-item__icon">
