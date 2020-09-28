@@ -72,7 +72,7 @@ const timeFormat = (function () {
     const minutes = Math.round(+sec / 60 % 60)
     const seconds = Math.round(+sec % 60)
     if (type === 'iso') {
-      return 'T[' + Math.floor(hours) + '][' + Math.floor(minutes) + '][' + Math.floor(seconds) + ']'
+      return 'PT' + Math.floor(hours) + 'H' + Math.floor(minutes) + 'M' + Math.floor(seconds) + 'S'
     } else {
       return (hours > 0 ? num(hours) + ':' : '') + num(minutes) + ':' + num(seconds)
     }
